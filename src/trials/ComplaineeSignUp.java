@@ -5,7 +5,7 @@
 package trials;
 
 import CWSUtilities.Email;
-import CWSUtilities.ValidateEmail;
+import CWSUtilities.Validate;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -258,7 +258,7 @@ public class ComplaineeSignUp extends javax.swing.JFrame {
 
 	if (toEmail.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
-        }else if (ValidateEmail.isValidEmail(toEmail) == false){
+        }else if (Validate.isValidEmail(toEmail) == false){
              JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else{
             
