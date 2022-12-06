@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  *
  * @author nitan
  */
-public class ValidateEmail {
+public class Validate {
     public static boolean isValidEmail(String email)
     {
         String emailRegex = Constants.EmailRegex;

@@ -83,6 +83,11 @@ public class LegalAdmin extends javax.swing.JFrame {
         jLabel1.setText("LEGAL ADMIN");
 
         backBtn.setText("BACK");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -183,6 +188,11 @@ public class LegalAdmin extends javax.swing.JFrame {
         stateLbl.setText("State:");
 
         stateDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        stateDrpdn.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                stateDrpdnItemStateChanged(evt);
+            }
+        });
 
         zipcodeLbl.setText("Zip Code:");
 
@@ -324,6 +334,32 @@ public class LegalAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        LoginPage lpjframe = new LoginPage();
+        lpjframe.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void stateDrpdnItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_stateDrpdnItemStateChanged
+        // TODO add your handling code here:
+        String state  = stateDrpdn.getSelectedItem().toString();
+        
+        switch (state) {
+            case "Massachusetts":
+                cityDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Springfield"}));
+                break;
+            case "New York":
+                cityDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New York", "Albany"}));
+                break;
+            case "Connecticut":
+                cityDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hartford", "Stamford"}));
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_stateDrpdnItemStateChanged
 
     /**
      * @param args the command line arguments
