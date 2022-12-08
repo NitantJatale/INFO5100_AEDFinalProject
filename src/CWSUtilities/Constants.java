@@ -14,12 +14,13 @@ public class Constants {
     
     public static final String dbUrl =
                 "jdbc:sqlserver://boyce.coe.neu.edu;"
-                + "database=project_team17;"
+                + "database=child_welfare17;"
                 + "user=INFO6210;"
                 + "password=NEUHusky!;"
                 + "encrypt=true;"
                 + "trustServerCertificate=true;"
                 + "loginTimeout=30;";
+    
     
     public static final String fromEmail = "childwelfare17@gmail.com";
     public static final String passwordEmail = "maxzxovjllbmwlte";

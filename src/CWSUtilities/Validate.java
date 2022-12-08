@@ -20,4 +20,28 @@ public class Validate {
             return false;
         return pat.matcher(email).matches();
     }
+    
+    public static int ConvertIntoNumeric(String nVal)
+    {
+        try
+        { 
+            return Integer.parseInt(nVal);
+        }
+        catch(Exception ex) 
+        {
+            return 0; 
+        }
+    }
+    
+    public static Long ConvertIntoLong(String nVal)
+    {
+        try
+        { 
+            return Long.valueOf(nVal);
+        }
+        catch(Exception ex) 
+        {
+            return 0L; 
+        }
+    }
 }
