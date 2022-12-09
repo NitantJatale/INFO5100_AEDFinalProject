@@ -4,8 +4,10 @@
  */
 package LegalUI;
 
+import CWSUtilities.DatabaseConnection;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelLegal.PersonLegal;
 
 /**
  *
@@ -401,17 +403,27 @@ public class LegalAdmin extends javax.swing.JFrame {
         String address = addressTxt.getText();
         String state = stateDrpdn.getSelectedItem().toString();
         String city = cityDrpdn.getSelectedItem().toString();
-        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        int zipCode = Integer.valueOf(zipcodeTxt.getText());
         
         
         DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
         
         
-        adminlegal.addRow(new Object[] {role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipcode});
+        adminlegal.addRow(new Object[] {role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipCode});
         
         
         JOptionPane.showMessageDialog(this, "Data Added Successfully !");
         
+        PersonLegal person1 = new PersonLegal(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password);
+        
+        try{
+                    DatabaseConnection.storeDataPersonLegal(person1);
+        }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                
         usernameTxt.setText("");
         passwordTxt.setText("");
         firstnameTxt.setText("");

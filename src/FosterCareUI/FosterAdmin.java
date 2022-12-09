@@ -4,8 +4,10 @@
  */
 package FosterCareUI;
 
+import CWSUtilities.DatabaseConnection;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelFoster.PersonFoster;
 
 /**
  *
@@ -408,16 +410,25 @@ public class FosterAdmin extends javax.swing.JFrame {
         String address = addressTxt.getText();
         String state = stateDrpdn.getSelectedItem().toString();
         String city = cityDrpdn.getSelectedItem().toString();
-        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        int zipCode = Integer.valueOf(zipcodeTxt.getText());
         
         
         DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
         
         
-        adminfoster.addRow(new Object[] {role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipcode});
+        adminfoster.addRow(new Object[] {role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipCode});
         
         
         JOptionPane.showMessageDialog(this, "Data Added Successfully !");
+        
+        PersonFoster person1 = new PersonFoster(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password);
+        try{
+                    DatabaseConnection.storeDataPersonFoster(person1);
+        }
+        catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
         
         usernameTxt.setText("");
         passwordTxt.setText("");

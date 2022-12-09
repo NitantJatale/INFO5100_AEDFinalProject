@@ -13,6 +13,8 @@ import java.sql.Statement;
 import modelChildWelfareCentre.PersonCWC;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelFoster.PersonFoster;
+import modelLegal.PersonLegal;
 
 /**
  *
@@ -99,6 +101,66 @@ public class DatabaseConnection {
         resultSet = statement.executeQuery(query);
 
         return resultSet;
+    }
+    
+    public static ResultSet storeDataPersonLegal(PersonLegal person){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, person.getFirstName());
+            ps.setString(2, person.getLastName());
+            ps.setString(3, person.getEmailid());
+            ps.setLong(4, person.getMobile());
+            ps.setString(5, person.getAddress());
+            ps.setString(6, person.getCity());
+            ps.setInt(7, person.getZipCode());
+            ps.setString(8, person.getState());
+            ps.setString(9, person.getUsername());
+            ps.setString(10, person.getPassword());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet storeDataPersonFoster(PersonFoster person){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO person_foster VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, person.getFirstName());
+            ps.setString(2, person.getLastName());
+            ps.setString(3, person.getEmailid());
+            ps.setLong(4, person.getMobile());
+            ps.setString(5, person.getAddress());
+            ps.setString(6, person.getCity());
+            ps.setInt(7, person.getZipCode());
+            ps.setString(8, person.getState());
+            ps.setString(9, person.getUsername());
+            ps.setString(10, person.getPassword());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
     }
   
 }
