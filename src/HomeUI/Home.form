@@ -60,6 +60,11 @@
                   </Group>
                   <EmptySpace pref="235" max="32767" attributes="0"/>
               </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="btnAdminLogin" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="404" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -75,7 +80,9 @@
                   <Component id="btnLawDepartment" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   <Component id="btnFosterCareCentre" min="-2" pref="45" max="-2" attributes="0"/>
-                  <EmptySpace pref="226" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                  <Component id="btnAdminLogin" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace pref="103" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -127,6 +134,17 @@
             </Property>
             <Property name="text" type="java.lang.String" value="FOSTER CARE CENTRE"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAdminLogin">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Admin Login"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdminLoginActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

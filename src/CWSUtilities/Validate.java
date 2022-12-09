@@ -44,4 +44,23 @@ public class Validate {
             return 0L; 
         }
     }
+    
+    public static boolean isValidUsername(String username)
+    {
+                              
+        Pattern pat = Pattern.compile(Constants.usernameRegex);
+        if (username == null)
+            return false;
+        return pat.matcher(username).matches();
+    }
+    
+    public static boolean isValidPassword(String password)
+    {
+                              
+        Pattern pat = Pattern.compile(Constants.passwordRegex);
+        if (password == null)
+            return false;
+        return pat.matcher(password).matches();
+    }
+    
 }

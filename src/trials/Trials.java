@@ -10,6 +10,7 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -108,26 +109,48 @@ public class Trials extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
-        try{
-            ResultSet resultSet = null;
-            resultSet = DatabaseConnection.getData("SELECT * FROM Person",false);
-
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(5) + " " + resultSet.getString(3));
-            }
         
-        }catch(Exception e){
-            System.out.println("Error while Connecting");
-            e.printStackTrace();
-        }
     }//GEN-LAST:event_formWindowOpened
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        ComplaineeSignUp CUP = new ComplaineeSignUp();
-            CUP.show();
-
-            dispose();
+        String username = textUsername.getText();
+        String password = textPassword.getText();
+        String role = "";
+        String checkPassword = "";
+        
+        if (username.isEmpty() || password.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+             try{
+            ResultSet resultSet = null;
+            resultSet = DatabaseConnection.getAdminRolePass(username, false);
+            
+            while (resultSet.next()) {
+                checkPassword = resultSet.getString(1);
+		role = resultSet.getString(2);
+            }
+            if (password.equals(checkPassword)){
+                
+                switch(role) {
+                    case "CWS":
+                        System.out.println("Welfare System");
+                      break;
+                    case "CPS":
+                          System.out.println("ChildProtectionService");
+                      break;
+                }
+            }else{
+            
+                JOptionPane.showMessageDialog(this, "Wrong Username or Password", "Try Again",JOptionPane.ERROR_MESSAGE);
+                
+            }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            } 
+        }
+ 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

@@ -25,6 +25,8 @@ public class Constants {
     public static final String fromEmail = "childwelfare17@gmail.com";
     public static final String passwordEmail = "maxzxovjllbmwlte";
     
+    public static final String usernameRegex = "^[a-z0-9]";
+    public static final String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
     
     
 }
