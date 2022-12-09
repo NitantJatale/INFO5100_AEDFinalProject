@@ -64,7 +64,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO extra_person VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Person_Child_Welfare_Sys VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmail());
@@ -73,8 +73,10 @@ public class DatabaseConnection {
             ps.setString(6, person.getCity());
             ps.setInt(7, person.getZipCode());
             ps.setString(8, person.getState());
-            ps.setString(9, person.getUsername());
-            ps.setString(10, person.getPassword());
+            ps.setString(9, person.getDate());
+            ps.setString(10, person.getUsername());
+            ps.setString(11, person.getPassword());
+            ps.setString(12, person.getRole());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();

@@ -4,12 +4,22 @@
  */
 package ChildWelfareCentreUI;
 
+import CWSUtilities.Constants;
+import CWSUtilities.DatabaseConnection;
 import CWSUtilities.Email;
 import CWSUtilities.Validate;
+import static CWSUtilities.Validate.isUsernameTherePersonCWC;
+import HomeUI.Home;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import trials.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelChildWelfareCentre.PersonCWC;
 /**
  *
  * @author nitan
@@ -58,7 +68,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         txtState = new javax.swing.JComboBox<>();
         txtCity = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablePersonCWC = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -67,6 +77,11 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         txtRole = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("Add - Persona");
@@ -74,14 +89,32 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("First Name:");
 
+        txtFirstName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFirstNameKeyTyped(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setText("Last Name:");
+
+        txtLastName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLastNameKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Email:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("Mobile Number:");
+
+        txtMobile.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMobileKeyTyped(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setText("Address:");
@@ -94,6 +127,12 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setText("ZipCode:");
+
+        txtZip.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtZipKeyTyped(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setText("Username:");
@@ -125,18 +164,15 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
 
         txtCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Springfield" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablePersonCWC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "FirstName", "LastName", "Email", "MobileNumber", "Address", "City", "Zip", "State", "DOB", "Username", "Password", "Role"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablePersonCWC);
 
         btnAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAdd.setText("Add");
@@ -349,8 +385,8 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        Trials t = new Trials();
-            t.show();
+        Home h = new Home();
+            h.show();
 
             dispose();
     }//GEN-LAST:event_btnBackActionPerformed
@@ -359,14 +395,38 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String toEmail = txtEmail.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        Long mobile = Validate.ConvertIntoLong(txtMobile.getText());
+        String address = txtAddress.getText();
+        Date date = txtDOB.getDate();
+        String city = txtCity.getSelectedItem().toString();
+        String state = txtState.getSelectedItem().toString();
+        Integer zipCode = Validate.ConvertIntoNumeric(txtZip.getText());
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        String role = txtRole.getSelectedItem().toString();
+        Long check = mobile;
+        Integer checkZip = zipCode; 
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
 
-	if (toEmail.isEmpty()){
+	if (toEmail.isEmpty()|| firstName.isEmpty()||lastName.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else if (Validate.isValidEmail(toEmail) == false){
              JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidPassword(password) == false){
+             JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(check).length()<10 || Long.toString(check).length()>10){
+             JOptionPane.showMessageDialog(this, "MobileNo. is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(checkZip).length()<5 || Long.toString(checkZip).length()>5){
+             JOptionPane.showMessageDialog(this, "Zipcode is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (isUsernameTherePersonCWC(username)){
+             JOptionPane.showMessageDialog(this, "Username already exists", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else{
             
-            String subject = "Signup-Successful Child Welfare System";
+                String subject = "Signup-Successful Child Welfare System";
         	String text = "Hey Welcome to Child Welfare Protection Services";
         	boolean result = false;
         
@@ -375,17 +435,34 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         	} catch (Exception ex) {
             	java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         	}
-        
-        	if(result){
-            	System.out.println("Email Sent");
-        	}else{
-            	System.out.println("Error------------------------------------------Error");
+                
+        	if(result == false){
+                    JOptionPane.showMessageDialog(this, "Email does not exists");
         	}
-
+                
+                PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role);
+            
+                try{
+                    DatabaseConnection.storeDataPersonCWC(person1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+                personTable.addRow(new Object[]{firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role});
+                
             txtEmail.setText("");
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtMobile.setText("");
+            txtAddress.setText("");
+            txtZip.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");
             
             JOptionPane.showMessageDialog(this, "Signed Up Succesfully");
-        }        
+        }      
               
         
         
@@ -418,6 +495,72 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+       Date today = Calendar.getInstance().getTime();
+       txtDOB.setDate(today);
+       
+       DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+       
+        try{
+            DatabaseConnection.getData(Constants.CWCentrePerson, false);
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+        
+        for (int i = 0; i < listPerson.size(); i++){
+            String name = listPerson.get(i).getName();
+            Integer age = listPerson.get(i).getAge();
+            String gender = listPerson.get(i).getGender();
+            String city = listPerson.get(i).getCity();
+            String address = listPerson.get(i).getAddress();
+            Long mobile = listPerson.get(i).getMobileNo();        
+            String username = listPerson.get(i).getUsername();        
+            String password = listPerson.get(i).getPassword();
+            String role =  listPerson.get(i).getRole();
+                    
+            if(role.equals("patient")){        
+                hospitalAdmin.addRow(new Object[]{name, age, mobile, gender, city, address, username, password});
+            }
+        }
+       
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtFirstNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFirstNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtFirstNameKeyTyped
+
+    private void txtLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLastNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtLastNameKeyTyped
+
+    private void txtMobileKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMobileKeyTyped
+        // TODO add your handling code here:
+        char testMobile = evt.getKeyChar();
+        if(!(Character.isDigit(testMobile))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMobileKeyTyped
+
+    private void txtZipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtZipKeyTyped
+        // TODO add your handling code here:
+        char testZip = evt.getKeyChar();
+        if(!(Character.isDigit(testZip))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtZipKeyTyped
 
     /**
      * @param args the command line arguments
@@ -478,7 +621,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablePersonCWC;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JComboBox<String> txtCity;
     private com.toedter.calendar.JDateChooser txtDOB;
