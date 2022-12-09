@@ -98,6 +98,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backBtnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -105,11 +108,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Foster Details"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fosterdetailsBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="fosterassignmentBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Foster Assignment"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fosterassignmentBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
