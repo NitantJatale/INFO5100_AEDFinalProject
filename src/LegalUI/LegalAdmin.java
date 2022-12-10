@@ -84,6 +84,8 @@ public class LegalAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("LEGAL ADMIN");
 
@@ -114,6 +116,8 @@ public class LegalAdmin extends javax.swing.JFrame {
                     .addComponent(backBtn))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
         usernameLbl.setText("Username:");
 
@@ -175,6 +179,8 @@ public class LegalAdmin extends javax.swing.JFrame {
                     .addComponent(lastnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
 
         emailidLbl.setText("EmailID:");
 
@@ -255,6 +261,9 @@ public class LegalAdmin extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
+        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
+
+        addBtn.setBackground(new java.awt.Color(255, 204, 153));
         addBtn.setText("ADD");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,6 +271,7 @@ public class LegalAdmin extends javax.swing.JFrame {
             }
         });
 
+        deleteBtn.setBackground(new java.awt.Color(255, 204, 153));
         deleteBtn.setText("DELETE");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,6 +279,7 @@ public class LegalAdmin extends javax.swing.JFrame {
             }
         });
 
+        updateBtn.setBackground(new java.awt.Color(255, 204, 153));
         updateBtn.setText("UPDATE");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +287,7 @@ public class LegalAdmin extends javax.swing.JFrame {
             }
         });
 
+        resetBtn.setBackground(new java.awt.Color(255, 204, 153));
         resetBtn.setText("RESET");
         resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

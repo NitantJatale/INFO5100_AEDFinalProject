@@ -54,7 +54,6 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
-        txtDOB = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         txtState = new javax.swing.JComboBox<>();
         txtCity = new javax.swing.JComboBox<>();
@@ -68,6 +67,8 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
         txtRole = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("Add - Persona");
@@ -110,8 +111,6 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
             }
         });
 
-        txtDOB.setDateFormatString("MM-dd-yyyy");
-
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel12.setText("Date Of Birth:");
         jLabel12.setMaximumSize(new java.awt.Dimension(44, 30));
@@ -135,6 +134,8 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 204));
 
         btnAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAdd.setText("Add");
@@ -211,7 +212,6 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPassword)
                             .addComponent(txtUsername)
-                            .addComponent(txtDOB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(289, 289, 289))))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -299,9 +299,7 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDOB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,7 +483,6 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JComboBox<String> txtCity;
-    private com.toedter.calendar.JDateChooser txtDOB;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;

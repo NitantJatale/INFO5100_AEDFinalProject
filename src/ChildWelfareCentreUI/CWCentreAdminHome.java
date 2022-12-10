@@ -64,7 +64,6 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
-        txtDOB = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         txtState = new javax.swing.JComboBox<>();
         txtCity = new javax.swing.JComboBox<>();
@@ -83,6 +82,8 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("Add - Persona");
@@ -141,6 +142,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setText("Password:");
 
+        btnBack.setBackground(new java.awt.Color(205, 195, 227));
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -148,8 +150,6 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-
-        txtDOB.setDateFormatString("MM-dd-yyyy");
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel12.setText("Date Of Birth:");
@@ -180,6 +180,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablePersonCWC);
 
+        btnAdd.setBackground(new java.awt.Color(205, 195, 227));
         btnAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -188,6 +189,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
             }
         });
 
+        btnUpdate.setBackground(new java.awt.Color(205, 195, 227));
         btnUpdate.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +198,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setBackground(new java.awt.Color(205, 195, 227));
         btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +305,6 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtPassword)
                     .addComponent(txtUsername)
-                    .addComponent(txtDOB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(329, 329, 329))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -347,9 +349,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDOB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -754,7 +754,6 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
     private javax.swing.JTable tablePersonCWC;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JComboBox<String> txtCity;
-    private com.toedter.calendar.JDateChooser txtDOB;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;

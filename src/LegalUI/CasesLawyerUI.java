@@ -43,6 +43,9 @@ public class CasesLawyerUI extends javax.swing.JFrame {
         sendcasecourtBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 204, 204));
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("Cases");
@@ -84,6 +87,8 @@ public class CasesLawyerUI extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
         caseidLbl.setText("CaseID:");
 

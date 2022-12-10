@@ -40,6 +40,9 @@ public class FosterCareAssignment extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 204));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("FOSTER CARE ASSIGNMENT");
@@ -71,6 +74,8 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                     .addComponent(backBtn))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
         caseidLbl.setText("CaseID:");
 
@@ -107,6 +112,8 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+
         assignfosterfamilyBtn.setText("Assign Foster Family");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -126,6 +133,7 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        jTable1.setBackground(new java.awt.Color(255, 226, 249));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
