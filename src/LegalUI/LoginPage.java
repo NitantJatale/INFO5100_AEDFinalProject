@@ -4,6 +4,9 @@
  */
 package LegalUI;
 
+import CWSUtilities.DatabaseConnection;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 /**
  *
  * @author anirudhajoshi
@@ -75,6 +78,11 @@ public class LoginPage extends javax.swing.JFrame {
 
         loginBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         loginBtn.setText("LOGIN");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
 
         resetBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         resetBtn.setText("RESET");
@@ -146,6 +154,50 @@ public class LoginPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        // TODO add your handling code here:
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String role = "";
+        System.out.println("Clicked");
+        String checkPassword = "";
+        
+        if (username.isEmpty() || password.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+             try{
+            ResultSet resultSet = null;
+            String query = "SELECT password,role FROM Admin_Login WHERE username =  \'"+ username+"\'";
+            resultSet = DatabaseConnection.getData(query,false);
+            
+            while (resultSet.next()) {
+                checkPassword = resultSet.getString(1);
+                role = resultSet.getString(2);
+            }
+            if (password.equals(checkPassword)){
+                System.out.println("worked!");
+                switch(role) {
+                    case "CWS":
+                        System.out.println("Welfare System");
+                      break;
+                    case "CPS":
+                          System.out.println("ChildProtectionService");
+                    case "CWL":
+                          System.out.println("LegalService");
+                      break;
+                }
+            }else{
+            
+                JOptionPane.showMessageDialog(this, "Wrong Username or Password", "Try Again",JOptionPane.ERROR_MESSAGE);
+                
+            }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            } 
+        }
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
      * @param args the command line arguments

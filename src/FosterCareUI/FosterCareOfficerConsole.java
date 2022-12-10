@@ -38,6 +38,11 @@ public class FosterCareOfficerConsole extends javax.swing.JFrame {
         jLabel1.setText("WELCOME FOSTER CARE OFFICER");
 
         backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -61,8 +66,18 @@ public class FosterCareOfficerConsole extends javax.swing.JFrame {
         );
 
         fosterdetailsBtn.setText("Foster Details");
+        fosterdetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fosterdetailsBtnActionPerformed(evt);
+            }
+        });
 
         fosterassignmentBtn.setText("Foster Assignment");
+        fosterassignmentBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fosterassignmentBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,6 +111,27 @@ public class FosterCareOfficerConsole extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        LoginPage lpjframe = new LoginPage();
+        lpjframe.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void fosterdetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fosterdetailsBtnActionPerformed
+        // TODO add your handling code here:
+        FosterCareDetails fcdjframe = new FosterCareDetails();
+        fcdjframe.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_fosterdetailsBtnActionPerformed
+
+    private void fosterassignmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fosterassignmentBtnActionPerformed
+        // TODO add your handling code here:
+        FosterCareAssignment fcajframe = new FosterCareAssignment();
+        fcajframe.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_fosterassignmentBtnActionPerformed
 
     /**
      * @param args the command line arguments

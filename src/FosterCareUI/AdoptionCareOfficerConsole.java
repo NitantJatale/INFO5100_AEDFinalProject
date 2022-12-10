@@ -63,6 +63,11 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
         adoptiondetailsBtn.setText("Adoption Details");
 
         adoptionassignmentBtn.setText("Adoption Assignment");
+        adoptionassignmentBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adoptionassignmentBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,7 +85,7 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
                         .addGap(377, 377, 377))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(adoptionassignmentBtn)
-                        .addGap(358, 358, 358))))
+                        .addGap(364, 364, 364))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,13 +94,17 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71)
                 .addComponent(adoptiondetailsBtn)
-                .addGap(88, 88, 88)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(adoptionassignmentBtn)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGap(102, 102, 102))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void adoptionassignmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adoptionassignmentBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adoptionassignmentBtnActionPerformed
 
     /**
      * @param args the command line arguments

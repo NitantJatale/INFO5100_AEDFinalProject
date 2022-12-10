@@ -4,6 +4,11 @@
  */
 package FosterCareUI;
 
+import CWSUtilities.DatabaseConnection;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelFoster.PersonFoster;
+
 /**
  *
  * @author anirudhajoshi
@@ -62,7 +67,7 @@ public class FosterAdmin extends javax.swing.JFrame {
         updateBtn = new javax.swing.JButton();
         resetBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        fosteradminJTable = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,14 +188,17 @@ public class FosterAdmin extends javax.swing.JFrame {
 
         cityLbl.setText("City:");
 
-        cityDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         stateLbl.setText("State:");
 
-        stateDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        stateDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Massachusetts", "New York", "Connecticut" }));
         stateDrpdn.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 stateDrpdnItemStateChanged(evt);
+            }
+        });
+        stateDrpdn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stateDrpdnActionPerformed(evt);
             }
         });
 
@@ -212,7 +220,7 @@ public class FosterAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(emailidTxt)
                     .addComponent(mobileTxt)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(stateDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -251,12 +259,32 @@ public class FosterAdmin extends javax.swing.JFrame {
         );
 
         addBtn.setText("ADD");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setText("DELETE");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         updateBtn.setText("UPDATE");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
 
         resetBtn.setText("RESET");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -285,7 +313,7 @@ public class FosterAdmin extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        fosteradminJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -293,7 +321,12 @@ public class FosterAdmin extends javax.swing.JFrame {
                 "Role", "Username", "Password", "First Name", "Last Name", "EmailID", "Mobile", "Address", "State", "City", "Zip Code"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        fosteradminJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fosteradminJTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(fosteradminJTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -314,7 +347,7 @@ public class FosterAdmin extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 888, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)))
-                .addContainerGap(0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,6 +393,179 @@ public class FosterAdmin extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_stateDrpdnItemStateChanged
+
+    private void stateDrpdnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stateDrpdnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stateDrpdnActionPerformed
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipCode = Integer.valueOf(zipcodeTxt.getText());
+        
+        
+        DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
+        
+        
+        adminfoster.addRow(new Object[] {role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipCode});
+        
+        
+        JOptionPane.showMessageDialog(this, "Data Added Successfully !");
+        
+        PersonFoster person1 = new PersonFoster(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password);
+        try{
+                    DatabaseConnection.storeDataPersonFoster(person1);
+        }
+        catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+        
+        usernameTxt.setText("");
+        passwordTxt.setText("");
+        firstnameTxt.setText("");
+        lastnameTxt.setText("");
+        emailidTxt.setText("");
+        mobileTxt.setText("");
+        addressTxt.setText("");
+        zipcodeTxt.setText("");
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+         String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        
+        
+        DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
+        
+        if(fosteradminJTable.getSelectedRowCount()==1){
+            
+            adminfoster.removeRow(fosteradminJTable.getSelectedRow());
+            
+            JOptionPane.showMessageDialog(this, "Data Deleted Successfully !");
+        }
+        else{
+         if(fosteradminJTable.getSelectedRowCount()==0){
+            
+             JOptionPane.showMessageDialog(this, "Please select a single row !");
+         
+         }
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void fosteradminJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fosteradminJTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
+        
+        String settextRole = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 0).toString();
+        String settextUsername = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 1).toString();
+        String settextPassword = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 2).toString();
+        String settextFirstname = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 3).toString();
+        String settextLastname = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 4).toString();
+        String settextEmailid = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 5).toString();
+        String settextMobile = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 6).toString();
+        String settextAddress = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 7).toString();
+        String settextState = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 8).toString();
+        String settextCity = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 9).toString();
+        String settextZipcode = adminfoster.getValueAt(fosteradminJTable.getSelectedRow(), 10).toString();
+        
+        roleDrpdn.setSelectedItem(settextRole);
+        usernameTxt.setText(settextUsername);
+        passwordTxt.setText(settextPassword);
+        firstnameTxt.setText(settextFirstname);
+        lastnameTxt.setText(settextLastname);
+        emailidTxt.setText(settextEmailid);
+        mobileTxt.setText(settextMobile);
+        addressTxt.setText(settextAddress);
+        stateDrpdn.setSelectedItem(settextState);
+        cityDrpdn.setSelectedItem(settextCity);
+        zipcodeTxt.setText(settextZipcode);
+    }//GEN-LAST:event_fosteradminJTableMouseClicked
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        // TODO add your handling code here:
+        String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        
+        usernameTxt.setText("");
+        passwordTxt.setText("");
+        firstnameTxt.setText("");
+        lastnameTxt.setText("");
+        emailidTxt.setText("");
+        mobileTxt.setText("");
+        addressTxt.setText("");
+        zipcodeTxt.setText("");
+        
+        JOptionPane.showMessageDialog(this, "Data Resetted Successfully !");
+    }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        
+        DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
+        
+        adminfoster.setValueAt(role, fosteradminJTable.getSelectedRow(), 0);
+        adminfoster.setValueAt(username, fosteradminJTable.getSelectedRow(), 1);
+        adminfoster.setValueAt(password, fosteradminJTable.getSelectedRow(), 2);
+        adminfoster.setValueAt(firstname, fosteradminJTable.getSelectedRow(), 3);
+        adminfoster.setValueAt(lastname, fosteradminJTable.getSelectedRow(), 4);
+        adminfoster.setValueAt(emailid, fosteradminJTable.getSelectedRow(), 5);
+        adminfoster.setValueAt(mobile, fosteradminJTable.getSelectedRow(), 6);
+        adminfoster.setValueAt(address, fosteradminJTable.getSelectedRow(), 7);
+        adminfoster.setValueAt(state, fosteradminJTable.getSelectedRow(), 8);
+        adminfoster.setValueAt(city, fosteradminJTable.getSelectedRow(), 9);
+        adminfoster.setValueAt(zipcode, fosteradminJTable.getSelectedRow(), 10);
+        
+        usernameTxt.setText("");
+        passwordTxt.setText("");
+        firstnameTxt.setText("");
+        lastnameTxt.setText("");
+        emailidTxt.setText("");
+        mobileTxt.setText("");
+        addressTxt.setText("");
+        zipcodeTxt.setText("");
+        
+        JOptionPane.showMessageDialog(this, "Data Updated Successfully !");
+    }//GEN-LAST:event_updateBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,6 +621,7 @@ public class FosterAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField emailidTxt;
     private javax.swing.JLabel firstnameLbl;
     private javax.swing.JTextField firstnameTxt;
+    private javax.swing.JTable fosteradminJTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -424,7 +631,6 @@ public class FosterAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lastnameLbl;
     private javax.swing.JTextField lastnameTxt;
     private javax.swing.JLabel mobileLbl;

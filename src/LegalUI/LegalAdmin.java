@@ -4,6 +4,11 @@
  */
 package LegalUI;
 
+import CWSUtilities.DatabaseConnection;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelLegal.PersonLegal;
+
 /**
  *
  * @author anirudhajoshi
@@ -62,7 +67,7 @@ public class LegalAdmin extends javax.swing.JFrame {
         updateBtn = new javax.swing.JButton();
         resetBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        legaladminJTable = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,7 +192,7 @@ public class LegalAdmin extends javax.swing.JFrame {
 
         stateLbl.setText("State:");
 
-        stateDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        stateDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Massachusetts", "New York", "Connecticut" }));
         stateDrpdn.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 stateDrpdnItemStateChanged(evt);
@@ -212,7 +217,7 @@ public class LegalAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(emailidTxt)
                     .addComponent(mobileTxt)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(stateDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -251,12 +256,32 @@ public class LegalAdmin extends javax.swing.JFrame {
         );
 
         addBtn.setText("ADD");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setText("DELETE");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         updateBtn.setText("UPDATE");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
 
         resetBtn.setText("RESET");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -285,7 +310,7 @@ public class LegalAdmin extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        legaladminJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -293,7 +318,12 @@ public class LegalAdmin extends javax.swing.JFrame {
                 "Role", "Username", "Password", "First Name", "Last Name", "EmailID", "Mobile", "Address", "State", "City", "Zip Code"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        legaladminJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                legaladminJTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(legaladminJTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -361,6 +391,174 @@ public class LegalAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stateDrpdnItemStateChanged
 
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipCode = Integer.valueOf(zipcodeTxt.getText());
+        
+        
+        DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
+        
+        
+        adminlegal.addRow(new Object[] {role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipCode});
+        
+        
+        JOptionPane.showMessageDialog(this, "Data Added Successfully !");
+        
+        PersonLegal person1 = new PersonLegal(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password);
+        
+        try{
+                    DatabaseConnection.storeDataPersonLegal(person1);
+        }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                
+        usernameTxt.setText("");
+        passwordTxt.setText("");
+        firstnameTxt.setText("");
+        lastnameTxt.setText("");
+        emailidTxt.setText("");
+        mobileTxt.setText("");
+        addressTxt.setText("");
+        zipcodeTxt.setText("");
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        
+        
+        DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
+        
+        if(legaladminJTable.getSelectedRowCount()==1){
+            
+            adminlegal.removeRow(legaladminJTable.getSelectedRow());
+            
+            JOptionPane.showMessageDialog(this, "Data Deleted Successfully !");
+        }
+        else{
+         if(legaladminJTable.getSelectedRowCount()==0){
+            
+             JOptionPane.showMessageDialog(this, "Please select a single row !");
+         
+         }
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void legaladminJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_legaladminJTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
+        
+        String settextRole = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 0).toString();
+        String settextUsername = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 1).toString();
+        String settextPassword = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 2).toString();
+        String settextFirstname = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 3).toString();
+        String settextLastname = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 4).toString();
+        String settextEmailid = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 5).toString();
+        String settextMobile = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 6).toString();
+        String settextAddress = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 7).toString();
+        String settextState = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 8).toString();
+        String settextCity = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 9).toString();
+        String settextZipcode = adminlegal.getValueAt(legaladminJTable.getSelectedRow(), 10).toString();
+        
+        roleDrpdn.setSelectedItem(settextRole);
+        usernameTxt.setText(settextUsername);
+        passwordTxt.setText(settextPassword);
+        firstnameTxt.setText(settextFirstname);
+        lastnameTxt.setText(settextLastname);
+        emailidTxt.setText(settextEmailid);
+        mobileTxt.setText(settextMobile);
+        addressTxt.setText(settextAddress);
+        stateDrpdn.setSelectedItem(settextState);
+        cityDrpdn.setSelectedItem(settextCity);
+        zipcodeTxt.setText(settextZipcode);
+    }//GEN-LAST:event_legaladminJTableMouseClicked
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        // TODO add your handling code here:
+        String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        
+        usernameTxt.setText("");
+        passwordTxt.setText("");
+        firstnameTxt.setText("");
+        lastnameTxt.setText("");
+        emailidTxt.setText("");
+        mobileTxt.setText("");
+        addressTxt.setText("");
+        zipcodeTxt.setText("");
+    }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        String role = roleDrpdn.getSelectedItem().toString();
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String firstname = firstnameTxt.getText();
+        String lastname = lastnameTxt.getText();
+        String emailid = emailidTxt.getText();
+        int mobile = Integer.valueOf(mobileTxt.getText());
+        String address = addressTxt.getText();
+        String state = stateDrpdn.getSelectedItem().toString();
+        String city = cityDrpdn.getSelectedItem().toString();
+        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        
+        DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
+        
+        adminlegal.setValueAt(role, legaladminJTable.getSelectedRow(), 0);
+        adminlegal.setValueAt(username, legaladminJTable.getSelectedRow(), 1);
+        adminlegal.setValueAt(password, legaladminJTable.getSelectedRow(), 2);
+        adminlegal.setValueAt(firstname, legaladminJTable.getSelectedRow(), 3);
+        adminlegal.setValueAt(lastname, legaladminJTable.getSelectedRow(), 4);
+        adminlegal.setValueAt(emailid, legaladminJTable.getSelectedRow(), 5);
+        adminlegal.setValueAt(mobile, legaladminJTable.getSelectedRow(), 6);
+        adminlegal.setValueAt(address, legaladminJTable.getSelectedRow(), 7);
+        adminlegal.setValueAt(state, legaladminJTable.getSelectedRow(), 8);
+        adminlegal.setValueAt(city, legaladminJTable.getSelectedRow(), 9);
+        adminlegal.setValueAt(zipcode, legaladminJTable.getSelectedRow(), 10);
+        
+        usernameTxt.setText("");
+        passwordTxt.setText("");
+        firstnameTxt.setText("");
+        lastnameTxt.setText("");
+        emailidTxt.setText("");
+        mobileTxt.setText("");
+        addressTxt.setText("");
+        zipcodeTxt.setText("");
+        
+        JOptionPane.showMessageDialog(this, "Data Updated Successfully !");
+    }//GEN-LAST:event_updateBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -418,9 +616,9 @@ public class LegalAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lastnameLbl;
     private javax.swing.JTextField lastnameTxt;
+    private javax.swing.JTable legaladminJTable;
     private javax.swing.JLabel mobileLbl;
     private javax.swing.JTextField mobileTxt;
     private javax.swing.JLabel passwordLbl;
