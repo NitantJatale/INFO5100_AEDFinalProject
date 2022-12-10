@@ -13,6 +13,7 @@ import java.sql.Statement;
 import modelChildWelfareCentre.PersonCWC;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelChildWelfareCentre.ComplaintRegister;
 import modelFoster.PersonFoster;
 import modelLegal.PersonLegal;
 
@@ -223,6 +224,51 @@ public class DatabaseConnection {
 
         return resultSet;
     }
+    
+    public static ResultSet storeDataComplaintRegister(ComplaintRegister complaint){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Complaint_Register VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, complaint.getComplaineeUsername());
+            ps.setString(2, complaint.getDistressReporterName());
+            ps.setString(3, complaint.getFirstRespondentName());
+            ps.setString(4, complaint.getNatureAbuse());
+            ps.setString(5, complaint.getDescription());
+            ps.setString(6, complaint.getChildName());
+            ps.setString(7, complaint.getActions());
+            ps.setString(8, complaint.getParentName());
+            ps.setString(9, complaint.getStatus());
+            ps.setString(10, complaint.getInsertDT());
+
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet getComplaineeName(String username, boolean isDml) throws SQLException {
+        connectDB();
+        String query = "SELECT firstname,lastname,emailid FROM Person_Child_Welfare_Sys WHERE username = "+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        if (isDml) {
+            statement.executeUpdate(query);
+            return null;
+        }
+
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
 }
 
 

@@ -49,7 +49,6 @@ public class ComplainantHome extends javax.swing.JFrame {
 
         btnHotlineComplaintSystem.setBackground(new java.awt.Color(205, 195, 227));
         btnHotlineComplaintSystem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/registeracomplainticon.png")); // NOI18N
         btnHotlineComplaintSystem.setText("REGISTER A COMPLAIN");
         btnHotlineComplaintSystem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,8 +58,12 @@ public class ComplainantHome extends javax.swing.JFrame {
 
         btnCaseVerificationCentre.setBackground(new java.awt.Color(205, 195, 227));
         btnCaseVerificationCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCaseVerificationCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationcentericon.png")); // NOI18N
         btnCaseVerificationCentre.setText("VIEW REGISTERED COMPLAIN");
+        btnCaseVerificationCentre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCaseVerificationCentreActionPerformed(evt);
+            }
+        });
 
         btnBack.setBackground(new java.awt.Color(205, 195, 227));
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -133,6 +136,14 @@ public class ComplainantHome extends javax.swing.JFrame {
             
             dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnCaseVerificationCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaseVerificationCentreActionPerformed
+        // TODO add your handling code here:
+        ComplainantViewComplain CVC = new ComplainantViewComplain(complainantUsername);
+            CVC.show();
+            
+            dispose();
+    }//GEN-LAST:event_btnCaseVerificationCentreActionPerformed
 
     /**
      * @param args the command line arguments
