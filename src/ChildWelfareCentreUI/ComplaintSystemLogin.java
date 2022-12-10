@@ -189,7 +189,7 @@ public class ComplaintSystemLogin extends javax.swing.JFrame {
                 
                 switch(role) {
                     case "Complaint Handler":
-                        ComplainHandlerHome CHH = new ComplainHandlerHome();
+                        ComplainHandlerHome CHH = new ComplainHandlerHome(username);
                             CHH.show();
                             dispose();
                       break;

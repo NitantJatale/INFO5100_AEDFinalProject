@@ -117,7 +117,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtTypeOfAbuse" pref="150" max="32767" attributes="0"/>
+                                      <Component id="txtAbuse" pref="150" max="32767" attributes="0"/>
                                       <Component id="txtChildName" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="txtParentName" min="-2" pref="150" max="-2" attributes="0"/>
@@ -149,7 +149,7 @@
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txtTypeOfAbuse" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtAbuse" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" pref="30" max="-2" attributes="0"/>
@@ -171,7 +171,7 @@
                 <Property name="text" type="java.lang.String" value="Name of Parent:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="txtTypeOfAbuse">
+            <Component class="javax.swing.JComboBox" name="txtAbuse">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="18" style="0"/>
@@ -198,6 +198,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtChildName">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtChildNameKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -208,6 +211,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtParentName">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtParentNameKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -242,6 +248,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Submit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -255,6 +264,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
         </Component>

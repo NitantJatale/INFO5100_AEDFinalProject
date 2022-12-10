@@ -4,6 +4,15 @@
  */
 package ChildWelfareCentreUI;
 
+import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Email;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import modelChildWelfareCentre.ComplaintRegister;
+import trials.ComplaineeSignUp;
+import java.sql.ResultSet;
+
 /**
  *
  * @author nitan
@@ -39,7 +48,7 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtTypeOfAbuse = new javax.swing.JComboBox<>();
+        txtAbuse = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txtChildName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -63,14 +72,26 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("Name of Parent:");
 
-        txtTypeOfAbuse.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txtTypeOfAbuse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Physical", "Emotional", "Sexual", "Neglect" }));
+        txtAbuse.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txtAbuse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Physical", "Emotional", "Sexual", "Neglect" }));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel3.setText("Name of Child:");
 
+        txtChildName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtChildNameKeyTyped(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel4.setText("Type of Abuse:");
+
+        txtParentName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtParentNameKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel5.setText("Description:");
@@ -82,6 +103,11 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
         btnSubmit.setBackground(new java.awt.Color(205, 195, 227));
         btnSubmit.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -100,7 +126,7 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtTypeOfAbuse, 0, 150, Short.MAX_VALUE)
+                                .addComponent(txtAbuse, 0, 150, Short.MAX_VALUE)
                                 .addComponent(txtChildName))
                             .addComponent(txtParentName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(45, Short.MAX_VALUE))
@@ -123,7 +149,7 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTypeOfAbuse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAbuse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -136,6 +162,11 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
         btnBack.setBackground(new java.awt.Color(205, 195, 227));
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,6 +217,98 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        ComplainantHome CH = new ComplainantHome(complainantUsername);
+            CH.show();
+            
+            dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        String childName = txtChildName.getText();
+        String parentName = txtParentName.getText();
+        String abuse = txtAbuse.getSelectedItem().toString();
+        String description = txtDescription.getText();
+        Date date = new Date();
+	String distressReporter = "";
+	String action = "Not Taken";
+	String status = "Active";
+	String toEmail = "";
+	String firstRespondent = "No Responder";
+         
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
+
+	if (childName.isEmpty()|| parentName.isEmpty()||abuse.isEmpty()||description.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+                
+                try{
+                    ResultSet resultSet = null;
+                    resultSet = DatabaseConnection.getComplaineeName(complainantUsername, false);
+            
+                    while (resultSet.next()) {
+                        distressReporter = resultSet.getString(1)+" "+resultSet.getString(2);
+                        toEmail= resultSet.getString(3);
+                    }
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                } 
+            
+                
+                String subject = "Complaint registered with Child Welfare Services";
+        	String text = "Hello Mr."+distressReporter+" your complaint has been registered";
+        	boolean result = false;
+        
+        	try {
+            	result = Email.sendEmail(toEmail, subject, text);
+        	} catch (Exception ex) {
+            	java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        	}
+                
+        	if(result == false){
+                    JOptionPane.showMessageDialog(this, "Email does not exists");
+        	}
+                
+                ComplaintRegister complaint1 = new ComplaintRegister(complainantUsername,distressReporter,firstRespondent,abuse,description,childName,action,parentName,status,newdate);
+            
+                try{
+                    DatabaseConnection.storeDataComplaintRegister(complaint1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+        	txtChildName.setText("");
+        	txtParentName.setText("");
+        	txtDescription.setText("");
+            
+            JOptionPane.showMessageDialog(this, "Complaint Registered");
+	   }
+        
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void txtChildNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtChildNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtChildNameKeyTyped
+
+    private void txtParentNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtParentNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtParentNameKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -233,9 +356,9 @@ public class ComplainantRegisterComplain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> txtAbuse;
     private javax.swing.JTextField txtChildName;
     private javax.swing.JTextArea txtDescription;
     private javax.swing.JTextField txtParentName;
-    private javax.swing.JComboBox<String> txtTypeOfAbuse;
     // End of variables declaration//GEN-END:variables
 }
