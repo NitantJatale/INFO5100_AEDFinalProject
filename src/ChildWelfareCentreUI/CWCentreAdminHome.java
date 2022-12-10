@@ -12,6 +12,7 @@ import static CWSUtilities.Validate.isUsernameTherePersonCWC;
 import HomeUI.Home;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -172,6 +173,11 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
                 "FirstName", "LastName", "Email", "MobileNumber", "Address", "City", "Zip", "State", "DOB", "Username", "Password", "Role"
             }
         ));
+        tablePersonCWC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePersonCWCMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablePersonCWC);
 
         btnAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -426,8 +432,8 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(this, "Username already exists", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else{
             
-                String subject = "Signup-Successful Child Welfare System";
-        	String text = "Hey Welcome to Child Welfare Protection Services";
+                String subject = "Assigned admin Role";
+        	String text = "Hey " + firstName +" "+lastName + " You have been assigned "+role+" admin role.";
         	boolean result = false;
         
         	try {
@@ -460,8 +466,9 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
             txtZip.setText("");
             txtUsername.setText("");
             txtPassword.setText("");
+            txtEmail.getText();
             
-            JOptionPane.showMessageDialog(this, "Signed Up Succesfully");
+           
         }      
               
         
@@ -490,10 +497,94 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        String toEmail = txtEmail.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        Long mobile = Validate.ConvertIntoLong(txtMobile.getText());
+        String address = txtAddress.getText();
+        Date date = txtDOB.getDate();
+        String city = txtCity.getSelectedItem().toString();
+        String state = txtState.getSelectedItem().toString();
+        Integer zipCode = Validate.ConvertIntoNumeric(txtZip.getText());
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        String role = txtRole.getSelectedItem().toString();
+        Long check = mobile;
+        Integer checkZip = zipCode; 
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
+        
+        if (toEmail.isEmpty()|| firstName.isEmpty()||lastName.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidEmail(toEmail) == false){
+             JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidPassword(password) == false){
+             JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(check).length()<10 || Long.toString(check).length()>10){
+             JOptionPane.showMessageDialog(this, "MobileNo. is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(checkZip).length()<5 || Long.toString(checkZip).length()>5){
+             JOptionPane.showMessageDialog(this, "Zipcode is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if(tablePersonCWC.getSelectedRowCount() > 1){
+            JOptionPane.showMessageDialog(this, "Select only 1 Row!", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if(tablePersonCWC.getRowCount()==0 || tablePersonCWC.getSelectedRowCount() == 0 ){
+            JOptionPane.showMessageDialog(this, "Table is Empty OR You have not selecetd a Row ", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (tablePersonCWC.getSelectedRowCount() == 1){
+            
+		PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role);
+            
+            try{
+                    DatabaseConnection.updatePersonCWC(person1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+            DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+            
+            personTable.setValueAt(firstName, tablePersonCWC.getSelectedRow(), 0);
+            personTable.setValueAt(lastName, tablePersonCWC.getSelectedRow(), 1);
+            personTable.setValueAt(mobile, tablePersonCWC.getSelectedRow(), 3);
+            personTable.setValueAt(address, tablePersonCWC.getSelectedRow(), 4);
+            personTable.setValueAt(city, tablePersonCWC.getSelectedRow(), 5);
+            personTable.setValueAt(zipCode, tablePersonCWC.getSelectedRow(), 6);
+            personTable.setValueAt(state, tablePersonCWC.getSelectedRow(), 7);
+            personTable.setValueAt(password, tablePersonCWC.getSelectedRow(), 10);
+            
+            
+            
+            txtEmail.setText("");
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtMobile.setText("");
+            txtAddress.setText("");
+            txtZip.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");
+            txtEmail.getText();
+            
+            JOptionPane.showMessageDialog(this, "Data updated Succesfully");
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        int tuple = tablePersonCWC.getSelectedRow();
+        if (tuple<0){
+            JOptionPane.showMessageDialog(this, "Please select a Row!","Select Row",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String username = txtUsername.getText();
+            try{
+            
+                DatabaseConnection.getDeletePersonCWC(username, true);
+           
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+            DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+            personTable.removeRow(tuple);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -502,29 +593,34 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
        txtDOB.setDate(today);
        
        DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
-       
+       ResultSet resultSet = null;
         try{
-            DatabaseConnection.getData(Constants.CWCentrePerson, false);
+            
+            resultSet = DatabaseConnection.getData(Constants.CWCentrePerson, false);
+            while (resultSet.next()){
+                String firstName = resultSet.getString(1);
+                String lastName = resultSet.getString(2);
+                String toEmail = resultSet.getString(3);
+                String mobile = resultSet.getString(4);
+                String address = resultSet.getString(5);
+                String city = resultSet.getString(6);
+                String zipCode = resultSet.getString(7);
+                String state = resultSet.getString(8);
+                String newdate = resultSet.getString(9);
+                String username = resultSet.getString(10);
+                String password = resultSet.getString(11);
+                String role = resultSet.getString(12);
+                    
+                if(role.equals("Case Verfication Officer") || role.equals("Complaint Handler")){        
+                    personTable.addRow(new Object[]{firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role});
+                }
+                }
             }catch(Exception e){
                 System.out.println("Error while Connecting");
                 e.printStackTrace();
             }
         
-        for (int i = 0; i < listPerson.size(); i++){
-            String name = listPerson.get(i).getName();
-            Integer age = listPerson.get(i).getAge();
-            String gender = listPerson.get(i).getGender();
-            String city = listPerson.get(i).getCity();
-            String address = listPerson.get(i).getAddress();
-            Long mobile = listPerson.get(i).getMobileNo();        
-            String username = listPerson.get(i).getUsername();        
-            String password = listPerson.get(i).getPassword();
-            String role =  listPerson.get(i).getRole();
-                    
-            if(role.equals("patient")){        
-                hospitalAdmin.addRow(new Object[]{name, age, mobile, gender, city, address, username, password});
-            }
-        }
+        
        
     }//GEN-LAST:event_formWindowOpened
 
@@ -561,6 +657,40 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtZipKeyTyped
+
+    private void tablePersonCWCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePersonCWCMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel)tablePersonCWC.getModel();
+        int selectedRow = tablePersonCWC.getSelectedRow();
+        //Set data to text fields
+        
+        String firstName = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 0).toString(); 
+        String lastName = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 1).toString(); 
+        String toEmail = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 2).toString(); 
+        String mobile = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 3).toString(); 
+        String address = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 4).toString(); 
+        String city = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 5).toString(); 
+        String zipCode = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 6).toString(); 
+        String state = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 7).toString(); 
+        String newdate = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 8).toString(); 
+        String username = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 9).toString(); 
+        String password = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 10).toString(); 
+        String role = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 11).toString();  
+        
+        
+        txtFirstName.setText(firstName);
+        txtLastName.setText(lastName);
+        txtEmail.setText(toEmail);
+        txtMobile.setText(mobile);
+        txtAddress.setText(address);
+        txtCity.setSelectedItem(city);
+        txtState.setSelectedItem(state);
+        txtZip.setText(zipCode);
+        txtUsername.setText(username);
+        txtPassword.setText(password);
+        txtRole.setSelectedItem(role);
+            
+    }//GEN-LAST:event_tablePersonCWCMouseClicked
 
     /**
      * @param args the command line arguments

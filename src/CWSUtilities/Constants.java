@@ -30,5 +30,6 @@ public class Constants {
     
     public static final String CWCentreAdminHome = "SELECT * FROM Person_Child_Welfare_Sys WHERE username = ";
     public static final String CWCentrePerson = "SELECT * FROM Person_Child_Welfare_Sys";
+    public static final String CWCentrePersonDelete = "DELETE FROM Person_Child_Welfare_Sys WHERE username = ";
     
 }
