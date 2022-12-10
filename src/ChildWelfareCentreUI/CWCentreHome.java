@@ -4,6 +4,9 @@
  */
 package ChildWelfareCentreUI;
 
+import HomeUI.Home;
+import HomeUI.HomeAdminLogin;
+
 /**
  *
  * @author nitan
@@ -44,18 +47,24 @@ public class CWCentreHome extends javax.swing.JFrame {
 
         btnHotlineComplaintSystem.setBackground(new java.awt.Color(205, 195, 227));
         btnHotlineComplaintSystem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Hotlinecomplaintsystemicon.png")); // NOI18N
         btnHotlineComplaintSystem.setText("HOTLINE COMPLAINT SYSTEM");
+        btnHotlineComplaintSystem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHotlineComplaintSystemActionPerformed(evt);
+            }
+        });
 
         btnCaseVerificationCentre.setBackground(new java.awt.Color(205, 195, 227));
         btnCaseVerificationCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCaseVerificationCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationcentericon.png")); // NOI18N
         btnCaseVerificationCentre.setText("CASE VERIFICATION CENTRE ");
 
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnBack.setText("Back");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Child welfare Center.png")); // NOI18N
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,13 +83,13 @@ public class CWCentreHome extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCaseVerificationCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHotlineComplaintSystem))
-                        .addGap(295, 295, 295))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(356, 356, 356))))
+                        .addGap(356, 356, 356))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnHotlineComplaintSystem, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCaseVerificationCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(295, 295, 295))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,6 +123,20 @@ public class CWCentreHome extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        Home H = new Home();
+            H.show();
+            dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnHotlineComplaintSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHotlineComplaintSystemActionPerformed
+        // TODO add your handling code here:
+        ComplaintSystemLogin CSL = new ComplaintSystemLogin();
+            CSL.show();
+            dispose();
+    }//GEN-LAST:event_btnHotlineComplaintSystemActionPerformed
 
     /**
      * @param args the command line arguments

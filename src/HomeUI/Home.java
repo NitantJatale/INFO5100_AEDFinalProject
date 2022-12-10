@@ -4,6 +4,8 @@
  */
 package HomeUI;
 
+import ChildWelfareCentreUI.CWCentreHome;
+
 /**
  *
  * @author nitan
@@ -133,6 +135,9 @@ public class Home extends javax.swing.JFrame {
 
     private void btnChildWelfareCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChildWelfareCentreActionPerformed
         // TODO add your handling code here:
+        CWCentreHome CWCH = new CWCentreHome();
+            CWCH.show();
+            dispose();
     }//GEN-LAST:event_btnChildWelfareCentreActionPerformed
 
     private void btnAdminLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminLoginActionPerformed
