@@ -44,6 +44,10 @@ public class HomeAdminLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel.setBackground(new java.awt.Color(204, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(205, 195, 227));
+
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Usernmae:");
 

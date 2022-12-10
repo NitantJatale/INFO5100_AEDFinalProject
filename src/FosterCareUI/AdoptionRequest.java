@@ -43,6 +43,9 @@ public class AdoptionRequest extends javax.swing.JFrame {
         sendadoptionreqBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 204));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("Adoption Request");
@@ -70,6 +73,7 @@ public class AdoptionRequest extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
+        jTable1.setBackground(new java.awt.Color(255, 226, 249));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -82,6 +86,8 @@ public class AdoptionRequest extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel2.setText("Name of Child:");
 

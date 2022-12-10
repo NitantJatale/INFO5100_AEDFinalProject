@@ -45,7 +45,7 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel1.setText("SUBMITTED COMPLAINS");
+        jLabel1.setText("SUBMITTED COMPLAINTS");
 
         jTable1.setBackground(new java.awt.Color(205, 195, 227));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -81,9 +81,11 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        btnBack.setBackground(new java.awt.Color(205, 195, 227));
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBack.setText("Back");
 
+        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Assign Case Verification Officer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
         txtCVOfficer.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -126,7 +128,7 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
+                        .addGap(330, 330, 330)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)

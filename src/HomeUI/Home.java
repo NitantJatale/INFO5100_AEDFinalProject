@@ -38,11 +38,15 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CHILD WELFARE SYSTEM");
 
+        btnChildWelfareCentre.setBackground(new java.awt.Color(205, 195, 227));
         btnChildWelfareCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnChildWelfareCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/childwelfarecentericon.png")); // NOI18N
         btnChildWelfareCentre.setText("CHILD WELFARE CENTRE");
         btnChildWelfareCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,7 +54,9 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnChildProtectionService.setBackground(new java.awt.Color(205, 195, 227));
         btnChildProtectionService.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnChildProtectionService.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Childprotectionserviceicon.png")); // NOI18N
         btnChildProtectionService.setText("CHILD PROTECTION SERVICE");
         btnChildProtectionService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,10 +64,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnLawDepartment.setBackground(new java.awt.Color(205, 195, 227));
         btnLawDepartment.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnLawDepartment.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Lawdepartmenticon.png")); // NOI18N
         btnLawDepartment.setText("LAW DEPARTMENT");
 
+        btnFosterCareCentre.setBackground(new java.awt.Color(205, 195, 227));
         btnFosterCareCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnFosterCareCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/fostercarecentericon.png")); // NOI18N
         btnFosterCareCentre.setText("FOSTER CARE CENTRE");
 
         btnAdminLogin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N

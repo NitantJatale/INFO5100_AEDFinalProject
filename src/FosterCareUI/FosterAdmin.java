@@ -83,6 +83,9 @@ public class FosterAdmin extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 204));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("FOSTER ADMIN");
@@ -114,6 +117,8 @@ public class FosterAdmin extends javax.swing.JFrame {
                     .addComponent(backBtn))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
         usernameLbl.setText("Username:");
 
@@ -175,6 +180,8 @@ public class FosterAdmin extends javax.swing.JFrame {
                     .addComponent(lastnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
 
         emailidLbl.setText("EmailID:");
 
@@ -258,6 +265,8 @@ public class FosterAdmin extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
+        jPanel4.setBackground(new java.awt.Color(204, 255, 204));
+
         addBtn.setText("ADD");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,6 +322,7 @@ public class FosterAdmin extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
+        fosteradminJTable.setBackground(new java.awt.Color(255, 226, 249));
         fosteradminJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

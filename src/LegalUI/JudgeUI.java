@@ -32,6 +32,9 @@ public class JudgeUI extends javax.swing.JFrame {
         casesverdictBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 204, 204));
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("WELCOME JUDGE");
@@ -64,6 +67,8 @@ public class JudgeUI extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
+        casesverdictBtn.setBackground(new java.awt.Color(255, 204, 153));
+        casesverdictBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/viewcasesicon.png")); // NOI18N
         casesverdictBtn.setText("VIEW CASES AND SUBMIT VERDICT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,7 +91,7 @@ public class JudgeUI extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85)
                 .addComponent(casesverdictBtn)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         pack();

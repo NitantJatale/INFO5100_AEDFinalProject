@@ -49,6 +49,7 @@ public class ComplainantHome extends javax.swing.JFrame {
 
         btnHotlineComplaintSystem.setBackground(new java.awt.Color(205, 195, 227));
         btnHotlineComplaintSystem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/registeracomplainticon.png")); // NOI18N
         btnHotlineComplaintSystem.setText("REGISTER A COMPLAIN");
         btnHotlineComplaintSystem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,6 +59,7 @@ public class ComplainantHome extends javax.swing.JFrame {
 
         btnCaseVerificationCentre.setBackground(new java.awt.Color(205, 195, 227));
         btnCaseVerificationCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCaseVerificationCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationcentericon.png")); // NOI18N
         btnCaseVerificationCentre.setText("VIEW REGISTERED COMPLAIN");
 
         btnBack.setBackground(new java.awt.Color(205, 195, 227));
@@ -99,7 +101,7 @@ public class ComplainantHome extends javax.swing.JFrame {
                 .addComponent(btnCaseVerificationCentre)
                 .addGap(89, 89, 89)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

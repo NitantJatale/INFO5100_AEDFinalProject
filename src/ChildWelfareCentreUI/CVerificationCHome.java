@@ -35,6 +35,8 @@ public class CVerificationCHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CASE VERIFICATION CENTRE");
@@ -42,7 +44,11 @@ public class CVerificationCHome extends javax.swing.JFrame {
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnBack.setText("Back");
 
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+
+        btnCaseVerification.setBackground(new java.awt.Color(205, 195, 227));
         btnCaseVerification.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCaseVerification.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationcentericon.png")); // NOI18N
         btnCaseVerification.setText("CASE VERIFICATION");
         btnCaseVerification.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,14 +56,16 @@ public class CVerificationCHome extends javax.swing.JFrame {
             }
         });
 
+        btnAssigntoCPS.setBackground(new java.awt.Color(205, 195, 227));
         btnAssigntoCPS.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnAssigntoCPS.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/assigntocpsicon.png")); // NOI18N
         btnAssigntoCPS.setText("ASSIGN TO CPS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnCaseVerification, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+            .addComponent(btnCaseVerification, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAssigntoCPS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(

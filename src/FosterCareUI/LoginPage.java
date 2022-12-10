@@ -38,7 +38,10 @@ public class LoginPage extends javax.swing.JFrame {
         resetBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 204));
         setSize(new java.awt.Dimension(900, 400));
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
         loginLbl.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         loginLbl.setText("LOGIN");
@@ -66,6 +69,8 @@ public class LoginPage extends javax.swing.JFrame {
                     .addComponent(backBtn))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         usernameLbl.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         usernameLbl.setText("USERNAME:");

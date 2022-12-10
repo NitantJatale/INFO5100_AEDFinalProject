@@ -33,6 +33,8 @@ public class LawyerUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("WELCOME LAWYER");
 
@@ -64,6 +66,8 @@ public class LawyerUI extends javax.swing.JFrame {
                 .addGap(33, 33, 33))
         );
 
+        viewcasesBtn.setBackground(new java.awt.Color(255, 204, 153));
+        viewcasesBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/viewcasesicon.png")); // NOI18N
         viewcasesBtn.setText("View Cases");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -87,7 +91,7 @@ public class LawyerUI extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(97, 97, 97)
                 .addComponent(viewcasesBtn)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();

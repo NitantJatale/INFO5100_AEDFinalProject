@@ -41,7 +41,10 @@ public class LoginPage extends javax.swing.JFrame {
         resetBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 204, 204));
         setSize(new java.awt.Dimension(900, 400));
+
+        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
         loginLbl.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         loginLbl.setText("LOGIN");
@@ -69,6 +72,8 @@ public class LoginPage extends javax.swing.JFrame {
                     .addComponent(backBtn))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
         usernameLbl.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         usernameLbl.setText("USERNAME:");
@@ -137,7 +142,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(146, 146, 146))
+                        .addGap(143, 143, 143))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))))

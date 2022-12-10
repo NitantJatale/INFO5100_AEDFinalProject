@@ -45,6 +45,9 @@ public class AdoptionDetails extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 204));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("ADOPTION DETAILS");
@@ -71,6 +74,8 @@ public class AdoptionDetails extends javax.swing.JFrame {
                     .addComponent(backBtn))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel2.setText("AdoptionID:");
 
@@ -130,6 +135,8 @@ public class AdoptionDetails extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+
         adddetailsBtn.setText("Add Details");
 
         resetBtn.setText("Reset");
@@ -155,6 +162,7 @@ public class AdoptionDetails extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        jTable1.setBackground(new java.awt.Color(255, 226, 249));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
