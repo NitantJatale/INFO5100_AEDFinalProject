@@ -4,12 +4,17 @@
  */
 package ChildWelfareCentreUI;
 
+import CWSUtilities.DatabaseConnection;
 import CWSUtilities.Email;
 import CWSUtilities.Validate;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import trials.*;
 import javax.swing.JOptionPane;
+import modelChildWelfareCentre.PersonCWC;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 /**
  *
  * @author nitan
@@ -60,6 +65,11 @@ public class ComplainantSignUp extends javax.swing.JFrame {
         txtCity = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("Complainant SignUp");
@@ -67,14 +77,32 @@ public class ComplainantSignUp extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("First Name:");
 
+        txtFirstName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFirstNameKeyTyped(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setText("Last Name:");
+
+        txtLastName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLastNameKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Email:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("Mobile Number:");
+
+        txtMobile.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMobileKeyTyped(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setText("Address:");
@@ -88,11 +116,29 @@ public class ComplainantSignUp extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setText("ZipCode:");
 
+        txtZip.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtZipKeyTyped(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setText("Username:");
 
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyTyped(evt);
+            }
+        });
+
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setText("Password:");
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyTyped(evt);
+            }
+        });
 
         btnSignUp.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnSignUp.setText("SignUp");
@@ -274,14 +320,36 @@ public class ComplainantSignUp extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String toEmail = txtEmail.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        Long mobile = Validate.ConvertIntoLong(txtMobile.getText());
+        String address = txtAddress.getText();
+        Date date = txtDOB.getDate();
+        String city = txtCity.getSelectedItem().toString();
+        String state = txtState.getSelectedItem().toString();
+        Integer zipCode = Validate.ConvertIntoNumeric(txtZip.getText());
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        String role = "user";
+        Long check = mobile;
+        Integer checkZip = zipCode; 
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
 
-	if (toEmail.isEmpty()){
+	if (toEmail.isEmpty()|| firstName.isEmpty()||lastName.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else if (Validate.isValidEmail(toEmail) == false){
              JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidPassword(password) == false){
+             JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(check).length()<10 || Long.toString(check).length()>10){
+             JOptionPane.showMessageDialog(this, "MobileNo. is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(checkZip).length()<5 || Long.toString(checkZip).length()>5){
+             JOptionPane.showMessageDialog(this, "Zipcode is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else{
             
-            String subject = "Signup-Successful Child Welfare System";
+                String subject = "Signup-Successful Child Welfare System";
         	String text = "Hey Welcome to Child Welfare Protection Services";
         	boolean result = false;
         
@@ -290,20 +358,32 @@ public class ComplainantSignUp extends javax.swing.JFrame {
         	} catch (Exception ex) {
             	java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         	}
-        
-        	if(result){
-            	System.out.println("Email Sent");
-        	}else{
-            	System.out.println("Error------------------------------------------Error");
+                
+        	if(result == false){
+                    JOptionPane.showMessageDialog(this, "Email does not exists");
         	}
-
+                
+                PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role);
+            
+                try{
+                    DatabaseConnection.storeDataPersonCWC(person1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
             txtEmail.setText("");
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtMobile.setText("");
+            txtAddress.setText("");
+            txtZip.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");
             
             JOptionPane.showMessageDialog(this, "Signed Up Succesfully");
         }        
-              
-        
-        
+          
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void txtStateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtStateItemStateChanged
@@ -325,6 +405,56 @@ public class ComplainantSignUp extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_txtStateItemStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+       Date today = Calendar.getInstance().getTime();
+       txtDOB.setDate(today);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtFirstNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFirstNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtFirstNameKeyTyped
+
+    private void txtLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLastNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtLastNameKeyTyped
+
+    private void txtMobileKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMobileKeyTyped
+        // TODO add your handling code here:
+        char testMobile = evt.getKeyChar();
+        if(!(Character.isDigit(testMobile))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMobileKeyTyped
+
+    private void txtZipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtZipKeyTyped
+        // TODO add your handling code here:
+        char testZip = evt.getKeyChar();
+        if(!(Character.isDigit(testZip))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtZipKeyTyped
+
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtUsernameKeyTyped
+
+    private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtPasswordKeyTyped
 
     /**
      * @param args the command line arguments

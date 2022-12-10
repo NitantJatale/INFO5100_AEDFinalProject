@@ -4,6 +4,8 @@
  */
 package CWSUtilities;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 /**
@@ -63,4 +65,19 @@ public class Validate {
         return pat.matcher(password).matches();
     }
     
+    public static boolean isUsernameTherePersonCWC(String username)
+    {
+        boolean ret = true;
+        try{
+            ResultSet resultSet = null;
+            resultSet = DatabaseConnection.getData(Constants.CWCentreAdminHome +"\'"+username+"\'", false);
+            if (!resultSet.isBeforeFirst() ) {    
+                ret = false;
+            }
+        }catch(SQLException e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+        } 
+        return ret;
+    }
 }

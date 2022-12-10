@@ -295,10 +295,10 @@ public class ComplaineeSignUp extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Email does not exists");
         	}
                 
-                PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,username,password);
+                //PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,username,password);
             
                 try{
-                    DatabaseConnection.storeDataPersonCWC(person1);
+                    //DatabaseConnection.storeDataPersonCWC(person1);
                 }catch(Exception e){
                     System.out.println("Error while Connecting");
                     e.printStackTrace();

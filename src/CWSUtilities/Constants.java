@@ -28,5 +28,7 @@ public class Constants {
     public static final String usernameRegex = "^[a-z0-9]";
     public static final String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
     
+    public static final String CWCentreAdminHome = "SELECT * FROM Person_Child_Welfare_Sys WHERE username = ";
+    public static final String CWCentrePerson = "SELECT * FROM Person_Child_Welfare_Sys";
     
 }

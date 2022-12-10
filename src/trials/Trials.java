@@ -5,6 +5,7 @@
 package trials;
 
 
+import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -108,7 +109,7 @@ public class Trials extends javax.swing.JFrame {
     }//GEN-LAST:event_textUsernameActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
+        
         
     }//GEN-LAST:event_formWindowOpened
 
