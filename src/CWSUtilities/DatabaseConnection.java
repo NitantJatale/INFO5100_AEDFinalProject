@@ -474,8 +474,139 @@ public class DatabaseConnection {
     
     }
     
+
+    public static ResultSet getLawyerCases(String username) throws SQLException {
+        connectDB();
+        String query = Constants.LawyerCases+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet getJudgeCases() throws SQLException {
+        connectDB();
+        String query = Constants.JudgeCases;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+//    public static ResultSet updateVerdict(String verdict, String caseid) throws SQLException {
+//        connectDB();
+//        String query = Constants.SubmitVerdict1+"\'"+verdict+"\'"+Constants.SubmitVerdict2+"\'"+caseid+"\'";
+//        ResultSet resultSet = null;
+//        
+//        resultSet = statement.executeQuery(query);
+//        System.out.println(resultSet);
+//        return resultSet;
+//    }
+    public static ResultSet updateVerdict(String verdict, String caseid) throws SQLException {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement(Constants.SubmitVerdict1+"\'"+verdict+"\'"+Constants.SubmitVerdict2+"\'"+caseid+"\'", Statement.RETURN_GENERATED_KEYS);
+            
+//            ps.setString(1, verdict);
+//            ps.setString(2, caseid);
+            
+            
+            int i = ps.executeUpdate();
+            
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+    
+    public static ResultSet getFosterDetails() throws SQLException {
+        connectDB();
+        String query = Constants.FosterCareDetails;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet updateFosterCare(String Foster_Visit_Description, String Foster_Rating, String Foster_Status, String Foster_ID) throws SQLException {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement(Constants.FosterCareUpdate1+"\'"+Foster_Visit_Description+"\'"+Constants.FosterCareUpdate2+"\'"+Foster_Rating+"\'"+Constants.FosterCareUpdate3+"\'"+Foster_Status+"\'"+Constants.FosterCareUpdate4+"\'"+Foster_ID+"\'", Statement.RETURN_GENERATED_KEYS);
+            
+//            ps.setString(1, verdict);
+//            ps.setString(2, caseid);
+            
+            
+            int i = ps.executeUpdate();
+            
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+        public static ResultSet getChildProtectFoster() throws SQLException {
+        connectDB();
+        String query = Constants.ChildProtectFoster;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+       public static ResultSet getFosterFamilyCombo() throws SQLException {
+        connectDB();
+        String query = Constants.FosteramilyComboQuery;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+       public static ResultSet getAdoptionRequestDetails() throws SQLException {
+        connectDB();
+        String query = Constants.AdoptionRequest;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+       
+       public static ResultSet storeAdoptionAppointment(AdoptionAppointment app1){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Adoption_Appointment VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, app1.getUsername());
+            ps.setInt(2, app1.getComplaint_ID());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
     public static ResultSet storeDataChildProtectionService(CPSOfficer complaint){
         
+
+
         ResultSet resultSet = null;
         try {
             setConnection();
@@ -519,7 +650,9 @@ public class DatabaseConnection {
         return resultSet;
     }
     
+
         public static ResultSet updateForwardTo(CPSOfficer case1){
+
         
         ResultSet resultSet = null;
         try {
