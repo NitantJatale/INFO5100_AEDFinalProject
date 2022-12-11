@@ -4,6 +4,19 @@
  */
 package CommunityCareProviderUI;
 
+import CWSUtilities.Constants;
+import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Email;
+import CWSUtilities.Validate;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.sql.ResultSet;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import modelCommunityCareProvider.CPSOfficer;
+import trials.ComplaineeSignUp;
+
 /**
  *
  * @author nitan
@@ -14,6 +27,12 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
      * Creates new form CPSAssignLawyer
      */
     String cpsUsername;
+    String[] lawyerNamesN = new String[10];
+    String[] lawyerUsernamesN = new String[10];
+    String txtVerificationID;
+    String txtComplaintID;
+    String txtDescription;
+    
     public CPSAssignLawyer() {
         initComponents();
     }
@@ -47,6 +66,11 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -61,6 +85,11 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
                 "VerificationID", "ComplaintID", "NameOfChild", "CaseDescription"
             }
         ));
+        tableComplaint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableComplaintMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableComplaint);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -87,7 +116,13 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
         searchColumn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        searchColumn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ComplaintID", "NameOfChild" }));
+        searchColumn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VerificationID", "ComplaintID", "" }));
+
+        searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchValueKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -115,6 +150,11 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
 
         btnAssign.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAssign.setText("Assign");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -215,6 +255,167 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
             CPSH.show();
             dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchValueKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel table = (DefaultTableModel)tableComplaint.getModel();
+        String search = searchValue.getText();
+        String column = searchColumn.getSelectedItem().toString();
+        int index = 0;
+            
+        if(column == "VerificationID"){
+            index = 0;
+                
+        }else if(column == "ComplaintID"){
+            index = 1;
+        }
+
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
+        tableComplaint.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search, index));
+    }//GEN-LAST:event_searchValueKeyReleased
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+        ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getCpsLawyerAssign(cpsUsername);
+            
+            while (resultSet.next()){
+                String verificationID = resultSet.getString(1);
+                String complaintID = resultSet.getString(2);
+                String childName = resultSet.getString(3);
+		String description = resultSet.getString(4);
+      
+                complaintTable.addRow(new Object[]{verificationID,complaintID,childName,description});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+        
+            String[] lawyerNames = new String[10];
+            String[] lawyerUsernames = new String[10];
+            
+            ResultSet newSet = null;
+            try{
+                int j=0;
+                newSet = DatabaseConnection.getData(Constants.cpsLawyer, false);
+
+                while (newSet.next()){
+                	lawyerUsernames[j] = newSet.getString(1);
+			lawyerNames[j] = newSet.getString(2)+" "+newSet.getString(3);
+                        j++;
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting2");
+                e.printStackTrace();
+            }
+            
+            lawyerNamesN = Arrays.stream(lawyerNames).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+            lawyerUsernamesN = Arrays.stream(lawyerUsernames).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+        
+            txtLawyer.setModel(new javax.swing.DefaultComboBoxModel<>(lawyerNamesN));
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tableComplaintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableComplaintMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel)tableComplaint.getModel();
+        int selectedRow = tableComplaint.getSelectedRow();
+        //Set data to text fields
+        String verificID = tblModel.getValueAt(tableComplaint.getSelectedRow(), 0).toString();
+        String complainID = tblModel.getValueAt(tableComplaint.getSelectedRow(), 1).toString();
+        String desc = tblModel.getValueAt(tableComplaint.getSelectedRow(), 3).toString();
+        
+        txtComplaintID = complainID;
+        txtVerificationID = verificID;
+        txtDescription = desc;
+    }//GEN-LAST:event_tableComplaintMouseClicked
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+       String lawyerUsername;
+       String lawyerName = txtLawyer.getSelectedItem().toString();
+       String toEmail = "";
+       String subject = "Hello";
+       String text = "There is an update on you ComplaintId = "+txtComplaintID+" Open the portal to see the status";
+       boolean result = false;
+       String forwardTo = "Waiting fo court Verdict";
+       String txtVerdict = "Not Assigned";
+
+
+	if (txtComplaintID.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please Select a Complaint", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+		    int indx = Arrays.asList(lawyerNamesN).indexOf(lawyerName);
+		    lawyerUsername = lawyerUsernamesN[indx];
+                
+		    CPSOfficer case1 = new CPSOfficer(Validate.ConvertIntoNumeric(txtVerificationID),Validate.ConvertIntoNumeric(txtComplaintID),lawyerUsername,cpsUsername,txtDescription,forwardTo,txtVerdict);
+            
+                try{
+                    DatabaseConnection.storeDataChildProtectionService(case1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                DatabaseConnection.updateSetStatus(txtComplaintID, "A Lawyer has been assigned to your case");
+		    
+		try{
+                    ResultSet newSet1 = null;
+                    newSet1 = DatabaseConnection.getComplaineeEmail(txtComplaintID);
+
+                    while (newSet1.next()){
+			  toEmail = newSet1.getString(1);
+                    }
+                }catch(Exception e){
+                	System.out.println("Error while Connecting2");
+                	e.printStackTrace();
+                }
+
+        
+        	try {
+                    result = Email.sendEmail(toEmail, subject, text);
+        	} catch (Exception ex) {
+                    java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        	}
+                
+                
+            txtComplaintID = "";
+            txtVerificationID = "";
+            txtDescription = "";
+		
+		
+
+            JOptionPane.showMessageDialog(this, "Lawyer Assigned Succesfully");
+            
+            DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+            complaintTable.setRowCount(0);
+            ResultSet resultSet = null;
+            try{
+            
+            resultSet = DatabaseConnection.getComplainVOCPSAssign(cpsUsername);
+            
+            while (resultSet.next()){
+                String verificationID = resultSet.getString(1);
+                String complaintID = resultSet.getString(2);
+                String childName = resultSet.getString(3);
+		    String description = resultSet.getString(4);
+      
+                complaintTable.addRow(new Object[]{verificationID,complaintID,childName,description});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+        
+	}
+
+    }//GEN-LAST:event_btnAssignActionPerformed
 
     /**
      * @param args the command line arguments

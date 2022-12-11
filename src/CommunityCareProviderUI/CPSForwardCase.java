@@ -4,6 +4,10 @@
  */
 package CommunityCareProviderUI;
 
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author nitan
@@ -35,11 +39,11 @@ public class CPSForwardCase extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableComplaint = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        comboSearch1 = new javax.swing.JComboBox<>();
-        txtSearch1 = new javax.swing.JTextField();
+        searchColumn = new javax.swing.JComboBox<>();
+        searchValue = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtLawyer = new javax.swing.JComboBox<>();
@@ -53,15 +57,15 @@ public class CPSForwardCase extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select a Case", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableComplaint.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ComplaintID", "NameOfChild", "LawyerName", "Verdict"
+                "VerificationID", "ComplaintID", "CaseDescription", "Verdict"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableComplaint);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -86,8 +90,14 @@ public class CPSForwardCase extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 204));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
-        comboSearch1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        comboSearch1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ComplaintID", "NameOfChild" }));
+        searchColumn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        searchColumn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VerificationID", "ComplaintID" }));
+
+        searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchValueKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -95,16 +105,16 @@ public class CPSForwardCase extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comboSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchColumn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSearch1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(searchValue, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(comboSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(txtSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(searchColumn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
@@ -114,7 +124,7 @@ public class CPSForwardCase extends javax.swing.JFrame {
         jLabel2.setText("Forward the Case:");
 
         txtLawyer.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txtLawyer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption Centre", "Foster Care" }));
+        txtLawyer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption ", "Foster" }));
 
         btnAssign.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAssign.setText("Assign");
@@ -219,6 +229,25 @@ public class CPSForwardCase extends javax.swing.JFrame {
             dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchValueKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel table = (DefaultTableModel)tableComplaint.getModel();
+        String search = searchValue.getText();
+        String column = searchColumn.getSelectedItem().toString();
+        int index = 0;
+            
+        if(column == "VerificationID"){
+            index = 0;
+                
+        }else if(column == "ComplaintID"){
+            index = 1;
+        }
+
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
+        tableComplaint.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search, index));
+    }//GEN-LAST:event_searchValueKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -260,7 +289,6 @@ public class CPSForwardCase extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnBack;
-    private javax.swing.JComboBox<String> comboSearch1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -268,8 +296,9 @@ public class CPSForwardCase extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> searchColumn;
+    private javax.swing.JTextField searchValue;
+    private javax.swing.JTable tableComplaint;
     private javax.swing.JComboBox<String> txtLawyer;
-    private javax.swing.JTextField txtSearch1;
     // End of variables declaration//GEN-END:variables
 }

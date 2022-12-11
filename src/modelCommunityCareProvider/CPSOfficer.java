@@ -15,16 +15,26 @@ public class CPSOfficer {
     String cpsUsername;
     String caseDescription;
     String forwardTo;
+    String Verdict;
 
-    public CPSOfficer(Integer verificationID, Integer complaintID, String lawyerUsername, String cpsUsername, String caseDescription, String forwardTo) {
+    public CPSOfficer(Integer verificationID, Integer complaintID, String lawyerUsername, String cpsUsername, String caseDescription, String forwardTo, String Verdict) {
         this.verificationID = verificationID;
         this.complaintID = complaintID;
         this.lawyerUsername = lawyerUsername;
         this.cpsUsername = cpsUsername;
         this.caseDescription = caseDescription;
         this.forwardTo = forwardTo;
+        this.Verdict = Verdict;
     }
 
+    public void setVerdict(String Verdict) {
+        this.Verdict = Verdict;
+    }
+
+    public String getVerdict() {
+        return Verdict;
+    }
+    
     public void setVerificationID(Integer verificationID) {
         this.verificationID = verificationID;
     }
