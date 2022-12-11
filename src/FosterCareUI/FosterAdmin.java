@@ -501,7 +501,7 @@ public class FosterAdmin extends javax.swing.JFrame {
             String username = usernameTxt.getText();
             try{
             
-                DatabaseConnection.getDeletePersonCWC(username, true);
+                DatabaseConnection.getDeletePersonFoster(username, true);
            
             }catch(Exception e){
                 System.out.println("Error while Connecting");

@@ -107,11 +107,11 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="cc" red="ff" type="rgb"/>
         </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/viewcasesicon.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="VIEW CASES AND SUBMIT VERDICT"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="casesverdictBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

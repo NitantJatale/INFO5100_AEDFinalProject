@@ -67,8 +67,12 @@ public class LawyerUI extends javax.swing.JFrame {
         );
 
         viewcasesBtn.setBackground(new java.awt.Color(255, 204, 153));
-        viewcasesBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/viewcasesicon.png")); // NOI18N
         viewcasesBtn.setText("View Cases");
+        viewcasesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewcasesBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +107,13 @@ public class LawyerUI extends javax.swing.JFrame {
         lpjframe.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void viewcasesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewcasesBtnActionPerformed
+        // TODO add your handling code here:
+        CasesLawyerUI clui = new CasesLawyerUI();
+        clui.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_viewcasesBtnActionPerformed
 
     /**
      * @param args the command line arguments
