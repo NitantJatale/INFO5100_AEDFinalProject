@@ -4,7 +4,9 @@
  */
 package FosterCareUI;
 
+import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelFoster.PersonFoster;
@@ -84,6 +86,11 @@ public class FosterAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -126,7 +133,7 @@ public class FosterAdmin extends javax.swing.JFrame {
 
         roleLbl.setText("Role:");
 
-        roleDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption Family", "Adoption Officer" }));
+        roleDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption Family", "Adoption Officer", "Foster Officer" }));
 
         firstnameLbl.setText("First Name:");
 
@@ -431,7 +438,7 @@ public class FosterAdmin extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, "Data Added Successfully !");
         
-        PersonFoster person1 = new PersonFoster(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password);
+        PersonFoster person1 = new PersonFoster(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password,role);
         try{
                     DatabaseConnection.storeDataPersonFoster(person1);
         }
@@ -452,33 +459,56 @@ public class FosterAdmin extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-         String role = roleDrpdn.getSelectedItem().toString();
-        String username = usernameTxt.getText();
-        String password = passwordTxt.getText();
-        String firstname = firstnameTxt.getText();
-        String lastname = lastnameTxt.getText();
-        String emailid = emailidTxt.getText();
-        int mobile = Integer.valueOf(mobileTxt.getText());
-        String address = addressTxt.getText();
-        String state = stateDrpdn.getSelectedItem().toString();
-        String city = cityDrpdn.getSelectedItem().toString();
-        int zipcode = Integer.valueOf(zipcodeTxt.getText());
-        
-        
-        DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
-        
-        if(fosteradminJTable.getSelectedRowCount()==1){
+//         String role = roleDrpdn.getSelectedItem().toString();
+//        String username = usernameTxt.getText();
+//        String password = passwordTxt.getText();
+//        String firstname = firstnameTxt.getText();
+//        String lastname = lastnameTxt.getText();
+//        String emailid = emailidTxt.getText();
+//        int mobile = Integer.valueOf(mobileTxt.getText());
+//        String address = addressTxt.getText();
+//        String state = stateDrpdn.getSelectedItem().toString();
+//        String city = cityDrpdn.getSelectedItem().toString();
+//        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+//        
+//        
+//        DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
+//        
+//        if(fosteradminJTable.getSelectedRowCount()==1){
+//            try{
+//            
+//                DatabaseConnection.getDeletePersonFoster(username, true);
+//           
+//            }catch(Exception e){
+//                System.out.println("Error while Connecting");
+//                e.printStackTrace();
+//            }
+//            adminfoster.removeRow(fosteradminJTable.getSelectedRow());
+//            
+//            JOptionPane.showMessageDialog(this, "Data Deleted Successfully !");
+//        }
+//        else{
+//         if(fosteradminJTable.getSelectedRowCount()==0){
+//            
+//             JOptionPane.showMessageDialog(this, "Please select a single row !");
+//         
+//         }
+//        }
+        int tuple = fosteradminJTable.getSelectedRow();
+        if (tuple<0){
+            JOptionPane.showMessageDialog(this, "Please select a Row!","Select Row",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String username = usernameTxt.getText();
+            try{
             
-            adminfoster.removeRow(fosteradminJTable.getSelectedRow());
-            
-            JOptionPane.showMessageDialog(this, "Data Deleted Successfully !");
-        }
-        else{
-         if(fosteradminJTable.getSelectedRowCount()==0){
-            
-             JOptionPane.showMessageDialog(this, "Please select a single row !");
-         
-         }
+                DatabaseConnection.getDeletePersonCWC(username, true);
+           
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+            DefaultTableModel personTable = (DefaultTableModel) fosteradminJTable.getModel();
+            personTable.removeRow(tuple);
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
@@ -549,8 +579,15 @@ public class FosterAdmin extends javax.swing.JFrame {
         String address = addressTxt.getText();
         String state = stateDrpdn.getSelectedItem().toString();
         String city = cityDrpdn.getSelectedItem().toString();
-        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+        int zipCode = Integer.valueOf(zipcodeTxt.getText());
         
+        PersonFoster personf1 = new PersonFoster(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password,role);
+        try{
+                    DatabaseConnection.updatePersonFoster(personf1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
         DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
         
         adminfoster.setValueAt(role, fosteradminJTable.getSelectedRow(), 0);
@@ -563,7 +600,7 @@ public class FosterAdmin extends javax.swing.JFrame {
         adminfoster.setValueAt(address, fosteradminJTable.getSelectedRow(), 7);
         adminfoster.setValueAt(state, fosteradminJTable.getSelectedRow(), 8);
         adminfoster.setValueAt(city, fosteradminJTable.getSelectedRow(), 9);
-        adminfoster.setValueAt(zipcode, fosteradminJTable.getSelectedRow(), 10);
+        adminfoster.setValueAt(zipCode, fosteradminJTable.getSelectedRow(), 10);
         
         usernameTxt.setText("");
         passwordTxt.setText("");
@@ -576,6 +613,37 @@ public class FosterAdmin extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, "Data Updated Successfully !");
     }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel personTable = (DefaultTableModel) fosteradminJTable.getModel();
+       ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getData(Constants.FosterPerson, false);
+            while (resultSet.next()){
+                String firstname = resultSet.getString(1);
+                String lastname = resultSet.getString(2);
+                String emailid = resultSet.getString(3);
+                String mobile = resultSet.getString(4);
+                String address = resultSet.getString(5);
+                String city = resultSet.getString(6);
+                String zipCode = resultSet.getString(7);
+                String state = resultSet.getString(8);
+                
+                String username = resultSet.getString(9);
+                String password = resultSet.getString(10);
+                String role = resultSet.getString(11);
+                    
+                       
+                    personTable.addRow(new Object[]{role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipCode});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
