@@ -51,10 +51,8 @@ public class Constants {
     public static final String FosterCareUpdate4 = "WHERE Foster_ID=";
     public static final String FosteramilyComboQuery = "SELECT DISTINCT Foster_Family_Name FROM Foster_Care";
     
-    
     public static final String ChildProtectFoster = "SELECT Case_ID, Case_Description FROM Child_Prtct WHERE Forward_To= 'Foster'";
     public static final String AdoptionRequest = "SELECT A.Name_Of_Child, A.Parent_Full_Name, B.City, B.State, A.Complaint_ID  FROM Complaint_Register A JOIN Person_Child_Welfare_Sys B on A.Complainee_UserName = B.Username where A.Complaint_ID in (SELECT Complaint_ID FROM Child_Prtct_Srvc_Offcr where Forward_To='Adoption')";
-    
     public static final String ComplaintSearch = "SELECT * FROM Complaint_Register";
     public static final String complaintHandlerSearch = "SELECT cr.Complaint_ID, cr.Distress_Reporter_Name, cr.First_Respondent_Name, cr.Name_Of_Child, cr.Parent_Full_Name, cr.Nature_of_Abuse, cr.Abuse_Description FROM Complaint_Register cr WHERE cr.complaint_id NOT IN(SELECT ch.Complaint_ID FROM Complaint_Handler ch)";
     public static final String complaintHandlerVO = "SELECT username, firstname, lastname FROM Person_Child_Welfare_Sys WHERE role = 'Case Verfication Officer'";
@@ -63,5 +61,9 @@ public class Constants {
     public static final String complaintVOCPSSearch = "SELECT cvo.Complaint_ID,cvo.Level,cvo.Visit_Description,cvo.Ligitimate_Flag,cvo.CPSOfficer_Username FROM Case_Verification_Officer cvo WHERE cvo.CPSOfficer_Username = 'Not Assigned' and cvo.Ligitimate_Flag = 'Legitimate' and cvo.Verification_Officer_Username = ";
     public static final String complaintVOCPS = "SELECT username, firstname, lastname FROM Person_Child_Welfare_Sys WHERE role = 'Child Protection Service'";
     
-    
+    public static final String cpsOfficerAssignSearch = "SELECT cvo.Verification_ID,cvo.complaint_ID,cr.Name_Of_Child,cr.Abuse_Description FROM Case_Verification_Officer cvo JOIN complaint_register cr ON cvo.Complaint_ID = cr.Complaint_ID WHERE cvo.Complaint_ID NOT IN (SELECT Complaint_ID FROM Child_Prtct_Srvc_Offcr) AND cvo.CPSOfficer_Username = ";
+    public static final String cpsLawyer = "SELECT username, firstname, lastname FROM Person_Legal WHERE role_name = 'Lawyer'";
+    public static final String cpsForwardSearch = "SELECT cpso.Verification_ID,cpso.Complaint_ID,cpso.Case_Description,cpso.Verdict FROM Child_Prtct_Srvc_Offcr cpso WHERE cpso.Forward_To = 'Waiting for court Verdict' AND cpso.CPSOfficer_Username =  ";
+
+
 }

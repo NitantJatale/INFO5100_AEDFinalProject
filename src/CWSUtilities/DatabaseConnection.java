@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import modelChildWelfareCentre.CaseVerification;
 import modelChildWelfareCentre.ComplaintHandler;
 import modelChildWelfareCentre.ComplaintRegister;
+import modelCommunityCareProvider.CPSOfficer;
 import modelFoster.PersonFoster;
 import modelLegal.PersonLegal;
 
@@ -115,7 +116,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmailid());
@@ -126,7 +127,6 @@ public class DatabaseConnection {
             ps.setString(8, person.getState());
             ps.setString(9, person.getUsername());
             ps.setString(10, person.getPassword());
-            ps.setString(11, person.getRole());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -146,7 +146,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO person_foster VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO person_foster VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmailid());
@@ -157,7 +157,6 @@ public class DatabaseConnection {
             ps.setString(8, person.getState());
             ps.setString(9, person.getUsername());
             ps.setString(10, person.getPassword());
-            ps.setString(11, person.getRole());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -277,9 +276,6 @@ public class DatabaseConnection {
 
         return resultSet;
     }
-    
-
-    
 
     public static ResultSet getPersonFosterRole(String username, boolean isDml) throws SQLException {
         connectDB();
@@ -445,7 +441,7 @@ public class DatabaseConnection {
     
     }
     
-        public static ResultSet getComplainVOCPSAssign(String username) throws SQLException {
+    public static ResultSet getComplainVOCPSAssign(String username) throws SQLException {
         connectDB();
         String query = Constants.complaintVOCPSSearch+"\'"+username+"\'";
         ResultSet resultSet = null;
@@ -582,7 +578,99 @@ public class DatabaseConnection {
 
         return resultSet;
     }
+       
+       public static ResultSet storeAdoptionAppointment(AdoptionAppointment app1){
         
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Adoption_Appointment VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, app1.getUsername());
+            ps.setInt(2, app1.getComplaint_ID());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet storeDataChildProtectionService(CPSOfficer complaint){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Child_Prtct_Srvc_Offcr(Verification_ID,Complaint_ID,Lawyer_Username,CPSOfficer_Username,Case_Description,Forward_To,Verdict) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, complaint.getVerificationID());
+            ps.setInt(2, complaint.getComplaintID());
+            ps.setString(3, complaint.getLawyerUsername());
+            ps.setString(4, complaint.getCpsUsername());
+            ps.setString(5, complaint.getCaseDescription());
+            ps.setString(6, complaint.getForwardTo());
+            ps.setString(7, complaint.getVerdict());
+
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet getCpsLawyerAssign(String username) throws SQLException {
+        connectDB();
+        String query = Constants.cpsOfficerAssignSearch+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet getForwardTo(String username) throws SQLException {
+        connectDB();
+        String query = Constants.cpsForwardSearch+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet updateForwardTo(CPSOfficer case1){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update Child_Prtct_Srvc_Offcr SET Forward_To = ? WHERE verification_id = ?, complaint_id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, case1.getForwardTo());
+            ps.setInt(2, case1.getVerificationID());
+            ps.setInt(3, case1.getComplaintID());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
         
 }
 

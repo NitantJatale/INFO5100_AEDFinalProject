@@ -5,8 +5,11 @@
 package FosterCareUI;
 
 import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Validate;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
+import modelFoster.AdoptionAppointment;
+import modelFoster.PersonFoster;
 
 /**
  *
@@ -17,8 +20,14 @@ public class AdoptionRequest extends javax.swing.JFrame {
     /**
      * Creates new form AdoptionRequest
      */
+    String famusername;
+    int complaintid;
     public AdoptionRequest() {
         initComponents();
+    }
+    public AdoptionRequest(String famusername) {
+        initComponents();
+        this.famusername = famusername;
     }
 
     /**
@@ -109,6 +118,11 @@ public class AdoptionRequest extends javax.swing.JFrame {
         jLabel5.setText("State:");
 
         sendadoptionreqBtn.setText("Send Adoption Request");
+        sendadoptionreqBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendadoptionreqBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -220,12 +234,25 @@ public class AdoptionRequest extends javax.swing.JFrame {
         String settextnameofparent = adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 1).toString();
         String settextcity = adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 2).toString();
         String settextstate = adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 3).toString();
+        int complaintid = Validate.ConvertIntoNumeric(adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 4).toString());
         
         nameofchildTxt.setText(settextnameofchild);
         nameofparentTxt.setText(settextnameofparent);
         cityTxt.setText(settextcity);
         stateTxt.setText(settextstate);
     }//GEN-LAST:event_adoptionrequestJTableMouseClicked
+
+    private void sendadoptionreqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendadoptionreqBtnActionPerformed
+        // TODO add your handling code here:
+        AdoptionAppointment app1 = new AdoptionAppointment(famusername, complaintid);
+        try{
+                    DatabaseConnection.storeAdoptionAppointment(app1);
+        }
+        catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+    }//GEN-LAST:event_sendadoptionreqBtnActionPerformed
 
     /**
      * @param args the command line arguments
