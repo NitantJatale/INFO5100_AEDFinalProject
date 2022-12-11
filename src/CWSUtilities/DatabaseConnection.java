@@ -112,7 +112,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmailid());
@@ -123,6 +123,7 @@ public class DatabaseConnection {
             ps.setString(8, person.getState());
             ps.setString(9, person.getUsername());
             ps.setString(10, person.getPassword());
+            ps.setString(11, person.getRole());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -275,6 +276,20 @@ public class DatabaseConnection {
     public static ResultSet getPersonFosterRole(String username, boolean isDml) throws SQLException {
         connectDB();
         String query = "SELECT password,role_name FROM person_foster WHERE username = "+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        if (isDml) {
+            statement.executeUpdate(query);
+            return null;
+        }
+
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet getPersonLegalRole(String username, boolean isDml) throws SQLException {
+        connectDB();
+        String query = "SELECT password,role_name FROM person_legal WHERE username = "+"\'"+username+"\'";
         ResultSet resultSet = null;
         if (isDml) {
             statement.executeUpdate(query);

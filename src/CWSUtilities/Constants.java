@@ -35,4 +35,7 @@ public class Constants {
     public static final String FosterPersonDelete = "DELETE FROM person_foster WHERE username = ";
     public static final String FosterPerson = "SELECT * FROM person_foster";
     
+    public static final String LegalPersonDelete = "DELETE FROM person_legal WHERE username = ";
+    public static final String LegalPerson = "SELECT * FROM person_legal";
+    
 }
