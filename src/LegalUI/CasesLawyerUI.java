@@ -4,6 +4,10 @@
  */
 package LegalUI;
 
+import CWSUtilities.DatabaseConnection;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anirudhajoshi
@@ -13,8 +17,13 @@ public class CasesLawyerUI extends javax.swing.JFrame {
     /**
      * Creates new form CasesLawyerUI
      */
+    String lawyerusername;
     public CasesLawyerUI() {
         initComponents();
+    }
+    public CasesLawyerUI(String lawyerusername) {
+        initComponents();
+        this.lawyerusername = lawyerusername;
     }
 
     /**
@@ -30,7 +39,7 @@ public class CasesLawyerUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        lawyercasesJTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         caseidLbl = new javax.swing.JLabel();
         caseidTxt = new javax.swing.JTextField();
@@ -44,6 +53,11 @@ public class CasesLawyerUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -78,7 +92,7 @@ public class CasesLawyerUI extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        lawyercasesJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -86,7 +100,7 @@ public class CasesLawyerUI extends javax.swing.JFrame {
                 "CaseID", "ComplaintID", "Case Description", "Verdict"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(lawyercasesJTable);
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -182,10 +196,32 @@ public class CasesLawyerUI extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-        LawyerUI luijframe = new LawyerUI();
+        LawyerUI luijframe = new LawyerUI(lawyerusername);
         luijframe.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel lawyercases = (DefaultTableModel) lawyercasesJTable.getModel();
+        ResultSet resultSet = null;
+        try{
+        resultSet = DatabaseConnection.getLawyerCases(lawyerusername);
+        while (resultSet.next()){
+                String caseid = resultSet.getString(1);
+                String complaintid = resultSet.getString(2);
+                String casedescription = resultSet.getString(3);
+                String verdict = resultSet.getString(4);
+                
+      
+                lawyercases.addRow(new Object[]{caseid,complaintid,casedescription,verdict});
+                
+                }
+        }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -234,7 +270,7 @@ public class CasesLawyerUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable lawyercasesJTable;
     private javax.swing.JButton sendcasecourtBtn;
     private javax.swing.JLabel verdictLbl;
     private javax.swing.JTextField verdictTxt;

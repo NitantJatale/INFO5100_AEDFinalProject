@@ -182,12 +182,12 @@ public class LoginPage extends javax.swing.JFrame {
                 
                 switch(role) {
                     case "Judge":
-                        JudgeUI JU = new JudgeUI();
+                        JudgeUI JU = new JudgeUI(username);
                             JU.show();
                             dispose();
                       break;
                     case "Lawyer":
-                        LawyerUI LU = new LawyerUI();
+                        LawyerUI LU = new LawyerUI(username);
                             LU.show();
                             dispose();
                       break;

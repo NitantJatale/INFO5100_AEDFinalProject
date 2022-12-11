@@ -13,8 +13,13 @@ public class LawyerUI extends javax.swing.JFrame {
     /**
      * Creates new form LawyerUI
      */
+    String lawyerusername;
     public LawyerUI() {
         initComponents();
+    }
+    public LawyerUI(String lawyerusername) {
+        initComponents();
+        this.lawyerusername = lawyerusername;
     }
 
     /**
@@ -110,7 +115,7 @@ public class LawyerUI extends javax.swing.JFrame {
 
     private void viewcasesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewcasesBtnActionPerformed
         // TODO add your handling code here:
-        CasesLawyerUI clui = new CasesLawyerUI();
+        CasesLawyerUI clui = new CasesLawyerUI(lawyerusername);
         clui.setVisible(true);
         dispose();
     }//GEN-LAST:event_viewcasesBtnActionPerformed

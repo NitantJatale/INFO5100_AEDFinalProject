@@ -13,8 +13,13 @@ public class JudgeUI extends javax.swing.JFrame {
     /**
      * Creates new form JudgeUI
      */
+    String judgeusername;
     public JudgeUI() {
         initComponents();
+    }
+    public JudgeUI(String judgeusername) {
+        initComponents();
+        this.judgeusername = judgeusername;
     }
 
     /**
