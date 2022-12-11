@@ -212,17 +212,11 @@ public class ComplainantViewComplain extends javax.swing.JFrame {
             String column = searchColumn.getSelectedItem().toString();
             int index = 0;
             
-            if(column == "Name"){
+            if(column == "ComplaintID"){
                 index = 0;
                 
-            }else if(column == "ID"){
-                index = 1;
-            }else if(column == "Level"){
-                index = 6;
-                search = search.toUpperCase();
-            }else if(column == "Team"){
+            }else if(column == "Status"){
                 index = 7;
-                
             }
 
             TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);

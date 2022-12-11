@@ -13,6 +13,8 @@ import java.sql.Statement;
 import modelChildWelfareCentre.PersonCWC;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelChildWelfareCentre.CaseVerification;
+import modelChildWelfareCentre.ComplaintHandler;
 import modelChildWelfareCentre.ComplaintRegister;
 import modelFoster.PersonFoster;
 import modelLegal.PersonLegal;
@@ -269,6 +271,132 @@ public class DatabaseConnection {
         return resultSet;
     }
     
+    public static ResultSet storeDataComplaintHandler(ComplaintHandler complaint){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Complaint_Handler VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, complaint.getComplaintID());
+            ps.setString(2, complaint.getvOUsername());
+            ps.setString(3, complaint.getvOName());
+            ps.setString(4, complaint.getDate());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet getComplaineeEmail(String complaintID) throws SQLException {
+        connectDB();
+        String query = "SELECT emailid FROM Complaint_register cr JOIN Person_Child_Welfare_Sys pcws ON cr.Complainee_UserName = pcws.username WHERE cr.complaint_id = "+"\'"+complaintID+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet updateSetStatus(String complaintID, String statusupdate){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update Complaint_Register SET First_Respondent_Name = 'Complaint Handler', Actions = 'Taken' ,status =? where complaint_id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, statusupdate);
+            ps.setString(2, complaintID);
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet getComplainVO(String username) throws SQLException {
+        connectDB();
+        String query = Constants.complaintVOSearch+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet storeDataCaseVerification(CaseVerification case1){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Case_Verification_Officer VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, case1.getVerificationOfficerUsername());
+            ps.setInt(2, case1.getComplaintID());
+            ps.setString(3, case1.getLevel());
+            ps.setString(4, case1.getVisitDescription());
+            ps.setString(5, case1.getLegitimateFlag());
+            ps.setString(6, case1.getCpsOfficerUsername());
+            ps.setString(7, case1.getInsertDT());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+        public static ResultSet getComplainVOCPSAssign(String username) throws SQLException {
+        connectDB();
+        String query = Constants.complaintVOCPSSearch+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+        
+    public static ResultSet updateCaseVerification(CaseVerification case1){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update Case_Verification_Officer SET CPSOfficer_Username = ?,INSRT_DT = ? where complaint_id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, case1.getCpsOfficerUsername());
+            ps.setString(2, case1.getInsertDT());
+            ps.setInt(3, case1.getComplaintID());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+        
+        
 }
 
 

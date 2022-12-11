@@ -13,8 +13,14 @@ public class CVerificationCHome extends javax.swing.JFrame {
     /**
      * Creates new form CWCentreHome
      */
+    String voUsername;
     public CVerificationCHome() {
         initComponents();
+    }
+    
+    public CVerificationCHome(String voUsername) {
+        initComponents();
+        this.voUsername = voUsername;
     }
 
     /**
@@ -43,12 +49,16 @@ public class CVerificationCHome extends javax.swing.JFrame {
 
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
         btnCaseVerification.setBackground(new java.awt.Color(205, 195, 227));
         btnCaseVerification.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCaseVerification.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationcentericon.png")); // NOI18N
         btnCaseVerification.setText("CASE VERIFICATION");
         btnCaseVerification.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,8 +68,12 @@ public class CVerificationCHome extends javax.swing.JFrame {
 
         btnAssigntoCPS.setBackground(new java.awt.Color(205, 195, 227));
         btnAssigntoCPS.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnAssigntoCPS.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/assigntocpsicon.png")); // NOI18N
         btnAssigntoCPS.setText("ASSIGN TO CPS");
+        btnAssigntoCPS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssigntoCPSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -85,14 +99,14 @@ public class CVerificationCHome extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(441, 441, 441)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(378, 378, 378)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(224, 224, 224)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(437, 437, 437)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(231, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -102,9 +116,9 @@ public class CVerificationCHome extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112))
+                .addGap(125, 125, 125))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,7 +137,24 @@ public class CVerificationCHome extends javax.swing.JFrame {
 
     private void btnCaseVerificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaseVerificationActionPerformed
         // TODO add your handling code here:
+        CVerificationCVerification CVCV = new CVerificationCVerification(voUsername);
+            CVCV.show();
+            dispose();
     }//GEN-LAST:event_btnCaseVerificationActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        CVerificationCLogin CVCL = new CVerificationCLogin();
+            CVCL.show();
+            dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAssigntoCPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssigntoCPSActionPerformed
+        // TODO add your handling code here:
+        CVerificationCAssignCPS CVCA = new CVerificationCAssignCPS(voUsername);
+            CVCA.show();
+            dispose();
+    }//GEN-LAST:event_btnAssigntoCPSActionPerformed
 
     /**
      * @param args the command line arguments

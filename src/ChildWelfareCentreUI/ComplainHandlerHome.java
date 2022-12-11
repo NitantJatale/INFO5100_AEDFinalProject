@@ -4,6 +4,22 @@
  */
 package ChildWelfareCentreUI;
 
+import CWSUtilities.Constants;
+import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Email;
+import CWSUtilities.Validate;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
+import modelChildWelfareCentre.ComplaintHandler;
+import trials.ComplaineeSignUp;
+
 /**
  *
  * @author nitan
@@ -14,6 +30,8 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
      * Creates new form ComplainantViewComplain
      */
     String complainHandlerUsername;
+    String[] vONamesN = new String[10];
+    String[] vOUsernamesN = new String[10];
     
     public ComplainHandlerHome() {
         initComponents();
@@ -45,9 +63,14 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
         txtCVOfficer = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtComplaintID = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAssign = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -63,6 +86,11 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
                 "ComplaintID", "DistressReporterName", "FirstRespondentName", "NameOfChild", "NameOfParent", "NatureOfAbuse", "AbuseDescription", "CaseVerificationOfficer"
             }
         ));
+        tableComplaint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableComplaintMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableComplaint);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search Complain", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
@@ -70,15 +98,24 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
         searchColumn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         searchColumn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ComplaintID", "NameOfChild" }));
 
+        searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchValueKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchValueKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(searchColumn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchValue)
+                .addComponent(searchColumn, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -107,25 +144,30 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(txtCVOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(83, 83, 83)
+                .addComponent(txtCVOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(30, 30, 30)
                 .addComponent(txtCVOfficer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("ComplaintID:");
 
-        jButton1.setBackground(new java.awt.Color(205, 195, 227));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jButton1.setText("Assign");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAssign.setBackground(new java.awt.Color(205, 195, 227));
+        btnAssign.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnAssign.setText("Assign");
+        btnAssign.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,10 +192,10 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
                         .addGap(461, 461, 461)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,7 +214,7 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -204,6 +246,172 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
             CSL.show();
             dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+       DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+       ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getData(Constants.complaintHandlerSearch, false);
+            
+            while (resultSet.next()){
+                String complainID = resultSet.getString(1);
+                String dRName = resultSet.getString(2);
+                String fRName = resultSet.getString(3);
+                String childName = resultSet.getString(4);
+                String parentName = resultSet.getString(5);
+                String abuse = resultSet.getString(6);
+                String description = resultSet.getString(7);
+      
+                complaintTable.addRow(new Object[]{complainID,dRName,fRName,childName,parentName,abuse,description});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+
+            String[] vONames = new String[10];
+            String[] vOUsernames = new String[10];
+            
+            ResultSet newSet = null;
+            try{
+                int j=0;
+                newSet = DatabaseConnection.getData(Constants.complaintHandlerVO, false);
+
+                while (newSet.next()){
+                	vOUsernames[j] = newSet.getString(1);
+			vONames[j] = newSet.getString(2)+" "+newSet.getString(3);
+                        j++;
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting2");
+                e.printStackTrace();
+            }
+            
+            vONamesN = Arrays.stream(vONames).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+            vOUsernamesN = Arrays.stream(vOUsernames).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+        
+            txtCVOfficer.setModel(new javax.swing.DefaultComboBoxModel<>(vONamesN));
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tableComplaintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableComplaintMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel)tableComplaint.getModel();
+        int selectedRow = tableComplaint.getSelectedRow();
+        //Set data to text fields
+        
+        String complainID = tblModel.getValueAt(tableComplaint.getSelectedRow(), 0).toString();
+        
+        txtComplaintID.setText(complainID);
+    }//GEN-LAST:event_tableComplaintMouseClicked
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+        String complaintID = txtComplaintID.getText();
+        String vOfficerUsername;
+        String vOfficerName = txtCVOfficer.getSelectedItem().toString();
+	Date date = new Date();
+	String toEmail = "";
+        String subject = "Hello";
+        String text = "There is an update on you ComplaintId = "+complaintID+" Open the portal to see the status";
+        boolean result = false;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
+
+	if (complaintID.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please Select a Complain", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+		    int indx = Arrays.asList(vONamesN).indexOf(vOfficerName);
+		    vOfficerUsername = vOUsernamesN[indx];
+                
+		    ComplaintHandler comphand = new ComplaintHandler(complaintID,vOfficerUsername,vOfficerName,newdate);
+            
+                try{
+                    DatabaseConnection.storeDataComplaintHandler(comphand);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                DatabaseConnection.updateSetStatus(complaintID, "Case Verification Officer Assigned");
+		    
+		try{
+                    ResultSet newSet1 = null;
+                    newSet1 = DatabaseConnection.getComplaineeEmail(complaintID);
+
+                    while (newSet1.next()){
+			toEmail = newSet1.getString(1);
+                    }
+                }catch(Exception e){
+                	System.out.println("Error while Connecting2");
+                	e.printStackTrace();
+                }
+
+        
+        	try {
+                    result = Email.sendEmail(toEmail, subject, text);
+        	} catch (Exception ex) {
+                    java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        	}
+                
+                
+            	txtComplaintID.setText("");
+
+		
+		DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+                complaintTable.setRowCount(0);	
+                ResultSet resultSet = null;
+        	
+                try{
+            
+                    resultSet = DatabaseConnection.getData(Constants.complaintHandlerSearch, false);
+            
+                    while (resultSet.next()){
+                	String complainID = resultSet.getString(1);
+                	String dRName = resultSet.getString(2);
+                	String fRName = resultSet.getString(3);
+                	String childName = resultSet.getString(4);
+                	String parentName = resultSet.getString(5);
+                	String abuse = resultSet.getString(6);
+                	String description = resultSet.getString(7);
+       
+                        complaintTable.addRow(new Object[]{complainID,dRName,fRName,childName,parentName,abuse,description});
+
+                    }
+            	}catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+            	}
+                JOptionPane.showMessageDialog(this, "Verification Officer Assigned Succesfully");
+        }  
+        
+    }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void searchValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchValueKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchValueKeyTyped
+
+    private void searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchValueKeyReleased
+        // TODO add your handling code here:
+            DefaultTableModel table = (DefaultTableModel)tableComplaint.getModel();
+            String search = searchValue.getText();
+            String column = searchColumn.getSelectedItem().toString();
+            int index = 0;
+            
+            if(column == "ComplaintID"){
+                index = 0;
+                
+            }else if(column == "NameOfChild"){
+                index = 3;
+            }
+
+            TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
+            tableComplaint.setRowSorter(tr);
+            tr.setRowFilter(RowFilter.regexFilter(search, index));
+    }//GEN-LAST:event_searchValueKeyReleased
 
     /**
      * @param args the command line arguments
@@ -242,8 +450,8 @@ public class ComplainHandlerHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

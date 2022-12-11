@@ -462,6 +462,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
                 DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
                 personTable.addRow(new Object[]{firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role});
                 
+                JOptionPane.showMessageDialog(this, "Admin added Succesfully");
             txtEmail.setText("");
             txtFirstName.setText("");
             txtLastName.setText("");
@@ -588,6 +589,8 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
             }
             DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
             personTable.removeRow(tuple);
+            
+            JOptionPane.showMessageDialog(this, "Admin deleted Succesfully");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
