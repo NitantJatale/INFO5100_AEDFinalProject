@@ -4,9 +4,16 @@
  */
 package CommunityCareProviderUI;
 
+import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Email;
+import CWSUtilities.Validate;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import modelCommunityCareProvider.CPSOfficer;
+import trials.ComplaineeSignUp;
 
 /**
  *
@@ -18,6 +25,11 @@ public class CPSForwardCase extends javax.swing.JFrame {
      * Creates new form CPSAssignLawyer
      */
     String cpsUsername;
+    String txtVerificationID;
+    String txtComplaintID;
+    String txtVerdict;
+    String verdictGiven; 
+            
     public CPSForwardCase() {
         initComponents();
     }
@@ -46,11 +58,16 @@ public class CPSForwardCase extends javax.swing.JFrame {
         searchValue = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtLawyer = new javax.swing.JComboBox<>();
+        txtForward = new javax.swing.JComboBox<>();
         btnAssign = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -65,6 +82,11 @@ public class CPSForwardCase extends javax.swing.JFrame {
                 "VerificationID", "ComplaintID", "CaseDescription", "Verdict"
             }
         ));
+        tableComplaint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableComplaintMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableComplaint);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -123,11 +145,16 @@ public class CPSForwardCase extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("Forward the Case:");
 
-        txtLawyer.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txtLawyer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption ", "Foster" }));
+        txtForward.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txtForward.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption ", "Foster" }));
 
         btnAssign.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAssign.setText("Assign");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -139,7 +166,7 @@ public class CPSForwardCase extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLawyer, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtForward, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(304, 304, 304))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,7 +178,7 @@ public class CPSForwardCase extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLawyer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtForward, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(7, Short.MAX_VALUE))
@@ -248,6 +275,134 @@ public class CPSForwardCase extends javax.swing.JFrame {
         tr.setRowFilter(RowFilter.regexFilter(search, index));
     }//GEN-LAST:event_searchValueKeyReleased
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+        ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getForwardTo(cpsUsername);
+            
+            while (resultSet.next()){
+                String verificationID = resultSet.getString(1);
+                String complaintID = resultSet.getString(2);
+		String description = resultSet.getString(3);
+		String verdict = resultSet.getString(4);
+		    
+      
+                complaintTable.addRow(new Object[]{verificationID,complaintID,description,verdict});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+       String lawyerUsername = "";
+       String forward = txtForward.getSelectedItem().toString();
+       String toEmail = "";
+       String subject = "Hello";
+       String text = "There is an update on you ComplaintId = "+txtComplaintID+" Open the portal to see the status";
+       boolean result = false;
+       String txtDescription = "";
+
+
+	if (txtComplaintID.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please Select a Complaint", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if(!verdictGiven.equals(forward)){
+            JOptionPane.showMessageDialog(this, "Veridct and Assignment Differs", "Wrong Assignment",JOptionPane.ERROR_MESSAGE);
+        }else{
+                
+		CPSOfficer case1 = new CPSOfficer(Validate.ConvertIntoNumeric(txtVerificationID),Validate.ConvertIntoNumeric(txtComplaintID),lawyerUsername,cpsUsername,txtDescription,forward,txtVerdict);
+            
+                try{
+                    DatabaseConnection.updateForwardTo(case1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                DatabaseConnection.updateSetStatus(txtComplaintID, "A Verdict was given on your case "+txtVerdict+". Now your case has been forwarded to respective enetities based on the court verdict");
+		    
+		try{
+                    ResultSet newSet1 = null;
+                    newSet1 = DatabaseConnection.getComplaineeEmail(txtComplaintID);
+
+                    while (newSet1.next()){
+			  toEmail = newSet1.getString(1);
+                    }
+                }catch(Exception e){
+                	System.out.println("Error while Connecting2");
+                	e.printStackTrace();
+                }
+
+        
+        	try {
+                    result = Email.sendEmail(toEmail, subject, text);
+        	} catch (Exception ex) {
+                    java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        	}
+                
+                
+            txtComplaintID = "";
+            txtVerificationID = "";
+            txtVerdict = "";
+		
+		
+
+            JOptionPane.showMessageDialog(this, "Case Forwarded Succesfully");
+
+            DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+            complaintTable.setRowCount(0);
+            ResultSet resultSet = null;
+            try{
+            
+            resultSet = DatabaseConnection.getForwardTo(cpsUsername);
+            
+            while (resultSet.next()){
+                String verificationID = resultSet.getString(1);
+                String complaintID = resultSet.getString(2);
+		    String description = resultSet.getString(3);
+		    String verdict = resultSet.getString(4);
+		    
+      
+                complaintTable.addRow(new Object[]{verificationID,complaintID,description,verdict});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+	}
+        
+        
+    }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void tableComplaintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableComplaintMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel)tableComplaint.getModel();
+        int selectedRow = tableComplaint.getSelectedRow();
+        //Set data to text fields
+        String verificID = tblModel.getValueAt(tableComplaint.getSelectedRow(), 0).toString();
+        String complainID = tblModel.getValueAt(tableComplaint.getSelectedRow(), 1).toString();
+        String verdict = tblModel.getValueAt(tableComplaint.getSelectedRow(), 3).toString();
+        
+        if (verdict.equals("Passed to Foster Care")){
+            verdictGiven = "Foster";
+        }else if(verdict.equals("Passed to Foster Care")){
+            verdictGiven = "Adoption";
+        }else{
+            verdictGiven = "Not Assigned";
+        }
+        
+        txtComplaintID = complainID;
+        txtVerificationID = verificID;
+        txtVerdict = verdict;
+    }//GEN-LAST:event_tableComplaintMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -299,6 +454,6 @@ public class CPSForwardCase extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> searchColumn;
     private javax.swing.JTextField searchValue;
     private javax.swing.JTable tableComplaint;
-    private javax.swing.JComboBox<String> txtLawyer;
+    private javax.swing.JComboBox<String> txtForward;
     // End of variables declaration//GEN-END:variables
 }

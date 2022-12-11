@@ -6,6 +6,7 @@ package ChildWelfareCentreUI;
 
 import CWSUtilities.DatabaseConnection;
 import CWSUtilities.Email;
+import static CWSUtilities.SmsUtility.sendSMS;
 import CWSUtilities.Validate;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -388,9 +389,9 @@ public class ComplainantSignUp extends javax.swing.JFrame {
             txtZip.setText("");
             txtUsername.setText("");
             txtPassword.setText("");
-            
+            sendSMS(txtMobile.getText(),"CWC SignUp Successfully");
             JOptionPane.showMessageDialog(this, "Signed Up Succesfully");
-        }        
+        }      
           
     }//GEN-LAST:event_btnSignUpActionPerformed
 

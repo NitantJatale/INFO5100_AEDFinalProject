@@ -343,7 +343,7 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
        String subject = "Hello";
        String text = "There is an update on you ComplaintId = "+txtComplaintID+" Open the portal to see the status";
        boolean result = false;
-       String forwardTo = "Waiting fo court Verdict";
+       String forwardTo = "Waiting for court Verdict";
        String txtVerdict = "Not Assigned";
 
 
@@ -403,7 +403,7 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
                 String verificationID = resultSet.getString(1);
                 String complaintID = resultSet.getString(2);
                 String childName = resultSet.getString(3);
-		    String description = resultSet.getString(4);
+		String description = resultSet.getString(4);
       
                 complaintTable.addRow(new Object[]{verificationID,complaintID,childName,description});
                 
