@@ -31,9 +31,9 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         caseidLbl = new javax.swing.JLabel();
-        caseidDrpdn = new javax.swing.JComboBox<>();
         adoptionfamilyLbl = new javax.swing.JLabel();
         adoptionfamilyDrpdn = new javax.swing.JComboBox<>();
+        caseidTxt = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         assignadoptionfamilyBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -81,8 +81,6 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
 
         caseidLbl.setText("CaseID:");
 
-        caseidDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         adoptionfamilyLbl.setText("Adoption Family:");
 
         adoptionfamilyDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -95,12 +93,12 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addComponent(caseidLbl)
                 .addGap(18, 18, 18)
-                .addComponent(caseidDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(114, 114, 114)
+                .addComponent(caseidTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
                 .addComponent(adoptionfamilyLbl)
                 .addGap(18, 18, 18)
                 .addComponent(adoptionfamilyDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,9 +106,9 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(caseidLbl)
-                    .addComponent(caseidDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(adoptionfamilyLbl)
-                    .addComponent(adoptionfamilyDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adoptionfamilyDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(caseidTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -139,13 +137,13 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
         jTable1.setBackground(new java.awt.Color(255, 226, 249));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "CaseID", "Case Description", "Name of Child", "Foster Family", "Status"
+                "CaseID", "Case Description", "Name of Child", "Foster Family"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -234,8 +232,8 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
     private javax.swing.JLabel adoptionfamilyLbl;
     private javax.swing.JButton assignadoptionfamilyBtn;
     private javax.swing.JButton backBtn;
-    private javax.swing.JComboBox<String> caseidDrpdn;
     private javax.swing.JLabel caseidLbl;
+    private javax.swing.JTextField caseidTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

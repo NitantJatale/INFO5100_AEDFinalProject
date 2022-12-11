@@ -474,6 +474,7 @@ public class DatabaseConnection {
     
     }
     
+
     public static ResultSet getLawyerCases(String username) throws SQLException {
         connectDB();
         String query = Constants.LawyerCases+"\'"+username+"\'";
@@ -604,6 +605,8 @@ public class DatabaseConnection {
     
     public static ResultSet storeDataChildProtectionService(CPSOfficer complaint){
         
+
+
         ResultSet resultSet = null;
         try {
             setConnection();
@@ -647,8 +650,11 @@ public class DatabaseConnection {
         return resultSet;
     }
     
-    public static ResultSet updateForwardTo(CPSOfficer case1){
-        
+
+
+        public static ResultSet updateForwardTo(CPSOfficer case1){
+
+
         ResultSet resultSet = null;
         try {
             setConnection();

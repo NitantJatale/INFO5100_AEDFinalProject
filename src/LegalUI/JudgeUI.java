@@ -13,8 +13,13 @@ public class JudgeUI extends javax.swing.JFrame {
     /**
      * Creates new form JudgeUI
      */
+    String judgeusername;
     public JudgeUI() {
         initComponents();
+    }
+    public JudgeUI(String judgeusername) {
+        initComponents();
+        this.judgeusername = judgeusername;
     }
 
     /**
@@ -110,7 +115,9 @@ public class JudgeUI extends javax.swing.JFrame {
 
     private void casesverdictBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casesverdictBtnActionPerformed
         // TODO add your handling code here:
-        
+        CasesUI cui = new CasesUI();
+        cui.setVisible(true);
+        dispose();
     }//GEN-LAST:event_casesverdictBtnActionPerformed
 
     /**

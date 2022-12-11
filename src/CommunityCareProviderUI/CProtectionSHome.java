@@ -38,7 +38,7 @@ public class CProtectionSHome extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 204));
+        setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 204));
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -48,6 +48,7 @@ public class CProtectionSHome extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
         btnAssignLawyer.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnAssignLawyer.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Assignlawyericon.png")); // NOI18N
         btnAssignLawyer.setText("ASSIGN LAWYER");
         btnAssignLawyer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,6 +57,7 @@ public class CProtectionSHome extends javax.swing.JFrame {
         });
 
         btnForwardCase.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnForwardCase.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/FForwardCaseIcon.png")); // NOI18N
         btnForwardCase.setText("FORWARD CASE");
         btnForwardCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
