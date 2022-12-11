@@ -380,7 +380,7 @@ public class ComplainantSignUp extends javax.swing.JFrame {
                     System.out.println("Error while Connecting");
                     e.printStackTrace();
                 }
-                
+            sendSMS(txtMobile.getText(),"You have succesfully signed up with CWC");   
             txtEmail.setText("");
             txtFirstName.setText("");
             txtLastName.setText("");
@@ -389,7 +389,7 @@ public class ComplainantSignUp extends javax.swing.JFrame {
             txtZip.setText("");
             txtUsername.setText("");
             txtPassword.setText("");
-            sendSMS(txtMobile.getText(),"CWC SignUp Successfully");
+            
             JOptionPane.showMessageDialog(this, "Signed Up Succesfully");
         }      
           
