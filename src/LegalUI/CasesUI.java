@@ -4,6 +4,11 @@
  */
 package LegalUI;
 
+import CWSUtilities.DatabaseConnection;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anirudhajoshi
@@ -30,7 +35,7 @@ public class CasesUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        caseJTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         searchLbl = new javax.swing.JLabel();
         searchTxt = new javax.swing.JTextField();
@@ -42,6 +47,11 @@ public class CasesUI extends javax.swing.JFrame {
         submitverdictBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -76,18 +86,20 @@ public class CasesUI extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        caseJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "CaseID", "ComplaintID", "Lawyer", "Case Description", "Verdict"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        caseJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                caseJTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(caseJTable);
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -99,9 +111,14 @@ public class CasesUI extends javax.swing.JFrame {
 
         caseidLbl.setText("CaseID:");
 
-        verdictDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Passed to Foster Care", "Back to Child Protective Officer", "Needs Review", " " }));
+        verdictDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Passed to Foster Care", "Back to Child Protective Officer", "Needs Review" }));
 
         submitverdictBtn.setText("Submit Verdict");
+        submitverdictBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitverdictBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -157,7 +174,7 @@ public class CasesUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 867, Short.MAX_VALUE)
@@ -185,6 +202,59 @@ public class CasesUI extends javax.swing.JFrame {
         juijframe.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel cases = (DefaultTableModel) caseJTable.getModel();
+        ResultSet resultSet = null;
+        try{
+        resultSet = DatabaseConnection.getJudgeCases();
+        while (resultSet.next()){
+                String caseid = resultSet.getString(1);
+                String complaintid = resultSet.getString(2);
+                String casedescription = resultSet.getString(3);
+                String lawyer = resultSet.getString(4);
+                String verdict = resultSet.getString(5);
+                
+      
+                cases.addRow(new Object[]{caseid,complaintid,casedescription,lawyer,verdict});
+                
+                }
+        }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void caseJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caseJTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel cases = (DefaultTableModel) caseJTable.getModel();
+        String settextRole = cases.getValueAt(caseJTable.getSelectedRow(), 0).toString();
+        caseidTxt.setText(settextRole);
+    }//GEN-LAST:event_caseJTableMouseClicked
+
+    private void submitverdictBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitverdictBtnActionPerformed
+        // TODO add your handling code here:
+        String verdict = verdictDrpdn.getSelectedItem().toString();
+        ResultSet resultSet = null;
+        int tuple = caseJTable.getSelectedRow();
+        if (tuple<0){
+            JOptionPane.showMessageDialog(this, "Please select a Row!","Select Row",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String caseid = caseidTxt.getText();
+            try{
+            
+                DatabaseConnection.updateVerdict(verdict, caseid);
+           
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+            
+        }
+        DefaultTableModel cases = (DefaultTableModel) caseJTable.getModel();
+        cases.setValueAt(verdict, caseJTable.getSelectedRow(), 4);
+    }//GEN-LAST:event_submitverdictBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,13 +293,13 @@ public class CasesUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JTable caseJTable;
     private javax.swing.JLabel caseidLbl;
     private javax.swing.JTextField caseidTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> searchDrpdn;
     private javax.swing.JLabel searchLbl;
     private javax.swing.JTextField searchTxt;

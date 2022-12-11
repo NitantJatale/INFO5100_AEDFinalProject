@@ -39,6 +39,16 @@ public class Constants {
     public static final String LegalPerson = "SELECT * FROM person_legal";
     
     public static final String LawyerCases = "SELECT Case_ID, Complaint_ID, Case_Description, Verdict FROM Child_Prtct_Srvc WHERE Lawyer_Username = ";
+    
+    public static final String JudgeCases = "SELECT Case_ID, Complaint_ID, Case_Description, Lawyer_Username, Verdict FROM Child_Prtct_Srvc";
+    public static final String SubmitVerdict1 = "UPDATE Child_Prtct_Srvc SET Verdict=";
+    public static final String SubmitVerdict2 = "WHERE Case_ID=";
+    
+    public static final String FosterCareDetails = "SELECT * FROM Foster_Care";
+    public static final String FosterCareUpdate1 = "UPDATE Foster_Care SET Foster_Visit_Description=";
+    public static final String FosterCareUpdate2 = ",Foster_Rating=";
+    public static final String FosterCareUpdate3 = ",Foster_Status=";
+    public static final String FosterCareUpdate4 = "WHERE Foster_ID=";
    
     public static final String ComplaintSearch = "SELECT * FROM Complaint_Register";
     public static final String complaintHandlerSearch = "SELECT cr.Complaint_ID, cr.Distress_Reporter_Name, cr.First_Respondent_Name, cr.Name_Of_Child, cr.Parent_Full_Name, cr.Nature_of_Abuse, cr.Abuse_Description FROM Complaint_Register cr WHERE cr.complaint_id NOT IN(SELECT ch.Complaint_ID FROM Complaint_Handler ch)";

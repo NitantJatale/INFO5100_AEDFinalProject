@@ -115,7 +115,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmailid());
@@ -126,6 +126,7 @@ public class DatabaseConnection {
             ps.setString(8, person.getState());
             ps.setString(9, person.getUsername());
             ps.setString(10, person.getPassword());
+            ps.setString(11, person.getRole());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -145,7 +146,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO person_foster VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO person_foster VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmailid());
@@ -156,6 +157,7 @@ public class DatabaseConnection {
             ps.setString(8, person.getState());
             ps.setString(9, person.getUsername());
             ps.setString(10, person.getPassword());
+            ps.setString(11, person.getRole());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -482,6 +484,78 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         resultSet = statement.executeQuery(query);
 
+        return resultSet;
+    }
+    
+    public static ResultSet getJudgeCases() throws SQLException {
+        connectDB();
+        String query = Constants.JudgeCases;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+//    public static ResultSet updateVerdict(String verdict, String caseid) throws SQLException {
+//        connectDB();
+//        String query = Constants.SubmitVerdict1+"\'"+verdict+"\'"+Constants.SubmitVerdict2+"\'"+caseid+"\'";
+//        ResultSet resultSet = null;
+//        
+//        resultSet = statement.executeQuery(query);
+//        System.out.println(resultSet);
+//        return resultSet;
+//    }
+    public static ResultSet updateVerdict(String verdict, String caseid) throws SQLException {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement(Constants.SubmitVerdict1+"\'"+verdict+"\'"+Constants.SubmitVerdict2+"\'"+caseid+"\'", Statement.RETURN_GENERATED_KEYS);
+            
+//            ps.setString(1, verdict);
+//            ps.setString(2, caseid);
+            
+            
+            int i = ps.executeUpdate();
+            
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+    
+    public static ResultSet getFosterDetails() throws SQLException {
+        connectDB();
+        String query = Constants.FosterCareDetails;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet updateFosterCare(String Foster_Visit_Description, String Foster_Rating, String Foster_Status, String Foster_ID) throws SQLException {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement(Constants.FosterCareUpdate1+"\'"+Foster_Visit_Description+"\'"+Constants.FosterCareUpdate2+"\'"+Foster_Rating+"\'"+Constants.FosterCareUpdate3+"\'"+Foster_Status+"\'"+Constants.FosterCareUpdate4+"\'"+Foster_ID+"\'", Statement.RETURN_GENERATED_KEYS);
+            
+//            ps.setString(1, verdict);
+//            ps.setString(2, caseid);
+            
+            
+            int i = ps.executeUpdate();
+            
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return resultSet;
     }
         

@@ -4,6 +4,11 @@
  */
 package FosterCareUI;
 
+import CWSUtilities.DatabaseConnection;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anirudhajoshi
@@ -40,15 +45,18 @@ public class FosterCareDetails extends javax.swing.JFrame {
         fosterratingDrpdn = new javax.swing.JComboBox<>();
         fosterstatusLbl = new javax.swing.JLabel();
         fosterstatusDrpdn = new javax.swing.JComboBox<>();
-        dateofvisitLbl = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         addfosterdetailsBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        fostercareJTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -132,10 +140,6 @@ public class FosterCareDetails extends javax.swing.JFrame {
 
         fosterstatusDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive" }));
 
-        dateofvisitLbl.setText("Date of Visit:");
-
-        jDateChooser1.setDateFormatString("MM-dd-yyyy");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -143,15 +147,13 @@ public class FosterCareDetails extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dateofvisitLbl)
                     .addComponent(fosterstatusLbl)
                     .addComponent(fosterratingLbl))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fosterratingDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fosterstatusDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addComponent(fosterstatusDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,16 +166,17 @@ public class FosterCareDetails extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fosterstatusLbl)
                     .addComponent(fosterstatusDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateofvisitLbl)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 204));
 
         addfosterdetailsBtn.setText("Add Foster Details");
+        addfosterdetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addfosterdetailsBtnActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Reset");
 
@@ -198,19 +201,21 @@ public class FosterCareDetails extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jTable1.setBackground(new java.awt.Color(255, 226, 249));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        fostercareJTable.setBackground(new java.awt.Color(255, 226, 249));
+        fostercareJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "FosterID", "Foster Family Name", "Number of Children", "Availablity From", "Availablity To", "Foster Visit Description", "Foster Rating", "Foster Status", "Visit Date"
+                "FosterID", "Foster Family Name", "Number of Children", "Availablity From", "Availablity To", "Foster Visit Description", "Foster Rating", "Foster Status"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        fostercareJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fostercareJTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(fostercareJTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,6 +266,66 @@ public class FosterCareDetails extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel fostercase = (DefaultTableModel) fostercareJTable.getModel();
+        ResultSet resultSet = null;
+        try{
+        resultSet = DatabaseConnection.getFosterDetails();
+        while (resultSet.next()){
+                String fosterid = resultSet.getString(1);
+                String fosterfamilyname = resultSet.getString(2);
+                String numberofchilds = resultSet.getString(3);
+                String availfrom = resultSet.getString(4);
+                String availto = resultSet.getString(5);
+                String fostervisitdesc = resultSet.getString(6);
+                String fosterrating = resultSet.getString(7);
+                String fosterstatus = resultSet.getString(8);
+                
+      
+                fostercase.addRow(new Object[]{fosterid,fosterfamilyname,numberofchilds,availfrom,availto,fostervisitdesc,fosterrating,fosterstatus});
+                
+                }
+        }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void fostercareJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fostercareJTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel fostercase = (DefaultTableModel) fostercareJTable.getModel();
+        String settextfosterid = fostercase.getValueAt(fostercareJTable.getSelectedRow(), 0).toString();
+        fosteridTxt.setText(settextfosterid);
+    }//GEN-LAST:event_fostercareJTableMouseClicked
+
+    private void addfosterdetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addfosterdetailsBtnActionPerformed
+        // TODO add your handling code here:
+        String fosterfamilydesc = fostervisitdescTxt.getText();
+        String fosterrating = fosterratingDrpdn.getSelectedItem().toString();
+        String fosterstatus = fosterstatusDrpdn.getSelectedItem().toString();
+        ResultSet resultSet = null;
+        int tuple = fostercareJTable.getSelectedRow();
+        if (tuple<0){
+            JOptionPane.showMessageDialog(this, "Please select a Row!","Select Row",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String fosterid = fosteridTxt.getText();
+            try{
+            
+                DatabaseConnection.updateFosterCare(fosterfamilydesc, fosterrating,fosterstatus,fosterid);
+           
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+            
+        }
+        DefaultTableModel fostercare = (DefaultTableModel) fostercareJTable.getModel();
+        fostercare.setValueAt(fosterfamilydesc, fostercareJTable.getSelectedRow(), 5);
+        fostercare.setValueAt(fosterrating, fostercareJTable.getSelectedRow(), 6);
+        fostercare.setValueAt(fosterstatus, fostercareJTable.getSelectedRow(), 7);
+    }//GEN-LAST:event_addfosterdetailsBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -300,7 +365,7 @@ public class FosterCareDetails extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addfosterdetailsBtn;
     private javax.swing.JButton backBtn;
-    private javax.swing.JLabel dateofvisitLbl;
+    private javax.swing.JTable fostercareJTable;
     private javax.swing.JLabel fosteridLbl;
     private javax.swing.JTextField fosteridTxt;
     private javax.swing.JComboBox<String> fosterratingDrpdn;
@@ -310,7 +375,6 @@ public class FosterCareDetails extends javax.swing.JFrame {
     private javax.swing.JLabel fostervisitdescLbl;
     private javax.swing.JTextArea fostervisitdescTxt;
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -318,6 +382,5 @@ public class FosterCareDetails extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

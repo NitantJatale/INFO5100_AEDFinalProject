@@ -100,6 +100,11 @@ public class CasesLawyerUI extends javax.swing.JFrame {
                 "CaseID", "ComplaintID", "Case Description", "Verdict"
             }
         ));
+        lawyercasesJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lawyercasesJTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(lawyercasesJTable);
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
@@ -222,6 +227,21 @@ public class CasesLawyerUI extends javax.swing.JFrame {
                 e.printStackTrace();
             }
     }//GEN-LAST:event_formWindowOpened
+
+    private void lawyercasesJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lawyercasesJTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel lawyercases = (DefaultTableModel) lawyercasesJTable.getModel();
+        
+        String settxtcaseid = lawyercases.getValueAt(lawyercasesJTable.getSelectedRow(), 0).toString();
+        String settxtcomplaintid = lawyercases.getValueAt(lawyercasesJTable.getSelectedRow(), 1).toString();
+        String settxtcasedesc = lawyercases.getValueAt(lawyercasesJTable.getSelectedRow(), 2).toString();
+        String settxtverdict = lawyercases.getValueAt(lawyercasesJTable.getSelectedRow(), 3).toString();
+        
+        caseidTxt.setText(settxtcaseid);
+        complaintidTxt.setText(settxtcomplaintid);
+        casedescTxt.setText(settxtcasedesc);
+        verdictTxt.setText(settxtverdict);
+    }//GEN-LAST:event_lawyercasesJTableMouseClicked
 
     /**
      * @param args the command line arguments
