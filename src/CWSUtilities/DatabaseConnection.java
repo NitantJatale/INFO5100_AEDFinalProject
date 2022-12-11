@@ -441,7 +441,7 @@ public class DatabaseConnection {
     
     }
     
-        public static ResultSet getComplainVOCPSAssign(String username) throws SQLException {
+    public static ResultSet getComplainVOCPSAssign(String username) throws SQLException {
         connectDB();
         String query = Constants.complaintVOCPSSearch+"\'"+username+"\'";
         ResultSet resultSet = null;
@@ -481,13 +481,14 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO Child_Prtct_Srvc_Offcr(Verification_ID,Complaint_ID,Lawyer_Username,CPSOfficer_Username,Case_Description,Forward_To) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Child_Prtct_Srvc_Offcr(Verification_ID,Complaint_ID,Lawyer_Username,CPSOfficer_Username,Case_Description,Forward_To,Verdict) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, complaint.getVerificationID());
             ps.setInt(2, complaint.getComplaintID());
             ps.setString(3, complaint.getLawyerUsername());
             ps.setString(4, complaint.getCpsUsername());
             ps.setString(5, complaint.getCaseDescription());
             ps.setString(6, complaint.getForwardTo());
+            ps.setString(7, complaint.getVerdict());
 
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -498,6 +499,15 @@ public class DatabaseConnection {
         
         return resultSet;
     
+    }
+    
+    public static ResultSet getCpsLawyerAssign(String username) throws SQLException {
+        connectDB();
+        String query = Constants.cpsOfficerAssignSearch+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
     }
         
 }

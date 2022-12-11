@@ -47,5 +47,6 @@ public class Constants {
     public static final String complaintVOCPS = "SELECT username, firstname, lastname FROM Person_Child_Welfare_Sys WHERE role = 'Child Protection Service'";
     
     public static final String cpsOfficerAssignSearch = "SELECT cvo.Verification_ID,cvo.complaint_ID,cr.Name_Of_Child,cr.Abuse_Description FROM Case_Verification_Officer cvo JOIN complaint_register cr ON cvo.Complaint_ID = cr.Complaint_ID WHERE cvo.Complaint_ID NOT IN (SELECT Complaint_ID FROM Child_Prtct_Srvc_Offcr) AND cvo.CPSOfficer_Username = ";
+    public static final String cpsLawyer = "SELECT username, firstname, lastname FROM Person_Legal WHERE role_name = 'Lawyer'";
     
 }
