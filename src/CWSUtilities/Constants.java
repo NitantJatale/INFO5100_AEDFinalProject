@@ -32,6 +32,12 @@ public class Constants {
     public static final String CWCentrePerson = "SELECT * FROM Person_Child_Welfare_Sys";
     public static final String CWCentrePersonDelete = "DELETE FROM Person_Child_Welfare_Sys WHERE username = ";
     
+    public static final String FosterPersonDelete = "DELETE FROM person_foster WHERE username = ";
+    public static final String FosterPerson = "SELECT * FROM person_foster";
+    
+    public static final String LegalPersonDelete = "DELETE FROM person_legal WHERE username = ";
+    public static final String LegalPerson = "SELECT * FROM person_legal";
+    
     public static final String ComplaintSearch = "SELECT * FROM Complaint_Register";
     public static final String complaintHandlerSearch = "SELECT cr.Complaint_ID, cr.Distress_Reporter_Name, cr.First_Respondent_Name, cr.Name_Of_Child, cr.Parent_Full_Name, cr.Nature_of_Abuse, cr.Abuse_Description FROM Complaint_Register cr WHERE cr.complaint_id NOT IN(SELECT ch.Complaint_ID FROM Complaint_Handler ch)";
     public static final String complaintHandlerVO = "SELECT username, firstname, lastname FROM Person_Child_Welfare_Sys WHERE role = 'Case Verfication Officer'";
