@@ -4,6 +4,19 @@
  */
 package ChildWelfareCentreUI;
 
+import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Email;
+import CWSUtilities.Validate;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import modelChildWelfareCentre.CaseVerification;
+import trials.ComplaineeSignUp;
+
 /**
  *
  * @author nitan
@@ -13,8 +26,14 @@ public class CVerificationCVerification extends javax.swing.JFrame {
     /**
      * Creates new form CVerificationCHome
      */
+    String voUsername;
     public CVerificationCVerification() {
         initComponents();
+    }
+    
+    public CVerificationCVerification(String voUsername) {
+        initComponents();
+        this.voUsername = voUsername;
     }
 
     /**
@@ -30,7 +49,7 @@ public class CVerificationCVerification extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableComplaint = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtComplaintID = new javax.swing.JTextField();
@@ -40,14 +59,19 @@ public class CVerificationCVerification extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtLegitimacy = new javax.swing.JComboBox<>();
         btnVerify = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        comboSearch = new javax.swing.JComboBox<>();
-        txtSearch = new javax.swing.JTextField();
+        searchColumn = new javax.swing.JComboBox<>();
+        searchValue = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -57,7 +81,7 @@ public class CVerificationCVerification extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select a Case", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableComplaint.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -65,7 +89,12 @@ public class CVerificationCVerification extends javax.swing.JFrame {
                 "ComplaintID", "NameOfChild", "NameOfParent", "NatureOfAbuse", "AbuseDescription"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tableComplaint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableComplaintMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableComplaint);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -107,8 +136,8 @@ public class CVerificationCVerification extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel5.setText("Case Legitimacy:");
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Legitimate", "Not Legitimate" }));
+        txtLegitimacy.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txtLegitimacy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Legitimate", "Not Legitimate" }));
 
         btnVerify.setBackground(new java.awt.Color(205, 195, 227));
         btnVerify.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -149,7 +178,7 @@ public class CVerificationCVerification extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLegitimacy, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(335, 335, 335))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -169,7 +198,7 @@ public class CVerificationCVerification extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLegitimacy, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnVerify, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -177,8 +206,14 @@ public class CVerificationCVerification extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
-        comboSearch.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        comboSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ComplaintID", "NameOfChild" }));
+        searchColumn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        searchColumn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ComplaintID", "NameOfChild" }));
+
+        searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchValueKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -186,46 +221,51 @@ public class CVerificationCVerification extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comboSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchColumn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(searchValue, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(comboSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(searchColumn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jButton1.setBackground(new java.awt.Color(205, 195, 227));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(439, 439, 439))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(451, 451, 451)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(327, 327, 327))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(290, 290, 290))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(327, 327, 327))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(290, 290, 290))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,9 +277,9 @@ public class CVerificationCVerification extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addGap(57, 57, 57))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,7 +298,148 @@ public class CVerificationCVerification extends javax.swing.JFrame {
 
     private void btnVerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyActionPerformed
         // TODO add your handling code here:
+        Integer complaintID = Validate.ConvertIntoNumeric(txtComplaintID.getText());
+        String level = txtLevel.getSelectedItem().toString();
+        String description = txtDescription.getText();
+	String legitimacy = txtLegitimacy.getSelectedItem().toString();
+	String cpsOfficer = "Not Assigned";
+	Date date = new Date();
+	String toEmail = "";
+        String voname = voUsername;
+
+        String subject = "Hello";
+        String text = "There is an update on you ComplaintId = "+complaintID+" Open the portal to see the status";
+        boolean result = false;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
+
+	if (txtComplaintID.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please Select a Complain", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+                
+		CaseVerification case1 = new CaseVerification(voname,complaintID,level,description,legitimacy,cpsOfficer,newdate);
+                System.out.println(voUsername);
+                try{
+                    DatabaseConnection.storeDataCaseVerification(case1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                DatabaseConnection.updateSetStatus(Integer.toString(complaintID), "Case Verified by VO and is " + legitimacy);
+		    
+		try{
+                    ResultSet newSet1 = null;
+                    newSet1 = DatabaseConnection.getComplaineeEmail(Integer.toString(complaintID));
+
+                    while (newSet1.next()){
+			toEmail = newSet1.getString(1);
+                    }
+                }catch(Exception e){
+                	System.out.println("Error while Connecting2");
+                	e.printStackTrace();
+                }
+
+        
+        	try {
+                    result = Email.sendEmail(toEmail, subject, text);
+        	} catch (Exception ex) {
+                    java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        	}
+                
+                
+            	txtComplaintID.setText("");
+            JOptionPane.showMessageDialog(this, "Case Verified", "Case Verified",JOptionPane.ERROR_MESSAGE);
+            
+            DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+            complaintTable.setRowCount(0);
+            
+            ResultSet resultSet = null;
+            try{
+            
+            resultSet = DatabaseConnection.getComplainVO(voUsername);
+            
+            while (resultSet.next()){
+                String complainID = resultSet.getString(1);
+                String childName = resultSet.getString(2);
+                String parentName = resultSet.getString(3);
+                String abuse = resultSet.getString(4);
+                String description1 = resultSet.getString(5);
+      
+                complaintTable.addRow(new Object[]{complainID,childName,parentName,abuse,description1});
+                
+            }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+            
+            JOptionPane.showMessageDialog(this, "Case Verified");
+        }  
     }//GEN-LAST:event_btnVerifyActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        CVerificationCHome CVCH = new CVerificationCHome(voUsername);
+            CVCH.show();
+            dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchValueKeyReleased
+        // TODO add your handling code here:
+            DefaultTableModel table = (DefaultTableModel)tableComplaint.getModel();
+            String search = searchValue.getText();
+            String column = searchColumn.getSelectedItem().toString();
+            int index = 0;
+            
+            if(column == "ComplaintID"){
+                index = 0;
+                
+            }else if(column == "NameOfChild"){
+                index = 1;
+            }
+
+            TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
+            tableComplaint.setRowSorter(tr);
+            tr.setRowFilter(RowFilter.regexFilter(search, index));
+    }//GEN-LAST:event_searchValueKeyReleased
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+        ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getComplainVO(voUsername);
+            
+            while (resultSet.next()){
+                String complainID = resultSet.getString(1);
+                String childName = resultSet.getString(2);
+                String parentName = resultSet.getString(3);
+                String abuse = resultSet.getString(4);
+                String description = resultSet.getString(5);
+      
+                complaintTable.addRow(new Object[]{complainID,childName,parentName,abuse,description});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tableComplaintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableComplaintMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel)tableComplaint.getModel();
+        int selectedRow = tableComplaint.getSelectedRow();
+        //Set data to text fields
+        
+        String complaintID = tblModel.getValueAt(tableComplaint.getSelectedRow(), 0).toString();
+        
+        
+        txtComplaintID.setText(complaintID);
+    }//GEN-LAST:event_tableComplaintMouseClicked
 
     /**
      * @param args the command line arguments
@@ -300,9 +481,7 @@ public class CVerificationCVerification extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVerify;
-    private javax.swing.JComboBox<String> comboSearch;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -314,10 +493,12 @@ public class CVerificationCVerification extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> searchColumn;
+    private javax.swing.JTextField searchValue;
+    private javax.swing.JTable tableComplaint;
     private javax.swing.JTextField txtComplaintID;
     private javax.swing.JTextArea txtDescription;
+    private javax.swing.JComboBox<String> txtLegitimacy;
     private javax.swing.JComboBox<String> txtLevel;
-    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

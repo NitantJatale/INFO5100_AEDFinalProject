@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ChildWelfareCentreUI;
+package CommunityCareProviderUI;
 
+import ChildWelfareCentreUI.*;
 import CWSUtilities.DatabaseConnection;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
@@ -12,12 +13,12 @@ import java.sql.ResultSet;
  *
  * @author nitan
  */
-public class CVerificationCLogin extends javax.swing.JFrame {
+public class ComunityCareProvLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form ComplaintSystemLogin
      */
-    public CVerificationCLogin() {
+    public ComunityCareProvLogin() {
         initComponents();
     }
 
@@ -179,16 +180,12 @@ public class CVerificationCLogin extends javax.swing.JFrame {
                 checkPassword = resultSet.getString(1);
 		role = resultSet.getString(2);
             }
-            if (password.equals(checkPassword)){
+            if (password.equals(checkPassword) && role.equals("Child Protection Service")){
                 
-                switch(role) {
-                    case "Case Verfication Officer":
-                        CVerificationCHome CVCH = new CVerificationCHome(username);
-                            CVCH.show();
-                            dispose();
-                      break;
-                }
-                
+                CProtectionSHome CPSH = new CProtectionSHome(username);
+                    CPSH.show();
+                    dispose();
+
             }else{
             
                 JOptionPane.showMessageDialog(this, "Wrong Username or Password", "Try Again",JOptionPane.ERROR_MESSAGE);
@@ -228,21 +225,23 @@ public class CVerificationCLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CVerificationCLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComunityCareProvLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CVerificationCLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComunityCareProvLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CVerificationCLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComunityCareProvLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CVerificationCLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComunityCareProvLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CVerificationCLogin().setVisible(true);
+                new ComunityCareProvLogin().setVisible(true);
             }
         });
     }

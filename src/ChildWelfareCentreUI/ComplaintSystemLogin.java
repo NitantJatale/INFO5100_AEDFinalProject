@@ -169,7 +169,7 @@ public class ComplaintSystemLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        	  String username = txtUsername.getText();
+        String username = txtUsername.getText();
         String password = txtPassword.getText();
         String role = "";
         String checkPassword = "";
@@ -189,7 +189,7 @@ public class ComplaintSystemLogin extends javax.swing.JFrame {
                 
                 switch(role) {
                     case "Complaint Handler":
-                        ComplainHandlerHome CHH = new ComplainHandlerHome();
+                        ComplainHandlerHome CHH = new ComplainHandlerHome(username);
                             CHH.show();
                             dispose();
                       break;

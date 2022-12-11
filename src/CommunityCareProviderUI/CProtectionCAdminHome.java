@@ -4,13 +4,23 @@
  */
 package CommunityCareProviderUI;
 
+import CWSUtilities.Constants;
+import CWSUtilities.DatabaseConnection;
 import ChildWelfareCentreUI.*;
 import CWSUtilities.Email;
 import CWSUtilities.Validate;
+import static CWSUtilities.Validate.isUsernameTherePersonCWC;
+import HomeUI.Home;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import trials.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelChildWelfareCentre.PersonCWC;
 /**
  *
  * @author nitan
@@ -20,9 +30,11 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
     /**
      * Creates new form ComplaineeSignUp
      */
+
     public CProtectionCAdminHome() {
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,15 +70,21 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
         txtState = new javax.swing.JComboBox<>();
         txtCity = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablePersonCWC = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         txtRole = new javax.swing.JComboBox<>();
+        txtDOB = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -76,14 +94,32 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("First Name:");
 
+        txtFirstName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFirstNameKeyTyped(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setText("Last Name:");
+
+        txtLastName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLastNameKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Email:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("Mobile Number:");
+
+        txtMobile.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMobileKeyTyped(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setText("Address:");
@@ -96,6 +132,12 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setText("ZipCode:");
+
+        txtZip.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtZipKeyTyped(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setText("Username:");
@@ -125,7 +167,7 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
 
         txtCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Springfield" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablePersonCWC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -133,7 +175,12 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
                 "Username", "Password", "Role", "FirstName", "LastName", "Email", "MobileNo.", "DOB", "Address", "City", "ZipCode", "State"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tablePersonCWC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePersonCWCMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablePersonCWC);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -145,19 +192,19 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jButton1.setText("Update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jButton2.setText("Delete");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -169,9 +216,9 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(183, 183, 183)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
         );
         jPanel2Layout.setVerticalGroup(
@@ -179,8 +226,8 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -212,7 +259,8 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPassword)
                             .addComponent(txtUsername)
-                            .addComponent(txtRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDOB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(289, 289, 289))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +347,9 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txtDOB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,8 +389,8 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        Trials t = new Trials();
-            t.show();
+        Home h = new Home();
+            h.show();
 
             dispose();
     }//GEN-LAST:event_btnBackActionPerformed
@@ -349,15 +399,39 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String toEmail = txtEmail.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        Long mobile = Validate.ConvertIntoLong(txtMobile.getText());
+        String address = txtAddress.getText();
+        Date date = txtDOB.getDate();
+        String city = txtCity.getSelectedItem().toString();
+        String state = txtState.getSelectedItem().toString();
+        Integer zipCode = Validate.ConvertIntoNumeric(txtZip.getText());
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        String role = txtRole.getSelectedItem().toString();
+        Long check = mobile;
+        Integer checkZip = zipCode; 
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
 
-	if (toEmail.isEmpty()){
+	if (toEmail.isEmpty()|| firstName.isEmpty()||lastName.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else if (Validate.isValidEmail(toEmail) == false){
              JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidPassword(password) == false){
+             JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(check).length()<10 || Long.toString(check).length()>10){
+             JOptionPane.showMessageDialog(this, "MobileNo. is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(checkZip).length()<5 || Long.toString(checkZip).length()>5){
+             JOptionPane.showMessageDialog(this, "Zipcode is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (isUsernameTherePersonCWC(username)){
+             JOptionPane.showMessageDialog(this, "Username already exists", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else{
             
-            String subject = "Signup-Successful Child Welfare System";
-        	String text = "Hey Welcome to Child Welfare Protection Services";
+                String subject = "Assigned admin Role";
+        	String text = "Hey " + firstName +" "+lastName + " You have been assigned "+role+" admin role.";
         	boolean result = false;
         
         	try {
@@ -365,17 +439,36 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
         	} catch (Exception ex) {
             	java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         	}
-        
-        	if(result){
-            	System.out.println("Email Sent");
-        	}else{
-            	System.out.println("Error------------------------------------------Error");
+                
+        	if(result == false){
+                    JOptionPane.showMessageDialog(this, "Email does not exists");
         	}
-
-            txtEmail.setText("");
+                
+                PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role);
             
-            JOptionPane.showMessageDialog(this, "Signed Up Succesfully");
-        }        
+                try{
+                    DatabaseConnection.storeDataPersonCWC(person1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+                personTable.addRow(new Object[]{firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role});
+                
+                JOptionPane.showMessageDialog(this, "Admin added Succesfully");
+            txtEmail.setText("");
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtMobile.setText("");
+            txtAddress.setText("");
+            txtZip.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");
+            txtEmail.getText();
+            
+           
+        }       
               
         
         
@@ -401,13 +494,202 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtStateItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String toEmail = txtEmail.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        Long mobile = Validate.ConvertIntoLong(txtMobile.getText());
+        String address = txtAddress.getText();
+        Date date = txtDOB.getDate();
+        String city = txtCity.getSelectedItem().toString();
+        String state = txtState.getSelectedItem().toString();
+        Integer zipCode = Validate.ConvertIntoNumeric(txtZip.getText());
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        String role = txtRole.getSelectedItem().toString();
+        Long check = mobile;
+        Integer checkZip = zipCode; 
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String newdate = dateFormat.format(date);
+        
+        if (toEmail.isEmpty()|| firstName.isEmpty()||lastName.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidEmail(toEmail) == false){
+             JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidPassword(password) == false){
+             JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(check).length()<10 || Long.toString(check).length()>10){
+             JOptionPane.showMessageDialog(this, "MobileNo. is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(checkZip).length()<5 || Long.toString(checkZip).length()>5){
+             JOptionPane.showMessageDialog(this, "Zipcode is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if(tablePersonCWC.getSelectedRowCount() > 1){
+            JOptionPane.showMessageDialog(this, "Select only 1 Row!", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if(tablePersonCWC.getRowCount()==0 || tablePersonCWC.getSelectedRowCount() == 0 ){
+            JOptionPane.showMessageDialog(this, "Table is Empty OR You have not selecetd a Row ", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (tablePersonCWC.getSelectedRowCount() == 1){
+            
+		PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role);
+            
+            try{
+                    DatabaseConnection.updatePersonCWC(person1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+            DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+            
+            personTable.setValueAt(firstName, tablePersonCWC.getSelectedRow(), 0);
+            personTable.setValueAt(lastName, tablePersonCWC.getSelectedRow(), 1);
+            personTable.setValueAt(mobile, tablePersonCWC.getSelectedRow(), 3);
+            personTable.setValueAt(address, tablePersonCWC.getSelectedRow(), 4);
+            personTable.setValueAt(city, tablePersonCWC.getSelectedRow(), 5);
+            personTable.setValueAt(zipCode, tablePersonCWC.getSelectedRow(), 6);
+            personTable.setValueAt(state, tablePersonCWC.getSelectedRow(), 7);
+            personTable.setValueAt(password, tablePersonCWC.getSelectedRow(), 10);
+            
+            
+            
+            txtEmail.setText("");
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtMobile.setText("");
+            txtAddress.setText("");
+            txtZip.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");
+            txtEmail.getText();
+            
+            JOptionPane.showMessageDialog(this, "Data updated Succesfully");
+        }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        int tuple = tablePersonCWC.getSelectedRow();
+        if (tuple<0){
+            JOptionPane.showMessageDialog(this, "Please select a Row!","Select Row",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String username = txtUsername.getText();
+            try{
+            
+                DatabaseConnection.getDeletePersonCWC(username, true);
+           
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+            DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+            personTable.removeRow(tuple);
+            
+            JOptionPane.showMessageDialog(this, "Officer deleted Succesfully");
+        }
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+       Date today = Calendar.getInstance().getTime();
+       txtDOB.setDate(today);
+       
+       DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
+       ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getData(Constants.CWCentrePerson, false);
+            while (resultSet.next()){
+                String firstName = resultSet.getString(1);
+                String lastName = resultSet.getString(2);
+                String toEmail = resultSet.getString(3);
+                String mobile = resultSet.getString(4);
+                String address = resultSet.getString(5);
+                String city = resultSet.getString(6);
+                String zipCode = resultSet.getString(7);
+                String state = resultSet.getString(8);
+                String newdate = resultSet.getString(9);
+                String username = resultSet.getString(10);
+                String password = resultSet.getString(11);
+                String role = resultSet.getString(12);
+                    
+                if(role.equals("Child Protection Service")){        
+                    personTable.addRow(new Object[]{firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role});
+                }
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtFirstNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFirstNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtFirstNameKeyTyped
+
+    private void txtLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLastNameKeyTyped
+        // TODO add your handling code here:
+        char testName = evt.getKeyChar();
+        if((Character.isAlphabetic(testName)) || Character.isWhitespace(testName)){}
+        else{  
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtLastNameKeyTyped
+
+    private void txtMobileKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMobileKeyTyped
+        // TODO add your handling code here:
+        char testMobile = evt.getKeyChar();
+        if(!(Character.isDigit(testMobile))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMobileKeyTyped
+
+    private void txtZipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtZipKeyTyped
+        // TODO add your handling code here:
+        char testZip = evt.getKeyChar();
+        if(!(Character.isDigit(testZip))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtZipKeyTyped
+
+    private void tablePersonCWCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePersonCWCMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel)tablePersonCWC.getModel();
+        int selectedRow = tablePersonCWC.getSelectedRow();
+        //Set data to text fields
+        
+        String firstName = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 0).toString(); 
+        String lastName = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 1).toString(); 
+        String toEmail = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 2).toString(); 
+        String mobile = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 3).toString(); 
+        String address = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 4).toString(); 
+        String city = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 5).toString(); 
+        String zipCode = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 6).toString(); 
+        String state = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 7).toString(); 
+        String newdate = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 8).toString(); 
+        String username = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 9).toString(); 
+        String password = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 10).toString(); 
+        String role = tblModel.getValueAt(tablePersonCWC.getSelectedRow(), 11).toString();  
+        
+        
+        txtFirstName.setText(firstName);
+        txtLastName.setText(lastName);
+        txtEmail.setText(toEmail);
+        txtMobile.setText(mobile);
+        txtAddress.setText(address);
+        txtCity.setSelectedItem(city);
+        txtState.setSelectedItem(state);
+        txtZip.setText(zipCode);
+        txtUsername.setText(username);
+        txtPassword.setText(password);
+        txtRole.setSelectedItem(role);
+    }//GEN-LAST:event_tablePersonCWCMouseClicked
 
     /**
      * @param args the command line arguments
@@ -462,8 +744,8 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -480,9 +762,10 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablePersonCWC;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JComboBox<String> txtCity;
+    private com.toedter.calendar.JDateChooser txtDOB;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;

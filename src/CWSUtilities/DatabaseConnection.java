@@ -228,7 +228,7 @@ public class DatabaseConnection {
 
         return resultSet;
     }
-    
+
     public static ResultSet updatePersonFoster(PersonFoster person){
         
         ResultSet resultSet = null;
@@ -304,6 +304,7 @@ public class DatabaseConnection {
         return resultSet;
     }
     
+
     public static ResultSet storeDataComplaintRegister(ComplaintRegister complaint){
         
         ResultSet resultSet = null;

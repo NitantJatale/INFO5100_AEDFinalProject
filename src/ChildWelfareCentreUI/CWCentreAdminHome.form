@@ -132,13 +132,13 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtPassword" max="32767" attributes="0"/>
-                          <Component id="txtUsername" max="32767" attributes="0"/>
-                          <Component id="txtRole" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="txtDOB" min="-2" max="-2" attributes="0"/>
+
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtPassword" max="32767" attributes="0"/>
+                      <Component id="txtUsername" max="32767" attributes="0"/>
+                      <Component id="txtRole" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtDOB" max="32767" attributes="0"/>
+
                   </Group>
                   <EmptySpace min="-2" pref="329" max="-2" attributes="0"/>
               </Group>
@@ -193,7 +193,15 @@
                       <Component id="txtZip" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtDOB" max="32767" attributes="0"/>
+                      <Component id="jLabel12" pref="30" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel13" min="-2" pref="30" max="-2" attributes="0"/>
+
                       <Group type="102" attributes="0">
                           <Component id="jLabel12" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -605,9 +613,7 @@
           </AuxValues>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="txtDOB">
-          <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="MM-dd-yyyy"/>
-          </Properties>
+
         </Component>
       </SubComponents>
     </Container>

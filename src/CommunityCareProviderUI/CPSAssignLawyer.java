@@ -13,8 +13,14 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
     /**
      * Creates new form CPSAssignLawyer
      */
+    String cpsUsername;
     public CPSAssignLawyer() {
         initComponents();
+    }
+    
+    public CPSAssignLawyer(String cpsUsername) {
+        initComponents();
+        this.cpsUsername = cpsUsername;
     }
 
     /**
@@ -140,6 +146,11 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
 
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,6 +208,13 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        CProtectionSHome CPSH = new CProtectionSHome(cpsUsername);
+            CPSH.show();
+            dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments

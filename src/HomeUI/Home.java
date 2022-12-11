@@ -5,6 +5,7 @@
 package HomeUI;
 
 import ChildWelfareCentreUI.CWCentreHome;
+import CommunityCareProviderUI.ComunityCareProvLogin;
 
 /**
  *
@@ -141,6 +142,9 @@ public class Home extends javax.swing.JFrame {
 
     private void btnChildProtectionServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChildProtectionServiceActionPerformed
         // TODO add your handling code here:
+        ComunityCareProvLogin CCPV = new ComunityCareProvLogin();
+            CCPV.show();
+            dispose();
     }//GEN-LAST:event_btnChildProtectionServiceActionPerformed
 
     private void btnChildWelfareCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChildWelfareCentreActionPerformed
