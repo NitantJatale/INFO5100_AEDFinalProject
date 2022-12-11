@@ -6,6 +6,7 @@ package ChildWelfareCentreUI;
 
 import CWSUtilities.DatabaseConnection;
 import CWSUtilities.Email;
+import static CWSUtilities.SmsUtility.sendSMS;
 import CWSUtilities.Validate;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -379,7 +380,7 @@ public class ComplainantSignUp extends javax.swing.JFrame {
                     System.out.println("Error while Connecting");
                     e.printStackTrace();
                 }
-                
+            sendSMS(txtMobile.getText(),"You have succesfully signed up with CWC");   
             txtEmail.setText("");
             txtFirstName.setText("");
             txtLastName.setText("");
@@ -390,7 +391,7 @@ public class ComplainantSignUp extends javax.swing.JFrame {
             txtPassword.setText("");
             
             JOptionPane.showMessageDialog(this, "Signed Up Succesfully");
-        }        
+        }      
           
     }//GEN-LAST:event_btnSignUpActionPerformed
 

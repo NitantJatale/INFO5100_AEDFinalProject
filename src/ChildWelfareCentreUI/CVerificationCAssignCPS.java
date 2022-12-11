@@ -274,7 +274,7 @@ public class CVerificationCAssignCPS extends javax.swing.JFrame {
 
     private void searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchValueKeyReleased
         // TODO add your handling code here:
-                    DefaultTableModel table = (DefaultTableModel)tableComplaint.getModel();
+            DefaultTableModel table = (DefaultTableModel)tableComplaint.getModel();
             String search = searchValue.getText();
             String column = searchColumn.getSelectedItem().toString();
             int index = 0;

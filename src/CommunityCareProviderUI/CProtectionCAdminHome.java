@@ -8,6 +8,7 @@ import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
 import ChildWelfareCentreUI.*;
 import CWSUtilities.Email;
+import static CWSUtilities.SmsUtility.sendSMS;
 import CWSUtilities.Validate;
 import static CWSUtilities.Validate.isUsernameTherePersonCWC;
 import HomeUI.Home;
@@ -455,7 +456,7 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
                 
                 DefaultTableModel personTable = (DefaultTableModel) tablePersonCWC.getModel();
                 personTable.addRow(new Object[]{firstName,lastName,toEmail,mobile,address,city,zipCode,state,newdate,username,password,role});
-                
+                sendSMS(txtMobile.getText(),"You have succesfully assigned admin role with CWC");
                 JOptionPane.showMessageDialog(this, "Admin added Succesfully");
             txtEmail.setText("");
             txtFirstName.setText("");
