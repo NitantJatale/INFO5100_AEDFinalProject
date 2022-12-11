@@ -4,6 +4,9 @@
  */
 package FosterCareUI;
 
+import CWSUtilities.DatabaseConnection;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 /**
  *
  * @author anirudhajoshi
@@ -80,6 +83,11 @@ public class LoginPage extends javax.swing.JFrame {
 
         loginBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         loginBtn.setText("LOGIN");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
 
         resetBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         resetBtn.setText("RESET");
@@ -151,6 +159,57 @@ public class LoginPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        // TODO add your handling code here:
+        String username = usernameTxt.getText();
+        String password = passwordTxt.getText();
+        String role = "";
+        String checkPassword = "";
+        
+        if (username.isEmpty() || password.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+            try{
+            ResultSet resultSet = null;
+            resultSet = DatabaseConnection.getPersonFosterRole(username, false);
+            
+            while (resultSet.next()) {
+                checkPassword = resultSet.getString(1);
+		role = resultSet.getString(2);
+            }
+            if (password.equals(checkPassword)){
+                
+                switch(role) {
+                    case "Adoption Officer":
+                        AdoptionCareOfficerConsole ACC = new AdoptionCareOfficerConsole();
+                            ACC.show();
+                            dispose();
+                      break;
+                    case "Adoption Family":
+                        AdoptionFamilySignup AFS = new AdoptionFamilySignup();
+                            AFS.show();
+                            dispose();
+                      break;
+                    case "Foster Officer":
+                        FosterCareOfficerConsole FCS = new FosterCareOfficerConsole();
+                            FCS.show();
+                            dispose();
+                      break;
+                }
+            }else{
+            
+                JOptionPane.showMessageDialog(this, "Wrong Username or Password", "Try Again",JOptionPane.ERROR_MESSAGE);
+                usernameTxt.setText("");
+                passwordTxt.setText("");
+                
+            }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            } 
+        }
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
      * @param args the command line arguments

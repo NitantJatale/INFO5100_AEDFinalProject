@@ -41,6 +41,11 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
         jLabel1.setText("ADOPTION CARE OFFICER CONSOLE");
 
         backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,11 +69,14 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
         );
 
         adoptiondetailsBtn.setBackground(new java.awt.Color(204, 255, 255));
-        adoptiondetailsBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/adoptiondetailsicon.png")); // NOI18N
         adoptiondetailsBtn.setText("Adoption Details");
+        adoptiondetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adoptiondetailsBtnActionPerformed(evt);
+            }
+        });
 
         adoptionassignmentBtn.setBackground(new java.awt.Color(204, 255, 255));
-        adoptionassignmentBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/adoptionassignmenticon.png")); // NOI18N
         adoptionassignmentBtn.setText("Adoption Assignment");
         adoptionassignmentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +116,24 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
 
     private void adoptionassignmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adoptionassignmentBtnActionPerformed
         // TODO add your handling code here:
+        AdoptionCareAssignment ada = new AdoptionCareAssignment();
+        ada.setVisible(true);
+        dispose();
     }//GEN-LAST:event_adoptionassignmentBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        LoginPage lp = new LoginPage();
+        lp.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void adoptiondetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adoptiondetailsBtnActionPerformed
+        // TODO add your handling code here:
+        AdoptionDetails ad = new AdoptionDetails();
+        ad.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_adoptiondetailsBtnActionPerformed
 
     /**
      * @param args the command line arguments

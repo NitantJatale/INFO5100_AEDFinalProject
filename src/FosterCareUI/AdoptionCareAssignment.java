@@ -189,6 +189,9 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
+        AdoptionCareOfficerConsole adoc = new AdoptionCareOfficerConsole();
+        adoc.setVisible(true);
+        dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
     /**

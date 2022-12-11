@@ -16,8 +16,9 @@ public class PersonLegal extends modelAddress.Address{
     private long mobile;
     private String username;
     private String password;
+    private String role;
     
-    public PersonLegal(String firstname, String lastname, String emailid, long mobile,String address, String city, Integer zipCode, String state, String username, String password) {
+    public PersonLegal(String firstname, String lastname, String emailid, long mobile,String address, String city, Integer zipCode, String state, String username, String password, String role) {
         super(address, city, zipCode, state);
         this.firstname = firstname;
         this.lastname = lastname;
@@ -25,6 +26,7 @@ public class PersonLegal extends modelAddress.Address{
         this.mobile = mobile;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
     
     public String getFirstName() {
@@ -50,6 +52,9 @@ public class PersonLegal extends modelAddress.Address{
     public String getPassword() {
         return password;
     }
+    public String getRole() {
+        return role;
+    }
 
     public void setFirstName(String firstname) {
         this.firstname = firstname;
@@ -73,6 +78,10 @@ public class PersonLegal extends modelAddress.Address{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
     }
     
 }

@@ -215,8 +215,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="fosterratingDrpdn" min="-2" max="-2" attributes="0"/>
                       <Component id="fosterstatusDrpdn" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <EmptySpace pref="122" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -234,8 +235,11 @@
                       <Component id="fosterstatusDrpdn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="dateofvisitLbl" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="79" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="dateofvisitLbl" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -283,6 +287,11 @@
         <Component class="javax.swing.JLabel" name="dateofvisitLbl">
           <Properties>
             <Property name="text" type="java.lang.String" value="Date of Visit:"/>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="MM-dd-yyyy"/>
           </Properties>
         </Component>
       </SubComponents>

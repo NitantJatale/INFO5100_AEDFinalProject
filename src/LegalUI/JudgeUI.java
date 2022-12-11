@@ -68,8 +68,12 @@ public class JudgeUI extends javax.swing.JFrame {
         );
 
         casesverdictBtn.setBackground(new java.awt.Color(255, 204, 153));
-        casesverdictBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/viewcasesicon.png")); // NOI18N
         casesverdictBtn.setText("VIEW CASES AND SUBMIT VERDICT");
+        casesverdictBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                casesverdictBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +107,11 @@ public class JudgeUI extends javax.swing.JFrame {
         lpjframe.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void casesverdictBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casesverdictBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_casesverdictBtnActionPerformed
 
     /**
      * @param args the command line arguments
