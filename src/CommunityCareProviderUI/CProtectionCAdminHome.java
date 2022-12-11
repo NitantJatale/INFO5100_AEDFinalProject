@@ -30,9 +30,11 @@ public class CProtectionCAdminHome extends javax.swing.JFrame {
     /**
      * Creates new form ComplaineeSignUp
      */
+
     public CProtectionCAdminHome() {
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
