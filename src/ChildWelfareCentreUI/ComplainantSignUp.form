@@ -119,12 +119,10 @@
                               <Component id="jLabel11" min="-2" pref="150" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtPassword" pref="150" max="32767" attributes="0"/>
                               <Component id="txtUsername" pref="150" max="32767" attributes="0"/>
                               <Component id="txtDOB" alignment="0" max="32767" attributes="0"/>
-
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -179,11 +177,9 @@
                       <Component id="txtZip" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel12" pref="30" max="32767" attributes="0"/>
                       <Component id="txtDOB" max="32767" attributes="0"/>
-
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -400,7 +396,6 @@
           </AuxValues>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="txtDOB">
-
         </Component>
       </SubComponents>
     </Container>

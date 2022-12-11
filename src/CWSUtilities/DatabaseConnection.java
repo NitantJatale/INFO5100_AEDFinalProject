@@ -509,6 +509,40 @@ public class DatabaseConnection {
 
         return resultSet;
     }
+    
+    public static ResultSet getForwardTo(String username) throws SQLException {
+        connectDB();
+        String query = Constants.cpsForwardSearch+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+        public static ResultSet updateForwardTo(CPSOfficer case1){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update Child_Prtct_Srvc_Offcr SET Forward_To = ? WHERE verification_id = ?, complaint_id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, case1.getForwardTo());
+            ps.setInt(2, case1.getVerificationID());
+            ps.setInt(3, case1.getComplaintID());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
         
 }
 
