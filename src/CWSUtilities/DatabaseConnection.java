@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import modelChildWelfareCentre.CaseVerification;
 import modelChildWelfareCentre.ComplaintHandler;
 import modelChildWelfareCentre.ComplaintRegister;
+import modelCommunityCareProvider.CPSOfficer;
 import modelFoster.PersonFoster;
 import modelLegal.PersonLegal;
 
@@ -275,55 +276,6 @@ public class DatabaseConnection {
 
         return resultSet;
     }
-    
-
-    public static ResultSet updatePersonFoster(PersonFoster person){
-        
-        ResultSet resultSet = null;
-        try {
-            setConnection();
-            PreparedStatement ps;
-
-            ps = connection.prepareStatement("Update person_foster SET firstname =?, lastname =?, mobile =  ?, address = ?, city = ?, zip = ?, state = ?, password = ? where username = ?", Statement.RETURN_GENERATED_KEYS);
-            
-            ps.setString(1, person.getFirstName());
-            ps.setString(2, person.getLastName());
-            ps.setLong(3, person.getMobile());
-            ps.setString(4, person.getAddress());
-            ps.setString(5, person.getCity());
-            ps.setInt(6, person.getZipCode());
-            ps.setString(7, person.getState());
-            ps.setString(8, person.getPassword());
-            ps.setString(9, person.getUsername());
-            
-            
-
-            
-            ps.executeUpdate();
-            resultSet = ps.getGeneratedKeys();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return resultSet;
-    
-    }
-    
-    public static ResultSet getDeletePersonFoster(String username, boolean isDml) throws SQLException {
-        connectDB();
-        String query = Constants.FosterPersonDelete+"\'"+username+"\'";
-        ResultSet resultSet = null;
-        if (isDml) {
-            statement.executeUpdate(query);
-            return null;
-        }
-
-        resultSet = statement.executeQuery(query);
-
-        return resultSet;
-    }
-    
 
     public static ResultSet getPersonFosterRole(String username, boolean isDml) throws SQLException {
         connectDB();
@@ -521,7 +473,32 @@ public class DatabaseConnection {
         return resultSet;
     
     }
+    
+    public static ResultSet storeDataChildProtectionService(CPSOfficer complaint){
         
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Child_Prtct_Srvc_Offcr(Verification_ID,Complaint_ID,Lawyer_Username,CPSOfficer_Username,Case_Description,Forward_To) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, complaint.getVerificationID());
+            ps.setInt(2, complaint.getComplaintID());
+            ps.setString(3, complaint.getLawyerUsername());
+            ps.setString(4, complaint.getCpsUsername());
+            ps.setString(5, complaint.getCaseDescription());
+            ps.setString(6, complaint.getForwardTo());
+
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
         
 }
 
