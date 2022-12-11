@@ -558,6 +558,30 @@ public class DatabaseConnection {
         
         return resultSet;
     }
+        public static ResultSet getChildProtectFoster() throws SQLException {
+        connectDB();
+        String query = Constants.ChildProtectFoster;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+       public static ResultSet getFosterFamilyCombo() throws SQLException {
+        connectDB();
+        String query = Constants.FosteramilyComboQuery;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+       public static ResultSet getAdoptionRequestDetails() throws SQLException {
+        connectDB();
+        String query = Constants.AdoptionRequest;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
         
         
 }

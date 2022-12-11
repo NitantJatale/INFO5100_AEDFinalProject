@@ -47,7 +47,6 @@ public class FosterCareDetails extends javax.swing.JFrame {
         fosterstatusDrpdn = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         addfosterdetailsBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         fostercareJTable = new javax.swing.JTable();
 
@@ -178,27 +177,21 @@ public class FosterCareDetails extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Reset");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
+                .addGap(384, 384, 384)
                 .addComponent(addfosterdetailsBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(233, 233, 233))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addfosterdetailsBtn)
-                    .addComponent(jButton1))
-                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(addfosterdetailsBtn)
+                .addGap(20, 20, 20))
         );
 
         fostercareJTable.setBackground(new java.awt.Color(255, 226, 249));
@@ -374,7 +367,6 @@ public class FosterCareDetails extends javax.swing.JFrame {
     private javax.swing.JLabel fosterstatusLbl;
     private javax.swing.JLabel fostervisitdescLbl;
     private javax.swing.JTextArea fostervisitdescTxt;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -4,6 +4,10 @@
  */
 package FosterCareUI;
 
+import CWSUtilities.DatabaseConnection;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anirudhajoshi
@@ -30,7 +34,7 @@ public class AdoptionRequest extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        adoptionrequestJTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         nameofchildTxt = new javax.swing.JTextField();
@@ -44,6 +48,11 @@ public class AdoptionRequest extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -73,19 +82,21 @@ public class AdoptionRequest extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        jTable1.setBackground(new java.awt.Color(255, 226, 249));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        adoptionrequestJTable.setBackground(new java.awt.Color(255, 226, 249));
+        adoptionrequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Name of Child", "Name of Parent", "City", "State"
+                "Name of Child", "Name of Parent", "City", "State", "Complaint_ID"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        adoptionrequestJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adoptionrequestJTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(adoptionrequestJTable);
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -179,6 +190,43 @@ public class AdoptionRequest extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel adjtable = (DefaultTableModel) adoptionrequestJTable.getModel();
+        ResultSet resultSet = null;
+        try{
+        resultSet = DatabaseConnection.getAdoptionRequestDetails();
+        while (resultSet.next()){
+                String nameofchild = resultSet.getString(1);
+                String nameofparent = resultSet.getString(2);
+                String city = resultSet.getString(3);
+                String state = resultSet.getString(4);
+                String complaintid = resultSet.getString(5);
+                
+      
+                adjtable.addRow(new Object[]{nameofchild, nameofparent, city, state,complaintid});
+                
+                }
+        }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void adoptionrequestJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adoptionrequestJTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel adjtable = (DefaultTableModel) adoptionrequestJTable.getModel();
+        String settextnameofchild = adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 0).toString();
+        String settextnameofparent = adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 1).toString();
+        String settextcity = adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 2).toString();
+        String settextstate = adjtable.getValueAt(adoptionrequestJTable.getSelectedRow(), 3).toString();
+        
+        nameofchildTxt.setText(settextnameofchild);
+        nameofparentTxt.setText(settextnameofparent);
+        cityTxt.setText(settextcity);
+        stateTxt.setText(settextstate);
+    }//GEN-LAST:event_adoptionrequestJTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -215,6 +263,7 @@ public class AdoptionRequest extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable adoptionrequestJTable;
     private javax.swing.JButton backBtn;
     private javax.swing.JTextField cityTxt;
     private javax.swing.JLabel jLabel1;
@@ -225,7 +274,6 @@ public class AdoptionRequest extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nameofchildTxt;
     private javax.swing.JTextField nameofparentTxt;
     private javax.swing.JButton sendadoptionreqBtn;

@@ -111,7 +111,7 @@ public class CasesUI extends javax.swing.JFrame {
 
         caseidLbl.setText("CaseID:");
 
-        verdictDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Passed to Foster Care", "Back to Child Protective Officer", "Needs Review" }));
+        verdictDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Passed to Foster Care", "Passed to Adoption Care" }));
 
         submitverdictBtn.setText("Submit Verdict");
         submitverdictBtn.addActionListener(new java.awt.event.ActionListener() {

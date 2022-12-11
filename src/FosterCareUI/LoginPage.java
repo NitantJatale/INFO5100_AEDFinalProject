@@ -187,8 +187,8 @@ public class LoginPage extends javax.swing.JFrame {
                             dispose();
                       break;
                     case "Adoption Family":
-                        AdoptionFamilySignup AFS = new AdoptionFamilySignup();
-                            AFS.show();
+                        AdoptionRequest AR = new AdoptionRequest();
+                            AR.show();
                             dispose();
                       break;
                     case "Foster Officer":
