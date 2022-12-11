@@ -165,36 +165,39 @@ public class LoginPage extends javax.swing.JFrame {
         String username = usernameTxt.getText();
         String password = passwordTxt.getText();
         String role = "";
-        System.out.println("Clicked");
         String checkPassword = "";
         
         if (username.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else{
-             try{
+            try{
             ResultSet resultSet = null;
-            String query = "SELECT password,role FROM Admin_Login WHERE username =  \'"+ username+"\'";
-            resultSet = DatabaseConnection.getData(query,false);
+            resultSet = DatabaseConnection.getPersonLegalRole(username, false);
             
             while (resultSet.next()) {
                 checkPassword = resultSet.getString(1);
-                role = resultSet.getString(2);
+        role = resultSet.getString(2);
             }
             if (password.equals(checkPassword)){
-                System.out.println("worked!");
+                
                 switch(role) {
-                    case "CWS":
-                        System.out.println("Welfare System");
+                    case "Judge":
+                        JudgeUI JU = new JudgeUI();
+                            JU.show();
+                            dispose();
                       break;
-                    case "CPS":
-                          System.out.println("ChildProtectionService");
-                    case "CWL":
-                          System.out.println("LegalService");
+                    case "Lawyer":
+                        LawyerUI LU = new LawyerUI();
+                            LU.show();
+                            dispose();
                       break;
+                    
                 }
             }else{
             
                 JOptionPane.showMessageDialog(this, "Wrong Username or Password", "Try Again",JOptionPane.ERROR_MESSAGE);
+                usernameTxt.setText("");
+                passwordTxt.setText("");
                 
             }
             }catch(Exception e){

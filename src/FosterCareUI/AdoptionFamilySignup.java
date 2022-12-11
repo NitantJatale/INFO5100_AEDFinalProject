@@ -13,6 +13,7 @@ import java.lang.System.Logger.Level;
 import trials.*;
 import javax.swing.JOptionPane;
 import modelChildWelfareCentre.PersonCWC;
+import modelFoster.PersonFoster;
 /**
  *
  * @author nitan
@@ -278,9 +279,9 @@ public class AdoptionFamilySignup extends javax.swing.JFrame {
         // TODO add your handling code here:
 
        
-        String toEmail = txtEmail.getText();
-        String firstName = txtFirstName.getText();
-        String lastName = txtLastName.getText();
+        String emailid = txtEmail.getText();
+        String firstname = txtFirstName.getText();
+        String lastname = txtLastName.getText();
         Long mobile = Validate.ConvertIntoLong(txtMobile.getText());
         String address = txtAddress.getText();
         String city = txtCity.getSelectedItem().toString();
@@ -290,10 +291,11 @@ public class AdoptionFamilySignup extends javax.swing.JFrame {
         String password = txtPassword.getText();
         Long check = mobile;
         Integer checkZip = zipCode; 
+        String role = "Adoption Family";
 
-	if (toEmail.isEmpty()|| firstName.isEmpty()||lastName.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
+	if (emailid.isEmpty()|| firstname.isEmpty()||lastname.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
-        }else if (Validate.isValidEmail(toEmail) == false){
+        }else if (Validate.isValidEmail(emailid) == false){
              JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
         }else if (Validate.isValidPassword(password) == false){
              JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
@@ -308,7 +310,7 @@ public class AdoptionFamilySignup extends javax.swing.JFrame {
         	boolean result = false;
         
         	try {
-            	result = Email.sendEmail(toEmail, subject, text);
+            	result = Email.sendEmail(emailid, subject, text);
         	} catch (Exception ex) {
             	java.util.logging.Logger.getLogger(AdoptionFamilySignup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         	}
@@ -317,10 +319,10 @@ public class AdoptionFamilySignup extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Email does not exists");
         	}
                 
-                PersonCWC person1 = new PersonCWC(firstName,lastName,toEmail,mobile,address,city,zipCode,state,username,password);
+                PersonFoster person1 = new PersonFoster(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password, role);
             
                 try{
-                    DatabaseConnection.storeDataPersonCWC(person1);
+                    DatabaseConnection.storeDataPersonFoster(person1);
                 }catch(Exception e){
                     System.out.println("Error while Connecting");
                     e.printStackTrace();

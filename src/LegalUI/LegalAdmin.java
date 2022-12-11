@@ -4,7 +4,9 @@
  */
 package LegalUI;
 
+import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelLegal.PersonLegal;
@@ -83,6 +85,11 @@ public class LegalAdmin extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -426,7 +433,7 @@ public class LegalAdmin extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, "Data Added Successfully !");
         
-        PersonLegal person1 = new PersonLegal(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password);
+        PersonLegal person1 = new PersonLegal(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password, role);
         
         try{
                     DatabaseConnection.storeDataPersonLegal(person1);
@@ -570,6 +577,37 @@ public class LegalAdmin extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, "Data Updated Successfully !");
     }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel personTable = (DefaultTableModel) legaladminJTable.getModel();
+       ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getData(Constants.LegalPerson, false);
+            while (resultSet.next()){
+                String firstname = resultSet.getString(1);
+                String lastname = resultSet.getString(2);
+                String emailid = resultSet.getString(3);
+                String mobile = resultSet.getString(4);
+                String address = resultSet.getString(5);
+                String city = resultSet.getString(6);
+                String zipCode = resultSet.getString(7);
+                String state = resultSet.getString(8);
+                
+                String username = resultSet.getString(9);
+                String password = resultSet.getString(10);
+                String role = resultSet.getString(11);
+                    
+                       
+                    personTable.addRow(new Object[]{role, username, password, firstname, lastname, emailid, mobile, address, state, city, zipCode});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
