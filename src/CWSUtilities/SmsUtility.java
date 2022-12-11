@@ -12,14 +12,14 @@ import com.twilio.type.PhoneNumber;
  * @author nitan
  */
 public class SmsUtility {
-    public static final String ACCOUNT_SID = "";
-    public static final String AUTH_TOKEN = "";
+    public static final String ACCOUNT_SID = "ACad1b6a685dd70e0e33087fc46e8201c6";
+    public static final String AUTH_TOKEN = "0a32f51c4548a297413d202c934787bb";
 
     public static void sendSMS(String to, String smsMessage) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
                 new com.twilio.type.PhoneNumber(to),
-                new com.twilio.type.PhoneNumber("+"), //fromphone
+                new com.twilio.type.PhoneNumber("+18654843955"), //fromphone
                 smsMessage)
             .create();
 
