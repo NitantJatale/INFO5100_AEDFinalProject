@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -66,7 +69,8 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtPassword" max="32767" attributes="0"/>
                               <Component id="txtUsername" max="32767" attributes="0"/>
-                              <Component id="txtRole" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRole" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtDOB" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="289" max="-2" attributes="0"/>
                       </Group>
@@ -182,7 +186,10 @@
                       <Component id="txtZip" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabel12" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel12" pref="30" max="32767" attributes="0"/>
+                      <Component id="txtDOB" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel13" min="-2" pref="30" max="-2" attributes="0"/>
@@ -227,6 +234,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFirstName">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFirstNameKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -237,6 +247,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLastName">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLastNameKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -257,6 +270,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMobile">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMobileKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -293,6 +309,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtZip">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtZipKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -376,7 +395,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tablePersonCWC">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="12" rowCount="0">
@@ -462,6 +481,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablePersonCWCMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -479,9 +501,9 @@
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Component id="btnAdd" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnUpdate" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnDelete" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -491,8 +513,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" max="-2" attributes="0">
-                          <Component id="jButton1" alignment="3" max="32767" attributes="0"/>
-                          <Component id="jButton2" alignment="3" max="32767" attributes="0"/>
+                          <Component id="btnUpdate" alignment="3" max="32767" attributes="0"/>
+                          <Component id="btnDelete" alignment="3" max="32767" attributes="0"/>
                           <Component id="btnAdd" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -512,7 +534,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnUpdate">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="24" style="1"/>
@@ -520,10 +542,10 @@
                 <Property name="text" type="java.lang.String" value="Update"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnDelete">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="24" style="1"/>
@@ -531,7 +553,7 @@
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -558,6 +580,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="txtDOB">
         </Component>
       </SubComponents>
     </Container>

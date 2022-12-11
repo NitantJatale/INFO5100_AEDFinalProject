@@ -47,7 +47,6 @@ public class CWCentreHome extends javax.swing.JFrame {
 
         btnHotlineComplaintSystem.setBackground(new java.awt.Color(205, 195, 227));
         btnHotlineComplaintSystem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Hotlinecomplaintsystemicon.png")); // NOI18N
         btnHotlineComplaintSystem.setText("HOTLINE COMPLAINT SYSTEM");
         btnHotlineComplaintSystem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,8 +56,12 @@ public class CWCentreHome extends javax.swing.JFrame {
 
         btnCaseVerificationCentre.setBackground(new java.awt.Color(205, 195, 227));
         btnCaseVerificationCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCaseVerificationCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationcentericon.png")); // NOI18N
         btnCaseVerificationCentre.setText("CASE VERIFICATION CENTRE ");
+        btnCaseVerificationCentre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCaseVerificationCentreActionPerformed(evt);
+            }
+        });
 
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnBack.setText("Back");
@@ -73,13 +76,8 @@ public class CWCentreHome extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(441, 441, 441)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(240, 240, 240)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(231, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -92,6 +90,10 @@ public class CWCentreHome extends javax.swing.JFrame {
                             .addComponent(btnHotlineComplaintSystem, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCaseVerificationCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(295, 295, 295))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(429, 429, 429))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,11 +104,11 @@ public class CWCentreHome extends javax.swing.JFrame {
                 .addComponent(btnHotlineComplaintSystem)
                 .addGap(70, 70, 70)
                 .addComponent(btnCaseVerificationCentre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(100, 100, 100)
+                .addGap(103, 103, 103)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112))
+                .addGap(109, 109, 109))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -139,6 +141,13 @@ public class CWCentreHome extends javax.swing.JFrame {
             CSL.show();
             dispose();
     }//GEN-LAST:event_btnHotlineComplaintSystemActionPerformed
+
+    private void btnCaseVerificationCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaseVerificationCentreActionPerformed
+        // TODO add your handling code here:
+        CVerificationCLogin CVCL = new CVerificationCLogin();
+            CVCL.show();
+            dispose();
+    }//GEN-LAST:event_btnCaseVerificationCentreActionPerformed
 
     /**
      * @param args the command line arguments
