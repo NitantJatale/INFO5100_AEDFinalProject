@@ -49,7 +49,8 @@ public class CVerificationCLogin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOGIN");
 
-        btnLogin.setBackground(new java.awt.Color(205, 195, 227));
+        jPanel1.setBackground(new java.awt.Color(234, 255, 226));
+
         btnLogin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {

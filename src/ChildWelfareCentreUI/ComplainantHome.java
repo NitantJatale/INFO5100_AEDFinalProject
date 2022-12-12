@@ -47,8 +47,9 @@ public class ComplainantHome extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("WELCOME");
 
-        btnHotlineComplaintSystem.setBackground(new java.awt.Color(205, 195, 227));
+        btnHotlineComplaintSystem.setBackground(new java.awt.Color(214, 255, 225));
         btnHotlineComplaintSystem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/registeracomplainticon.png")); // NOI18N
         btnHotlineComplaintSystem.setText("REGISTER A COMPLAIN");
         btnHotlineComplaintSystem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,8 +57,9 @@ public class ComplainantHome extends javax.swing.JFrame {
             }
         });
 
-        btnCaseVerificationCentre.setBackground(new java.awt.Color(205, 195, 227));
+        btnCaseVerificationCentre.setBackground(new java.awt.Color(214, 255, 225));
         btnCaseVerificationCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCaseVerificationCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/viregisteredcomplainticon.png")); // NOI18N
         btnCaseVerificationCentre.setText("VIEW REGISTERED COMPLAIN");
         btnCaseVerificationCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,8 +67,8 @@ public class ComplainantHome extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setBackground(new java.awt.Color(205, 195, 227));
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnBack.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/backicon.png")); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,8 +91,8 @@ public class ComplainantHome extends javax.swing.JFrame {
                             .addComponent(btnHotlineComplaintSystem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCaseVerificationCentre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(439, 439, 439)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(436, 436, 436)
+                        .addComponent(btnBack)))
                 .addContainerGap(243, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -102,9 +104,9 @@ public class ComplainantHome extends javax.swing.JFrame {
                 .addComponent(btnHotlineComplaintSystem)
                 .addGap(69, 69, 69)
                 .addComponent(btnCaseVerificationCentre)
-                .addGap(89, 89, 89)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addGap(87, 87, 87)
+                .addComponent(btnBack)
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

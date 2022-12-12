@@ -78,9 +78,9 @@ public class CVerificationCAssignCPS extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("ASSIGN CPS");
 
+        jPanel2.setBackground(new java.awt.Color(242, 255, 229));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select a Case", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
-        tableComplaint.setBackground(new java.awt.Color(205, 195, 227));
         tableComplaint.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -142,6 +142,7 @@ public class CVerificationCAssignCPS extends javax.swing.JFrame {
                 .addComponent(searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(242, 255, 220));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Assign CPS Officer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -149,7 +150,6 @@ public class CVerificationCAssignCPS extends javax.swing.JFrame {
 
         txtCPSOfficer.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        btnAssign.setBackground(new java.awt.Color(205, 195, 227));
         btnAssign.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAssign.setText("Assign");
         btnAssign.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +199,6 @@ public class CVerificationCAssignCPS extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnBack.setBackground(new java.awt.Color(205, 195, 227));
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +232,7 @@ public class CVerificationCAssignCPS extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(440, 440, 440))
+                .addGap(445, 445, 445))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

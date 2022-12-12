@@ -78,7 +78,7 @@ public class CVerificationCVerification extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("CASE VERIFICATION ");
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(233, 255, 231));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select a Case", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
         tableComplaint.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,7 +113,7 @@ public class CVerificationCVerification extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(233, 253, 223));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "VerifyCase", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 12))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -139,7 +139,6 @@ public class CVerificationCVerification extends javax.swing.JFrame {
         txtLegitimacy.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txtLegitimacy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Legitimate", "Not Legitimate" }));
 
-        btnVerify.setBackground(new java.awt.Color(205, 195, 227));
         btnVerify.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnVerify.setText("Verify");
         btnVerify.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +232,6 @@ public class CVerificationCVerification extends javax.swing.JFrame {
                 .addComponent(searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButton1.setBackground(new java.awt.Color(205, 195, 227));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

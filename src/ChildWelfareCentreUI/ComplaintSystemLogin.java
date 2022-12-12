@@ -45,7 +45,7 @@ public class ComplaintSystemLogin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(205, 195, 225));
+        jPanel2.setBackground(new java.awt.Color(220, 255, 215));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Username:");
