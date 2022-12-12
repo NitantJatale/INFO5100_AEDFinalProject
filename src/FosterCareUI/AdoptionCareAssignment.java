@@ -4,6 +4,14 @@
  */
 package FosterCareUI;
 
+import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Email;
+import CWSUtilities.Validate;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import trials.ComplaineeSignUp;
+
 /**
  *
  * @author anirudhajoshi
@@ -13,6 +21,8 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
     /**
      * Creates new form AdoptionCareAssignment
      */
+    String txtComplaintID;
+    String adoptionParentName;
     public AdoptionCareAssignment() {
         initComponents();
     }
@@ -30,17 +40,18 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        caseidLbl = new javax.swing.JLabel();
-        adoptionfamilyLbl = new javax.swing.JLabel();
-        adoptionfamilyDrpdn = new javax.swing.JComboBox<>();
-        caseidTxt = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        assignadoptionfamilyBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableComplaint = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        btnApprove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -61,9 +72,9 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(backBtn)
-                .addGap(118, 118, 118)
+                .addGap(45, 45, 45)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
                 .addComponent(jLabel1)
                 .addContainerGap(258, Short.MAX_VALUE))
         );
@@ -73,80 +84,73 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(backBtn))
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
-        caseidLbl.setText("CaseID:");
-
-        adoptionfamilyLbl.setText("Adoption Family:");
-
-        adoptionfamilyDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tableComplaint.setBackground(new java.awt.Color(255, 226, 249));
+        tableComplaint.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ComplaintID", "Name of Child", "Case Description", "AdoptionParent", "Mobile"
+            }
+        ));
+        tableComplaint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableComplaintMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableComplaint);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(caseidLbl)
-                .addGap(18, 18, 18)
-                .addComponent(caseidTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
-                .addComponent(adoptionfamilyLbl)
-                .addGap(18, 18, 18)
-                .addComponent(adoptionfamilyDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(caseidLbl)
-                    .addComponent(adoptionfamilyLbl)
-                    .addComponent(adoptionfamilyDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(caseidTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 204));
 
-        assignadoptionfamilyBtn.setBackground(new java.awt.Color(255, 226, 249));
-        assignadoptionfamilyBtn.setText("Assign Adoption Family");
+        btnApprove.setBackground(new java.awt.Color(255, 226, 249));
+        btnApprove.setText("Approve Adoption Request");
+        btnApprove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApproveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(211, 211, 211)
-                .addComponent(assignadoptionfamilyBtn)
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addGap(221, 221, 221)
+                .addComponent(btnApprove)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(assignadoptionfamilyBtn)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 43, Short.MAX_VALUE)
+                .addComponent(btnApprove))
         );
-
-        jTable1.setBackground(new java.awt.Color(255, 226, 249));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "CaseID", "Case Description", "Name of Child", "Foster Family"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,13 +163,8 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(134, 134, 134))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -177,9 +176,7 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         pack();
@@ -191,6 +188,112 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
         adoc.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
+        // TODO add your handling code here:
+       Integer complaintID = Validate.ConvertIntoNumeric(txtComplaintID);
+       String toEmail = "";
+       String subject = "Hello";
+       String text = "There is an update on you ComplaintId = "+complaintID+" Open the portal to see the status";
+       boolean result = false;
+
+	if (txtComplaintID.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please Select a Complain", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else{
+                try{
+                    DatabaseConnection.updForwardTo(complaintID);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+                
+                DatabaseConnection.updateSetStatus(Integer.toString(complaintID), "The Child has been Adopted Successfully by "+adoptionParentName);
+		    
+		try{
+                    ResultSet newSet1 = null;
+                    newSet1 = DatabaseConnection.getComplaineeEmail(Integer.toString(complaintID));
+
+                    while (newSet1.next()){
+			  toEmail = newSet1.getString(1);
+                    }
+                }catch(Exception e){
+                	System.out.println("Error while Connecting2");
+                	e.printStackTrace();
+                }
+
+        
+        	try {
+                    result = Email.sendEmail(toEmail, subject, text);
+        	} catch (Exception ex) {
+                    java.util.logging.Logger.getLogger(ComplaineeSignUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        	}
+                
+                
+            txtComplaintID="";
+            adoptionParentName = "";
+
+                
+            DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+	    complaintTable.setRowCount(0);	
+            ResultSet resultSet = null;
+            try{
+            
+            resultSet = DatabaseConnection.getAdoptionAssign();
+            
+            while (resultSet.next()){
+                String complainID = resultSet.getString(1);
+                String childName = resultSet.getString(2);
+                String description = resultSet.getString(3);
+                String parentName = resultSet.getString(4) +" "+resultSet.getString(5);
+                String mobile = resultSet.getString(6);
+      
+                complaintTable.addRow(new Object[]{complainID,childName,description,parentName,mobile});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+
+            JOptionPane.showMessageDialog(this, "Adoption request approved Succesfully");
+        
+	}
+        
+    }//GEN-LAST:event_btnApproveActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel complaintTable = (DefaultTableModel) tableComplaint.getModel();
+        ResultSet resultSet = null;
+        try{
+            
+            resultSet = DatabaseConnection.getAdoptionAssign();
+            
+            while (resultSet.next()){
+                String complainID = resultSet.getString(1);
+                String childName = resultSet.getString(2);
+                String description = resultSet.getString(3);
+                String parentName = resultSet.getString(4) +" "+resultSet.getString(5);
+                String mobile = resultSet.getString(6);
+      
+                complaintTable.addRow(new Object[]{complainID,childName,description,parentName,mobile});
+                
+                }
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tableComplaintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableComplaintMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel)tableComplaint.getModel();
+        int selectedRow = tableComplaint.getSelectedRow();
+        //Set data to text fields
+        
+        txtComplaintID = tblModel.getValueAt(tableComplaint.getSelectedRow(), 0).toString();
+        adoptionParentName = tblModel.getValueAt(tableComplaint.getSelectedRow(), 3).toString();
+    }//GEN-LAST:event_tableComplaintMouseClicked
 
     /**
      * @param args the command line arguments
@@ -228,17 +331,13 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> adoptionfamilyDrpdn;
-    private javax.swing.JLabel adoptionfamilyLbl;
-    private javax.swing.JButton assignadoptionfamilyBtn;
     private javax.swing.JButton backBtn;
-    private javax.swing.JLabel caseidLbl;
-    private javax.swing.JTextField caseidTxt;
+    private javax.swing.JButton btnApprove;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableComplaint;
     // End of variables declaration//GEN-END:variables
 }
