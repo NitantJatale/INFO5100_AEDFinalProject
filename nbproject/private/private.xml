@@ -3,35 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/ComplainHandlerHome.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/CommunityCareProviderUI/CProtectionSHome.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/LegalUI/LoginPage.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/CVerificationCAssignCPS.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/CVerificationCLogin.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/ComplaintSystemLogin.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/CWSUtilities/DatabaseConnection.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/modelLegal/PersonLegal.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/LegalUI/JudgeUI.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/CWCentreHome.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/modelChildWelfareCentre/PersonCWC.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/CommunityCareProviderUI/ComunityCareProvLogin.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/ComplainantRegisterComplain.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/LegalUI/CasesUI.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/ComplainantViewComplain.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/CommunityCareProviderUI/CPSAssignLawyer.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/modelAddress/Address.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/CommunityCareProviderUI/CPSForwardCase.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/LegalUI/LawyerUI.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/ComplainantSignUp.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/modelFoster/PersonFoster.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/CVerificationCVerification.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/CWSUtilities/Email.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/CVerificationCHome.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/ComplainantHome.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/LegalUI/CasesLawyerUI.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/modelAddress/City.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/ChildWelfareCentreUI/CWCentreAdminHome.java</file>
-            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/LegalUI/LegalAdmin.java</file>
+            <file>file:/Users/raghavgoswami/Desktop/AED%20Project/INFO5100_AEDFinalProject/src/modelFoster/FosterDetails.java</file>
         </group>
     </open-files>
 </project-private>
