@@ -144,7 +144,6 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setText("Password:");
 
-        btnBack.setBackground(new java.awt.Color(205, 195, 227));
         btnBack.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -182,8 +181,10 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablePersonCWC);
 
-        btnAdd.setBackground(new java.awt.Color(205, 195, 227));
+        jPanel2.setBackground(new java.awt.Color(234, 255, 230));
+
         btnAdd.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnAdd.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/addicon.png")); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,8 +192,8 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setBackground(new java.awt.Color(205, 195, 227));
         btnUpdate.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnUpdate.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/updateicon.png")); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,8 +201,8 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setBackground(new java.awt.Color(205, 195, 227));
         btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/deleteicon.png")); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,7 +361,7 @@ public class CWCentreAdminHome extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtRole)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))

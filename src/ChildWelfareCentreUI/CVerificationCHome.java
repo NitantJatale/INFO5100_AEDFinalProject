@@ -57,8 +57,9 @@ public class CVerificationCHome extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
-        btnCaseVerification.setBackground(new java.awt.Color(205, 195, 227));
+        btnCaseVerification.setBackground(new java.awt.Color(231, 255, 216));
         btnCaseVerification.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCaseVerification.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationicon.png")); // NOI18N
         btnCaseVerification.setText("CASE VERIFICATION");
         btnCaseVerification.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,8 +67,9 @@ public class CVerificationCHome extends javax.swing.JFrame {
             }
         });
 
-        btnAssigntoCPS.setBackground(new java.awt.Color(205, 195, 227));
+        btnAssigntoCPS.setBackground(new java.awt.Color(231, 255, 216));
         btnAssigntoCPS.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnAssigntoCPS.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Assigntocpsicon (1).png")); // NOI18N
         btnAssigntoCPS.setText("ASSIGN TO CPS");
         btnAssigntoCPS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

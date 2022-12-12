@@ -45,8 +45,9 @@ public class CWCentreHome extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CHILD WELFARE CENTRE");
 
-        btnHotlineComplaintSystem.setBackground(new java.awt.Color(205, 195, 227));
+        btnHotlineComplaintSystem.setBackground(new java.awt.Color(255, 255, 223));
         btnHotlineComplaintSystem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Hotlinecomplaintsystemicon.png")); // NOI18N
         btnHotlineComplaintSystem.setText("HOTLINE COMPLAINT SYSTEM");
         btnHotlineComplaintSystem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,8 +55,9 @@ public class CWCentreHome extends javax.swing.JFrame {
             }
         });
 
-        btnCaseVerificationCentre.setBackground(new java.awt.Color(205, 195, 227));
+        btnCaseVerificationCentre.setBackground(new java.awt.Color(255, 255, 223));
         btnCaseVerificationCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCaseVerificationCentre.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/Caseverificationicon.png")); // NOI18N
         btnCaseVerificationCentre.setText("CASE VERIFICATION CENTRE ");
         btnCaseVerificationCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +106,7 @@ public class CWCentreHome extends javax.swing.JFrame {
                 .addComponent(btnHotlineComplaintSystem)
                 .addGap(70, 70, 70)
                 .addComponent(btnCaseVerificationCentre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(103, 103, 103)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
