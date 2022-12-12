@@ -146,7 +146,7 @@ public class CPSForwardCase extends javax.swing.JFrame {
         jLabel2.setText("Forward the Case:");
 
         txtForward.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txtForward.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption ", "Foster" }));
+        txtForward.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adoption", "Foster" }));
 
         btnAssign.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnAssign.setText("Assign");
@@ -376,7 +376,7 @@ public class CPSForwardCase extends javax.swing.JFrame {
                 System.out.println("Error while Connecting");
                 e.printStackTrace();
             }
-	}
+        }
         
         
     }//GEN-LAST:event_btnAssignActionPerformed
@@ -392,7 +392,7 @@ public class CPSForwardCase extends javax.swing.JFrame {
         
         if (verdict.equals("Passed to Foster Care")){
             verdictGiven = "Foster";
-        }else if(verdict.equals("Passed to Foster Care")){
+        }else if(verdict.equals("Passed to Adoption Care")){
             verdictGiven = "Adoption";
         }else{
             verdictGiven = "Not Assigned";

@@ -38,10 +38,10 @@ public class Constants {
     public static final String LegalPersonDelete = "DELETE FROM person_legal WHERE username = ";
     public static final String LegalPerson = "SELECT * FROM person_legal";
     
-    public static final String LawyerCases = "SELECT Case_ID, Complaint_ID, Case_Description, Verdict FROM Child_Prtct_Srvc WHERE Lawyer_Username = ";
+    public static final String LawyerCases = "SELECT Case_ID, Complaint_ID, Case_Description, Verdict FROM Child_Prtct_Srvc_Offcr WHERE Lawyer_Username = ";
     
-    public static final String JudgeCases = "SELECT Case_ID, Complaint_ID, Case_Description, Lawyer_Username, Verdict FROM Child_Prtct_Srvc";
-    public static final String SubmitVerdict1 = "UPDATE Child_Prtct_Srvc SET Verdict=";
+    public static final String JudgeCases = "SELECT Case_ID, Complaint_ID, Case_Description, Lawyer_Username, Verdict FROM Child_Prtct_Srvc_Offcr";
+    public static final String SubmitVerdict1 = "UPDATE Child_Prtct_Srvc_Offcr SET Verdict=";
     public static final String SubmitVerdict2 = "WHERE Case_ID=";
     
     public static final String FosterCareDetails = "SELECT * FROM Foster_Care";

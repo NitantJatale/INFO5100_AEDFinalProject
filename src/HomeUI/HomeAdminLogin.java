@@ -7,6 +7,8 @@ package HomeUI;
 import CWSUtilities.DatabaseConnection;
 import ChildWelfareCentreUI.*;
 import CommunityCareProviderUI.CProtectionCAdminHome;
+import FosterCareUI.FosterAdmin;
+import LegalUI.LegalAdmin;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -191,6 +193,17 @@ public class HomeAdminLogin extends javax.swing.JFrame {
                             CPCAH.show();
                             dispose();
                       break;
+                    case "FCS":
+                        FosterAdmin FA = new FosterAdmin();
+                            FA.show();
+                            dispose();
+                      break;
+                    case "LD":
+                        LegalAdmin LA = new LegalAdmin();
+                            LA.show();
+                            dispose();
+                      break;
+                    
                 }
             }else{
             

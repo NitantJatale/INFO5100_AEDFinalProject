@@ -188,8 +188,8 @@ public class CasesUI extends javax.swing.JFrame {
         while (resultSet.next()){
                 String caseid = resultSet.getString(1);
                 String complaintid = resultSet.getString(2);
-                String casedescription = resultSet.getString(3);
-                String lawyer = resultSet.getString(4);
+                String casedescription = resultSet.getString(4);
+                String lawyer = resultSet.getString(3);
                 String verdict = resultSet.getString(5);
                 
       
