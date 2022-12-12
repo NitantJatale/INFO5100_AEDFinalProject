@@ -5,6 +5,7 @@
 package FosterCareUI;
 
 import CWSUtilities.DatabaseConnection;
+import HomeUI.Home;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 /**
@@ -51,6 +52,11 @@ public class LoginPage extends javax.swing.JFrame {
 
         backBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         backBtn.setText("BACK");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -210,6 +216,13 @@ public class LoginPage extends javax.swing.JFrame {
             } 
         }
     }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        Home H = new Home();
+            H.show();
+            dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
 
     /**
      * @param args the command line arguments

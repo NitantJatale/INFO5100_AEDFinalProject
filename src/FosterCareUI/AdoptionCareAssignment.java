@@ -93,10 +93,7 @@ public class AdoptionCareAssignment extends javax.swing.JFrame {
         tableComplaint.setBackground(new java.awt.Color(255, 226, 249));
         tableComplaint.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ComplaintID", "Name of Child", "Case Description", "AdoptionParent", "Mobile"

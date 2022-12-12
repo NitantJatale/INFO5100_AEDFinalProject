@@ -288,6 +288,9 @@ public class AdoptionRequest extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
+        LoginPage lp = new LoginPage();
+        lp.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_backBtnActionPerformed
 
