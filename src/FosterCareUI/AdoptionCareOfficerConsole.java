@@ -29,7 +29,6 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
-        adoptiondetailsBtn = new javax.swing.JButton();
         adoptionassignmentBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,14 +67,6 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        adoptiondetailsBtn.setBackground(new java.awt.Color(204, 255, 255));
-        adoptiondetailsBtn.setText("Adoption Details");
-        adoptiondetailsBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adoptiondetailsBtnActionPerformed(evt);
-            }
-        });
-
         adoptionassignmentBtn.setBackground(new java.awt.Color(204, 255, 255));
         adoptionassignmentBtn.setText("Adoption Assignment");
         adoptionassignmentBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -89,26 +80,23 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(351, 351, 351)
+                        .addComponent(adoptionassignmentBtn)))
                 .addContainerGap(40, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(adoptiondetailsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(adoptionassignmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(361, 361, 361))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addComponent(adoptiondetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGap(109, 109, 109)
                 .addComponent(adoptionassignmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         pack();
@@ -127,13 +115,6 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
         lp.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
-    private void adoptiondetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adoptiondetailsBtnActionPerformed
-        // TODO add your handling code here:
-        AdoptionDetails ad = new AdoptionDetails();
-        ad.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_adoptiondetailsBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,7 +153,6 @@ public class AdoptionCareOfficerConsole extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adoptionassignmentBtn;
-    private javax.swing.JButton adoptiondetailsBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

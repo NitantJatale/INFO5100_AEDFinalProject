@@ -17,6 +17,7 @@ import modelChildWelfareCentre.CaseVerification;
 import modelChildWelfareCentre.ComplaintHandler;
 import modelChildWelfareCentre.ComplaintRegister;
 import modelCommunityCareProvider.CPSOfficer;
+import modelFoster.AdoptionAppointment;
 import modelFoster.PersonFoster;
 import modelLegal.PersonLegal;
 
@@ -652,7 +653,7 @@ public class DatabaseConnection {
     
 
 
-        public static ResultSet updateForwardTo(CPSOfficer case1){
+    public static ResultSet updateForwardTo(CPSOfficer case1){
 
 
         ResultSet resultSet = null;
@@ -677,6 +678,71 @@ public class DatabaseConnection {
         return resultSet;
     
     }
+    
+    public static ResultSet storeFosterDetails(FosterDetails fd1){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Foster_Assignment VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, fd1.getCaseid());
+            ps.setString(2, fd1.getCasedesc());
+            ps.setString(3, fd1.getFosterfamily());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+        public static ResultSet getFosterAssignment() throws SQLException {
+        connectDB();
+        String query = Constants.FosterAssignmentTable;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+        
+    public static ResultSet getAdoptionAssign() throws SQLException {
+        connectDB();
+        String query = Constants.adoptionApprove;
+        ResultSet resultSet = null;
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }    
+    
+    public static ResultSet updForwardTo(Integer ComplaintID){
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update Child_Prtct_Srvc_Offcr SET Forward_To = 'Adopted' WHERE complaint_id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setInt(1, ComplaintID);
+
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+       
         
 }
 
