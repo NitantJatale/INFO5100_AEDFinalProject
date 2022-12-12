@@ -7,7 +7,9 @@ package FosterCareUI;
 import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelFoster.FosterDetails;
 
 /**
  *
@@ -18,6 +20,9 @@ public class FosterCareAssignment extends javax.swing.JFrame {
     /**
      * Creates new form FosterCareAssignment
      */
+    String caseid;
+    String casedesc;
+    String fosterfamily;
     public FosterCareAssignment() {
         initComponents();
     }
@@ -39,10 +44,18 @@ public class FosterCareAssignment extends javax.swing.JFrame {
         fosterfamilyLbl = new javax.swing.JLabel();
         fosterfamilyDrpdn = new javax.swing.JComboBox<>();
         caseidTxt = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        casedescTxt = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         assignfosterfamilyBtn = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        fostercareyetassignJTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         fostercareassignJTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -71,7 +84,7 @@ public class FosterCareAssignment extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(backBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(236, 236, 236))
         );
@@ -91,20 +104,26 @@ public class FosterCareAssignment extends javax.swing.JFrame {
 
         fosterfamilyLbl.setText("Foster Family:");
 
+        jLabel4.setText("Case Description:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(73, 73, 73)
-                .addComponent(caseidLbl)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(caseidLbl))
                 .addGap(18, 18, 18)
-                .addComponent(caseidTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(caseidTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(casedescTxt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(fosterfamilyLbl)
                 .addGap(18, 18, 18)
                 .addComponent(fosterfamilyDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                .addGap(60, 60, 60))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +134,11 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                     .addComponent(fosterfamilyLbl)
                     .addComponent(fosterfamilyDrpdn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(caseidTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(casedescTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 204));
@@ -144,6 +167,48 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        fostercareyetassignJTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CaseID", "Case Description"
+            }
+        ));
+        fostercareyetassignJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fostercareyetassignJTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(fostercareyetassignJTable);
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel2.setText("Yet To Be Assigned");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jLabel2)))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
+
         fostercareassignJTable.setBackground(new java.awt.Color(255, 226, 249));
         fostercareassignJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,6 +225,32 @@ public class FosterCareAssignment extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(fostercareassignJTable);
 
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jLabel3.setText("Assigned");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(231, 231, 231)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,18 +258,19 @@ public class FosterCareAssignment extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
+                        .addGap(269, 269, 269)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(41, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(211, 211, 211))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(477, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,11 +279,13 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(112, 112, 112))
         );
 
         pack();
@@ -207,12 +301,14 @@ public class FosterCareAssignment extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         DefaultTableModel fscareas = (DefaultTableModel) fostercareassignJTable.getModel();
+        DefaultTableModel fscareasyet = (DefaultTableModel) fostercareyetassignJTable.getModel();
         ResultSet resultSet = null;
         ResultSet resultSet1 = null;
-        
+        ResultSet resultSet2 = null;
         try{
         resultSet = DatabaseConnection.getChildProtectFoster();
         resultSet1 = DatabaseConnection.getFosterFamilyCombo();
+        resultSet2 = DatabaseConnection.getFosterAssignment();
         while (resultSet.next()){
                 String caseid = resultSet.getString(1);
                 String casedesc = resultSet.getString(2);
@@ -220,7 +316,7 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                 
                 
       
-                fscareas.addRow(new Object[]{caseid, casedesc});
+                fscareasyet.addRow(new Object[]{caseid, casedesc});
                 
                 }
         while (resultSet1.next()){
@@ -228,6 +324,16 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                 fosterfamilyDrpdn.addItem(resultSet1.getString(1)); 
                 
                 
+                
+                }
+        while (resultSet2.next()){
+                String caseid = resultSet.getString(1);
+                String casedesc = resultSet.getString(2);
+                String fosterfamily = resultSet.getString(3);
+                
+                
+      
+                fscareas.addRow(new Object[]{caseid, casedesc, fosterfamily});
                 
                 }
         }catch(Exception e){
@@ -239,16 +345,39 @@ public class FosterCareAssignment extends javax.swing.JFrame {
 
     private void assignfosterfamilyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignfosterfamilyBtnActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel fscareas = (DefaultTableModel) fostercareyetassignJTable.getModel();
+        caseid = fscareas.getValueAt(fostercareyetassignJTable.getSelectedRow(), 0).toString();
+        casedesc = fscareas.getValueAt(fostercareyetassignJTable.getSelectedRow(), 1).toString();
+        
         String fosterfamily = fosterfamilyDrpdn.getSelectedItem().toString();
         
+        DefaultTableModel fscareas1 = (DefaultTableModel) fostercareassignJTable.getModel();
+        fscareas1.addRow(new Object[] {caseid, casedesc,fosterfamily});
+        FosterDetails fdnew1 = new FosterDetails(caseid, casedesc, fosterfamily);
+        try{
+                    DatabaseConnection.storeFosterDetails(fdnew1);
+        }
+        catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
+        
+        JOptionPane.showMessageDialog(this, "Data Added Successfully !");
     }//GEN-LAST:event_assignfosterfamilyBtnActionPerformed
 
     private void fostercareassignJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fostercareassignJTableMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel fscareas = (DefaultTableModel) fostercareassignJTable.getModel();
-        String settextcaseid = fscareas.getValueAt(fostercareassignJTable.getSelectedRow(), 0).toString();
-        caseidTxt.setText(settextcaseid);
+        
     }//GEN-LAST:event_fostercareassignJTableMouseClicked
+
+    private void fostercareyetassignJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fostercareyetassignJTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel fscareas = (DefaultTableModel) fostercareyetassignJTable.getModel();
+        String settextcaseid = fscareas.getValueAt(fostercareyetassignJTable.getSelectedRow(), 0).toString();
+        String settextcasedesc = fscareas.getValueAt(fostercareyetassignJTable.getSelectedRow(), 1).toString();
+        caseidTxt.setText(settextcaseid);
+        casedescTxt.setText(settextcasedesc);
+    }//GEN-LAST:event_fostercareyetassignJTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -288,15 +417,23 @@ public class FosterCareAssignment extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignfosterfamilyBtn;
     private javax.swing.JButton backBtn;
+    private javax.swing.JTextField casedescTxt;
     private javax.swing.JLabel caseidLbl;
     private javax.swing.JTextField caseidTxt;
     private javax.swing.JTable fostercareassignJTable;
+    private javax.swing.JTable fostercareyetassignJTable;
     private javax.swing.JComboBox<String> fosterfamilyDrpdn;
     private javax.swing.JLabel fosterfamilyLbl;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
