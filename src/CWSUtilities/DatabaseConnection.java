@@ -17,6 +17,7 @@ import modelChildWelfareCentre.CaseVerification;
 import modelChildWelfareCentre.ComplaintHandler;
 import modelChildWelfareCentre.ComplaintRegister;
 import modelCommunityCareProvider.CPSOfficer;
+import modelFoster.AdoptionAppointment;
 import modelFoster.PersonFoster;
 import modelLegal.PersonLegal;
 
