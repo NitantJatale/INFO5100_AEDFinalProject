@@ -6,6 +6,7 @@ package LegalUI;
 
 import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Validate;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -96,7 +97,6 @@ public class LegalAdmin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("LEGAL ADMIN");
 
-        backBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/backicon.png")); // NOI18N
         backBtn.setText("BACK");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +202,7 @@ public class LegalAdmin extends javax.swing.JFrame {
 
         cityLbl.setText("City:");
 
-        cityDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cityDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Springfield" }));
 
         stateLbl.setText("State:");
 
@@ -271,7 +271,6 @@ public class LegalAdmin extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 235, 201));
 
-        addBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/addicon.png")); // NOI18N
         addBtn.setText("ADD");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +278,6 @@ public class LegalAdmin extends javax.swing.JFrame {
             }
         });
 
-        deleteBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/deleteicon.png")); // NOI18N
         deleteBtn.setText("DELETE");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +285,6 @@ public class LegalAdmin extends javax.swing.JFrame {
             }
         });
 
-        updateBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/updateicon.png")); // NOI18N
         updateBtn.setText("UPDATE");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +292,6 @@ public class LegalAdmin extends javax.swing.JFrame {
             }
         });
 
-        resetBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/reseticon.png")); // NOI18N
         resetBtn.setText("RESET");
         resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -419,12 +415,25 @@ public class LegalAdmin extends javax.swing.JFrame {
         String firstname = firstnameTxt.getText();
         String lastname = lastnameTxt.getText();
         String emailid = emailidTxt.getText();
-        int mobile = Integer.valueOf(mobileTxt.getText());
+        Long mobile = Validate.ConvertIntoLong(mobileTxt.getText());
         String address = addressTxt.getText();
         String state = stateDrpdn.getSelectedItem().toString();
         String city = cityDrpdn.getSelectedItem().toString();
         int zipCode = Integer.valueOf(zipcodeTxt.getText());
+        Long check = mobile;
+        Integer checkZip = zipCode; 
         
+        if (emailid.isEmpty()|| firstname.isEmpty()||lastname.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidEmail(emailid) == false){
+             JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidPassword(password) == false){
+             JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(check).length()<10 || Long.toString(check).length()>10){
+             JOptionPane.showMessageDialog(this, "MobileNo. is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(checkZip).length()<5 || Long.toString(checkZip).length()>5){
+             JOptionPane.showMessageDialog(this, "Zipcode is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }
         
         DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
         
@@ -456,33 +465,49 @@ public class LegalAdmin extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        String role = roleDrpdn.getSelectedItem().toString();
-        String username = usernameTxt.getText();
-        String password = passwordTxt.getText();
-        String firstname = firstnameTxt.getText();
-        String lastname = lastnameTxt.getText();
-        String emailid = emailidTxt.getText();
-        int mobile = Integer.valueOf(mobileTxt.getText());
-        String address = addressTxt.getText();
-        String state = stateDrpdn.getSelectedItem().toString();
-        String city = cityDrpdn.getSelectedItem().toString();
-        int zipcode = Integer.valueOf(zipcodeTxt.getText());
-        
-        
-        DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
-        
-        if(legaladminJTable.getSelectedRowCount()==1){
+//        String role = roleDrpdn.getSelectedItem().toString();
+//        String username = usernameTxt.getText();
+//        String password = passwordTxt.getText();
+//        String firstname = firstnameTxt.getText();
+//        String lastname = lastnameTxt.getText();
+//        String emailid = emailidTxt.getText();
+//        int mobile = Integer.valueOf(mobileTxt.getText());
+//        String address = addressTxt.getText();
+//        String state = stateDrpdn.getSelectedItem().toString();
+//        String city = cityDrpdn.getSelectedItem().toString();
+//        int zipcode = Integer.valueOf(zipcodeTxt.getText());
+//        
+//        
+//        DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
+//        
+//        if(legaladminJTable.getSelectedRowCount()==1){
+//            
+//            adminlegal.removeRow(legaladminJTable.getSelectedRow());
+//            
+//            JOptionPane.showMessageDialog(this, "Data Deleted Successfully !");
+//        }
+//        else{
+//         if(legaladminJTable.getSelectedRowCount()==0){
+//            
+//             JOptionPane.showMessageDialog(this, "Please select a single row !");
+//         
+//         }
+//        }
+        int tuple = legaladminJTable.getSelectedRow();
+        if (tuple<0){
+            JOptionPane.showMessageDialog(this, "Please select a Row!","Select Row",JOptionPane.ERROR_MESSAGE);
+        }else{
+            String username = usernameTxt.getText();
+            try{
             
-            adminlegal.removeRow(legaladminJTable.getSelectedRow());
-            
-            JOptionPane.showMessageDialog(this, "Data Deleted Successfully !");
-        }
-        else{
-         if(legaladminJTable.getSelectedRowCount()==0){
-            
-             JOptionPane.showMessageDialog(this, "Please select a single row !");
-         
-         }
+                DatabaseConnection.getDeletePersonLegal(username, true);
+           
+            }catch(Exception e){
+                System.out.println("Error while Connecting");
+                e.printStackTrace();
+            }
+            DefaultTableModel personTable = (DefaultTableModel) legaladminJTable.getModel();
+            personTable.removeRow(tuple);
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
@@ -551,8 +576,14 @@ public class LegalAdmin extends javax.swing.JFrame {
         String address = addressTxt.getText();
         String state = stateDrpdn.getSelectedItem().toString();
         String city = cityDrpdn.getSelectedItem().toString();
-        int zipcode = Integer.valueOf(zipcodeTxt.getText());
-        
+        int zipCode = Integer.valueOf(zipcodeTxt.getText());
+        PersonLegal personf1 = new PersonLegal(firstname,lastname,emailid,mobile,address,city,zipCode,state,username,password,role);
+        try{
+                    DatabaseConnection.updatePersonLegal(personf1);
+                }catch(Exception e){
+                    System.out.println("Error while Connecting");
+                    e.printStackTrace();
+                }
         DefaultTableModel adminlegal = (DefaultTableModel) legaladminJTable.getModel() ;
         
         adminlegal.setValueAt(role, legaladminJTable.getSelectedRow(), 0);
@@ -565,7 +596,7 @@ public class LegalAdmin extends javax.swing.JFrame {
         adminlegal.setValueAt(address, legaladminJTable.getSelectedRow(), 7);
         adminlegal.setValueAt(state, legaladminJTable.getSelectedRow(), 8);
         adminlegal.setValueAt(city, legaladminJTable.getSelectedRow(), 9);
-        adminlegal.setValueAt(zipcode, legaladminJTable.getSelectedRow(), 10);
+        adminlegal.setValueAt(zipCode, legaladminJTable.getSelectedRow(), 10);
         
         usernameTxt.setText("");
         passwordTxt.setText("");

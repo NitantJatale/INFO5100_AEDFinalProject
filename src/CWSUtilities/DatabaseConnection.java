@@ -18,6 +18,7 @@ import modelChildWelfareCentre.ComplaintHandler;
 import modelChildWelfareCentre.ComplaintRegister;
 import modelCommunityCareProvider.CPSOfficer;
 import modelFoster.AdoptionAppointment;
+import modelFoster.FosterDetails;
 import modelFoster.PersonFoster;
 import modelLegal.PersonLegal;
 
@@ -117,7 +118,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO person_legal VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmailid());
@@ -128,7 +129,7 @@ public class DatabaseConnection {
             ps.setString(8, person.getState());
             ps.setString(9, person.getUsername());
             ps.setString(10, person.getPassword());
-            
+            ps.setString(11, person.getRole());
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
@@ -147,7 +148,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO person_foster VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO person_foster VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getLastName());
             ps.setString(3, person.getEmailid());
@@ -158,6 +159,7 @@ public class DatabaseConnection {
             ps.setString(8, person.getState());
             ps.setString(9, person.getUsername());
             ps.setString(10, person.getPassword());
+            ps.setString(11, person.getRole());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -264,9 +266,56 @@ public class DatabaseConnection {
     
     }
     
+    public static ResultSet updatePersonLegal(PersonLegal person){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update person_legal SET firstname =?, lastname =?, mobile =  ?, address = ?, city = ?, zip = ?, state = ?, password = ? where username = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, person.getFirstName());
+            ps.setString(2, person.getLastName());
+            ps.setLong(3, person.getMobile());
+            ps.setString(4, person.getAddress());
+            ps.setString(5, person.getCity());
+            ps.setInt(6, person.getZipCode());
+            ps.setString(7, person.getState());
+            ps.setString(8, person.getPassword());
+            ps.setString(9, person.getUsername());
+            
+            
+
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
     public static ResultSet getDeletePersonFoster(String username, boolean isDml) throws SQLException {
         connectDB();
         String query = Constants.FosterPersonDelete+"\'"+username+"\'";
+        ResultSet resultSet = null;
+        if (isDml) {
+            statement.executeUpdate(query);
+            return null;
+        }
+
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
+    }
+    
+    public static ResultSet getDeletePersonLegal(String username, boolean isDml) throws SQLException {
+        connectDB();
+        String query = Constants.LegalPersonDelete+"\'"+username+"\'";
         ResultSet resultSet = null;
         if (isDml) {
             statement.executeUpdate(query);
@@ -731,6 +780,29 @@ public class DatabaseConnection {
             ps.setInt(1, ComplaintID);
 
             
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet updateSetStatus1(String caseID, String statusupdate){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update Complaint_Register SET First_Respondent_Name = 'Complaint Handler', Actions = 'Taken' ,status =? where complaint_id IN (SELECT complaint_id FROM Child_Prtct_Srvc_Offcr WHERE case_id = ?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, statusupdate);
+            ps.setString(2, caseID);
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();

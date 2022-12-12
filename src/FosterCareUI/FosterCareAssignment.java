@@ -6,6 +6,7 @@ package FosterCareUI;
 
 import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Validate;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -361,7 +362,8 @@ public class FosterCareAssignment extends javax.swing.JFrame {
                     System.out.println("Error while Connecting");
                     e.printStackTrace();
                 }
-        
+        DatabaseConnection.updateSetStatus1(Integer.toString(Validate.ConvertIntoNumeric(caseid)), "The Child has been assigned to a Foster Family");
+		 
         JOptionPane.showMessageDialog(this, "Data Added Successfully !");
     }//GEN-LAST:event_assignfosterfamilyBtnActionPerformed
 

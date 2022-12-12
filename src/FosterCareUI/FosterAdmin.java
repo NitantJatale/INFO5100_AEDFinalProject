@@ -6,6 +6,7 @@ package FosterCareUI;
 
 import CWSUtilities.Constants;
 import CWSUtilities.DatabaseConnection;
+import CWSUtilities.Validate;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -201,6 +202,8 @@ public class FosterAdmin extends javax.swing.JFrame {
         jScrollPane1.setViewportView(addressTxt);
 
         cityLbl.setText("City:");
+
+        cityDrpdn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Springfield" }));
 
         stateLbl.setText("State:");
 
@@ -423,12 +426,25 @@ public class FosterAdmin extends javax.swing.JFrame {
         String firstname = firstnameTxt.getText();
         String lastname = lastnameTxt.getText();
         String emailid = emailidTxt.getText();
-        int mobile = Integer.valueOf(mobileTxt.getText());
+        Long mobile = Validate.ConvertIntoLong(mobileTxt.getText());
         String address = addressTxt.getText();
         String state = stateDrpdn.getSelectedItem().toString();
         String city = cityDrpdn.getSelectedItem().toString();
         int zipCode = Integer.valueOf(zipcodeTxt.getText());
+        Long check = mobile;
+        Integer checkZip = zipCode; 
         
+        if (emailid.isEmpty()|| firstname.isEmpty()||lastname.isEmpty()||address.isEmpty()||city.isEmpty()||state.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter all the Fields", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidEmail(emailid) == false){
+             JOptionPane.showMessageDialog(this, "Eamil is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Validate.isValidPassword(password) == false){
+             JOptionPane.showMessageDialog(this, "Password is Inavlid !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(check).length()<10 || Long.toString(check).length()>10){
+             JOptionPane.showMessageDialog(this, "MobileNo. is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }else if (Long.toString(checkZip).length()<5 || Long.toString(checkZip).length()>5){
+             JOptionPane.showMessageDialog(this, "Zipcode is Invalid. Check the no. of Digits !", "Try Again",JOptionPane.ERROR_MESSAGE);
+        }
         
         DefaultTableModel adminfoster = (DefaultTableModel) fosteradminJTable.getModel() ;
         
