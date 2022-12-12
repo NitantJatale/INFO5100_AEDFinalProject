@@ -8,6 +8,7 @@ import CWSUtilities.DatabaseConnection;
 import ChildWelfareCentreUI.*;
 import CWSUtilities.Email;
 import CWSUtilities.Validate;
+import HomeUI.Home;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import trials.*;
@@ -255,8 +256,8 @@ public class AdoptionFamilySignup extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        Trials t = new Trials();
-            t.show();
+        Home H = new Home();
+            H.show();
 
             dispose();
     }//GEN-LAST:event_btnBackActionPerformed

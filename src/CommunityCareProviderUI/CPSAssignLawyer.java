@@ -397,7 +397,7 @@ public class CPSAssignLawyer extends javax.swing.JFrame {
             ResultSet resultSet = null;
             try{
             
-            resultSet = DatabaseConnection.getComplainVOCPSAssign(cpsUsername);
+            resultSet = DatabaseConnection.getCpsLawyerAssign(cpsUsername);
             
             while (resultSet.next()){
                 String verificationID = resultSet.getString(1);

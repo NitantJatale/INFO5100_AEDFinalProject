@@ -6,6 +6,7 @@ package HomeUI;
 
 import ChildWelfareCentreUI.CWCentreHome;
 import CommunityCareProviderUI.ComunityCareProvLogin;
+import FosterCareUI.AdoptionFamilySignup;
 import LegalUI.LoginPage;
 
 /**
@@ -36,7 +37,8 @@ public class Home extends javax.swing.JFrame {
         btnChildProtectionService = new javax.swing.JButton();
         btnLawDepartment = new javax.swing.JButton();
         btnFosterCareCentre = new javax.swing.JButton();
-        btnAdminLogin = new javax.swing.JButton();
+        btnAdoption = new javax.swing.JButton();
+        btnAdminLogin1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,13 +78,27 @@ public class Home extends javax.swing.JFrame {
         btnFosterCareCentre.setBackground(new java.awt.Color(205, 195, 227));
         btnFosterCareCentre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnFosterCareCentre.setText("FOSTER CARE CENTRE");
-
-        btnAdminLogin.setBackground(new java.awt.Color(205, 195, 227));
-        btnAdminLogin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnAdminLogin.setText("CWC and CPS Login");
-        btnAdminLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnFosterCareCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminLoginActionPerformed(evt);
+                btnFosterCareCentreActionPerformed(evt);
+            }
+        });
+
+        btnAdoption.setBackground(new java.awt.Color(205, 195, 227));
+        btnAdoption.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnAdoption.setText("ADOPTION SIGNUP");
+        btnAdoption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdoptionActionPerformed(evt);
+            }
+        });
+
+        btnAdminLogin1.setBackground(new java.awt.Color(205, 195, 227));
+        btnAdminLogin1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnAdminLogin1.setText("ADMIN LOGIN");
+        btnAdminLogin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminLogin1ActionPerformed(evt);
             }
         });
 
@@ -91,36 +107,38 @@ public class Home extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(235, 235, 235)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(355, 355, 355)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnChildWelfareCentre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnChildProtectionService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLawDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnFosterCareCentre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdminLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(235, 235, 235)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdminLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdoption, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFosterCareCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLawDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChildProtectionService)
+                    .addComponent(btnChildWelfareCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(330, 330, 330))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
+                .addGap(18, 18, 18)
                 .addComponent(btnChildWelfareCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addGap(38, 38, 38)
                 .addComponent(btnChildProtectionService, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addGap(38, 38, 38)
                 .addComponent(btnLawDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addGap(38, 38, 38)
                 .addComponent(btnFosterCareCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(btnAdminLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(btnAdoption, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addComponent(btnAdminLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,19 +172,30 @@ public class Home extends javax.swing.JFrame {
             dispose();
     }//GEN-LAST:event_btnChildWelfareCentreActionPerformed
 
-    private void btnAdminLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminLoginActionPerformed
-        // TODO add your handling code here:
-        HomeAdminLogin HAL = new HomeAdminLogin();
-            HAL.show();
-            dispose();
-    }//GEN-LAST:event_btnAdminLoginActionPerformed
-
     private void btnLawDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLawDepartmentActionPerformed
         // TODO add your handling code here:
-        LoginPage LP = new LoginPage();
+        LegalUI.LoginPage LP = new LegalUI.LoginPage();
             LP.show();
             dispose();
     }//GEN-LAST:event_btnLawDepartmentActionPerformed
+
+    private void btnAdoptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdoptionActionPerformed
+        // TODO add your handling code here:
+        AdoptionFamilySignup LP = new AdoptionFamilySignup();
+            LP.show();
+            dispose();
+    }//GEN-LAST:event_btnAdoptionActionPerformed
+
+    private void btnFosterCareCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFosterCareCentreActionPerformed
+        // TODO add your handling code here:
+        FosterCareUI.LoginPage LP = new FosterCareUI.LoginPage();
+            LP.show();
+            dispose();
+    }//GEN-LAST:event_btnFosterCareCentreActionPerformed
+
+    private void btnAdminLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminLogin1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdminLogin1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +233,8 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdminLogin;
+    private javax.swing.JButton btnAdminLogin1;
+    private javax.swing.JButton btnAdoption;
     private javax.swing.JButton btnChildProtectionService;
     private javax.swing.JButton btnChildWelfareCentre;
     private javax.swing.JButton btnFosterCareCentre;

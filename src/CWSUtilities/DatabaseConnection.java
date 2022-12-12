@@ -710,7 +710,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("Update Child_Prtct_Srvc_Offcr SET Forward_To = ? WHERE verification_id = ?, complaint_id = ?", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("Update Child_Prtct_Srvc_Offcr SET Forward_To = ? WHERE verification_id = ? and complaint_id = ?", Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, case1.getForwardTo());
             ps.setInt(2, case1.getVerificationID());
