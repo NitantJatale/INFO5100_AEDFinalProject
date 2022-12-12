@@ -40,12 +40,12 @@
                       <Component id="jScrollPane1" min="-2" pref="497" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,7 +67,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="ff" type="rgb"/>
+          <Color blue="c9" green="eb" red="ff" type="rgb"/>
         </Property>
       </Properties>
 
@@ -75,11 +75,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="236" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="394" max="-2" attributes="0"/>
+                  <EmptySpace pref="435" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -87,9 +87,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="backBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
@@ -107,6 +107,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="backBtn">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="13" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/backicon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
@@ -169,7 +175,7 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="ff" type="rgb"/>
+          <Color blue="c9" green="eb" red="ff" type="rgb"/>
         </Property>
       </Properties>
 
@@ -189,18 +195,10 @@
                       <Component id="complaintidTxt" max="32767" attributes="0"/>
                       <Component id="casedescTxt" pref="180" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                          <Component id="verdictLbl" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="verdictTxt" min="-2" pref="180" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-                          <Component id="sendcasecourtBtn" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                  <Component id="verdictLbl" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="verdictTxt" min="-2" pref="180" max="-2" attributes="0"/>
                   <EmptySpace pref="63" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -224,9 +222,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="casedescTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="casedescLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="sendcasecourtBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="59" max="32767" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -259,11 +256,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="verdictTxt">
-        </Component>
-        <Component class="javax.swing.JButton" name="sendcasecourtBtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Send Case to Court"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

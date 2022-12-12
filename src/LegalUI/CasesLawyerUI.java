@@ -49,7 +49,6 @@ public class CasesLawyerUI extends javax.swing.JFrame {
         casedescTxt = new javax.swing.JTextField();
         verdictLbl = new javax.swing.JLabel();
         verdictTxt = new javax.swing.JTextField();
-        sendcasecourtBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
@@ -59,11 +58,13 @@ public class CasesLawyerUI extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(255, 235, 201));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setText("Cases");
 
+        backBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        backBtn.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/backicon.png")); // NOI18N
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,17 +77,17 @@ public class CasesLawyerUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(65, 65, 65)
                 .addComponent(backBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                .addGap(217, 217, 217)
                 .addComponent(jLabel1)
-                .addGap(394, 394, 394))
+                .addContainerGap(435, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn)
                     .addComponent(jLabel1))
                 .addContainerGap(34, Short.MAX_VALUE))
@@ -107,7 +108,7 @@ public class CasesLawyerUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lawyercasesJTable);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 235, 201));
 
         caseidLbl.setText("CaseID:");
 
@@ -116,8 +117,6 @@ public class CasesLawyerUI extends javax.swing.JFrame {
         casedescLbl.setText("Case Description:");
 
         verdictLbl.setText("Verdict:");
-
-        sendcasecourtBtn.setText("Send Case to Court");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,15 +133,10 @@ public class CasesLawyerUI extends javax.swing.JFrame {
                     .addComponent(caseidTxt)
                     .addComponent(complaintidTxt)
                     .addComponent(casedescTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(verdictLbl)
-                        .addGap(18, 18, 18)
-                        .addComponent(verdictTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(sendcasecourtBtn)))
+                .addGap(86, 86, 86)
+                .addComponent(verdictLbl)
+                .addGap(18, 18, 18)
+                .addComponent(verdictTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -161,9 +155,8 @@ public class CasesLawyerUI extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(casedescTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casedescLbl)
-                    .addComponent(sendcasecourtBtn))
-                .addContainerGap(59, Short.MAX_VALUE))
+                    .addComponent(casedescLbl))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,11 +171,11 @@ public class CasesLawyerUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(195, 195, 195)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
+                .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +284,6 @@ public class CasesLawyerUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable lawyercasesJTable;
-    private javax.swing.JButton sendcasecourtBtn;
     private javax.swing.JLabel verdictLbl;
     private javax.swing.JTextField verdictTxt;
     // End of variables declaration//GEN-END:variables

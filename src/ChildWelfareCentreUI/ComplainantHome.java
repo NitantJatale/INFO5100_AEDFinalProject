@@ -49,7 +49,7 @@ public class ComplainantHome extends javax.swing.JFrame {
 
         btnHotlineComplaintSystem.setBackground(new java.awt.Color(214, 255, 225));
         btnHotlineComplaintSystem.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/registeracomplainticon.png")); // NOI18N
+        btnHotlineComplaintSystem.setIcon(new javax.swing.ImageIcon("/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/registercomplainticon (1).png")); // NOI18N
         btnHotlineComplaintSystem.setText("REGISTER A COMPLAIN");
         btnHotlineComplaintSystem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

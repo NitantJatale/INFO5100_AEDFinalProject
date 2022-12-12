@@ -34,7 +34,7 @@
                       <Component id="viewcasesBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -45,7 +45,7 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
               <Component id="viewcasesBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="87" max="32767" attributes="0"/>
+              <EmptySpace pref="48" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,7 +54,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="ff" type="rgb"/>
+          <Color blue="c9" green="eb" red="ff" type="rgb"/>
         </Property>
       </Properties>
 
@@ -64,9 +64,9 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="156" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
+                  <EmptySpace pref="304" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -74,9 +74,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="34" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="backBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
@@ -94,6 +94,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="backBtn">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/backicon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
@@ -105,7 +108,10 @@
     <Component class="javax.swing.JButton" name="viewcasesBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="cc" red="ff" type="rgb"/>
+          <Color blue="c9" green="eb" red="ff" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/Users/raghavgoswami/Desktop/AED Project/INFO5100_AEDFinalProject/viewcasesicon (1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="View Cases"/>
       </Properties>
